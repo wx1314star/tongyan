@@ -1,0 +1,763 @@
+{% extends 'TopxiaWebBundle::old-layout.html.twig' %}
+
+{% block keywords %}{{ setting('site.seo_keywords') }}{% endblock %}
+{% block description %}{{ setting('site.seo_description') }}{% endblock %}
+
+{% set bodyClass = 'homepage' %}
+{% set siteNav = '/' %}
+{% set script_controller = 'index' %}
+{% set _target_path = path('homepage') %}
+
+{% set currentTheme = current_theme() %}
+{% set themeConfig = isEditColor|default(false) ? currentTheme.config : currentTheme.config %}
+{% set allConfig = currentTheme.allConfig %}
+
+{#{% set isIndex = true %}
+{% set consultDisplay = true %}#}
+
+
+{% block full_content %}
+    {#首页缩略图{% cache 'jianmo/home/top/banner' 600 %}
+      {{ block_show('jianmo:home_top_banner') }}
+    {% endcache %}#}
+  <body>
+  <style>
+  	 <style type="text/css">  
+        .dropdown-submenu {  
+            position: relative;
+			
+        }  
+        .dropdown-submenu > .dropdown-menu {  
+            top: 0;  
+            left: 100%;  
+           
+            -webkit-border-radius: 0 6px 6px 6px;  
+            -moz-border-radius: 0 6px 6px;  
+            border-radius: 0 6px 6px 6px;
+			background: rgba(255, 255, 255, 0.7);
+        }  
+        .dropdown-submenu:hover > .dropdown-menu {  
+            display: block;  
+        }  
+        .dropdown-submenu > a:after {  
+            display: block;  
+            content: " ";  
+            float: right;  
+            width: 0;  
+            height: 0;  
+            border-color: transparent;  
+            border-style: solid;  
+            border-width: 5px 0 5px 5px;  
+            border-left-color: #ccc;  
+            margin-top: 5px;  
+           
+        }  
+        .dropdown-submenu:hover > a:after {  
+            border-left-color: #fff;  
+        }  
+        .dropdown-submenu.pull-left {  
+            float: none;  
+        }  
+        .dropdown-submenu.pull-left > .dropdown-menu {  
+            
+            -webkit-border-radius: 6px 0 6px 6px;  
+            -moz-border-radius: 6px 0 6px 6px;  
+            border-radius: 6px 0 6px 6px;  
+        }
+		#digset-list{
+			border:0px;
+			height:400px;
+			width:300px;
+		}
+		.dropdown-menu > li > a{
+			color:#fb081a;
+		}
+		.dropdown-menu > li{
+			font-size:22px;
+		}
+    </style>  
+  </style>
+   <div class="container">
+   		<header class="row">
+			<div class="col-md-3"><img src="assets/img/index/tongyanglogo.jpg" /></div>
+			<div class="col-md-offset-4 down-10">
+				<form action="{{ path('search') }}" method="get" class="form-inline" role="form">
+					<div class="form-group">
+						<div class="input-group">
+							<input class="form-control" type="text" placeholder="Search.." autocomplete="off"  name="q"/>
+							<div class="input-group-addon"><button class="glyphicon glyphicon-search"></button></div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-md-offset-10">
+				
+				<div class="row">
+					<div class="col-md-12">
+						<form action="#" class="form-horizontal" rola="form">
+							<div class="form-group">
+								<div class="input-group">
+									<select class="form-control">
+										<option value="切换城市">----切换城市----</option>
+											{% for city in citys %}
+												<option value="{{city.id}}">{{ city.name|default('') }}</option>
+											{% endfor %}
+									</select>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+				<div class="col-md-12">
+					{% if user and user.id != 0 %}
+						<a href="{{ path('newadmin') }}">{{'欢迎您'|trans}}{{ user.nickname|default('')}}</a>|
+						<a href="{{ path('logout')}}">{{'注销'|trans}}</a>
+					{% else %}
+						<a href="{{ path('login_background') }}">{{'会员登录'|trans}}</a>
+					{% endif %}
+				</div>
+				</div>
+				<div class="row">
+				<div class="col-md-12">收藏夹</div>
+				</div>
+				
+			</div>
+		</header>
+		<div id="course-digest">
+				<div id="course-menu" class="row ">
+					<div id="course-digest-title" class="col-md-3 background-red">
+						
+						<a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">
+							<i class="glyphicon glyphicon-th-large font-color-white  down-10">课程分类</i><span class="caret font-color-white"></span>
+						</a>
+						<ol id="digset-list" class="col-md-6 dropdown-menu multi-level" role="menu" aria-labelledby="dLabel">
+						{% if list %}
+					
+					{% set preLevel = list[0] %}
+					{% for level in list %}
+					{% if loop.index !=1 %}
+						{% if preLevel.level < level.level %}
+
+								<li class="dropdown-submenu">
+								<a  tabindex="-1" href="javascript:;">{{ preLevel.name|default('') }}</a>
+								<ol class="dropdown-menu">
+							{% if loop.last %}
+								{% if level.level - preLevel.level  == 1 %}
+									<li>{{ level.name|default('') }}123</li>	
+									</dl></li>
+								{% elseif level.level - preLevel.level  == 2 %}
+									<li>{{ level.name|default('') }}456</li>
+									</ol></li>
+									</ol></li>
+								{% endif %}
+							{% endif %}
+							{% set preLevel = level %}
+						{% elseif preLevel.level == level.level %}
+							<li><a href="#F2">{{ preLevel.name|default('') }}</a></li>
+							{% if loop.last %}
+								<li><a href="#F3">{{ level.name|default('')}}</a></li>
+							{% endif %}
+
+							{% set preLevel = level %}
+						{% elseif preLevel.level > level.level and preLevel.level - level.level == 1 %}
+							<li><a href="#F1">{{ preLevel.name|default('') }}</a></li>
+							</ol></li>
+							{% set preLevel = level %}
+						{% elseif preLevel.level > level.level and preLevel.level - level.level == 2 %}
+							<li>{{ preLevel.name|default('') }}543</li>
+							</ol></li>
+							</ol></li>
+							{% set preLevel = level %}
+						{% endif %}
+					{% endif %}
+					{% endfor %}
+					</ol>
+					{% else %}
+						<li>学历文凭</li>
+						<li>Education</li>
+						<li>职业技能</li>
+						<li>Vocational Skill</li>
+						<li>出国留学</li>
+						<li>Study Abroad</li>
+						<li>课外辅导</li>
+						<li>Tutorship</li>
+						<li>才艺专长</li>
+						<li>Art Training</li>
+						<li>企业管理</li>
+						<li>Business Managerment</li>
+					</ol>
+					{% endif %}
+					</div>
+					<div id="course-nav" class="col-md-offset-1">
+						<i class="glyphicon glyphicon-home"><a href="{{ path('homepage') }}">首页</a></i>
+						<i class="glyphicon glyphicon-list-alt"><a href="#A1">文章资讯</a></i>
+						<i class="glyphicon glyphicon-gift">学校分类</i>
+					</div>
+					<div class="col-md-offset-2"><img src="assets/img/index/customer-course.jpg" />定制课程</div>
+			</div>
+				
+				<div id="course-adv" class="row  down-10 dropdown">
+					<div class="col-md-12">
+					<div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+	  {% if thumbnails %}
+      <div class="carousel-inner" role="listbox">
+        <div class="item active">
+          <img class="first-slide" src="{{ thumbnails[0].onePic }}" alt="First slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Example headline.</h1>
+              <p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
+              <p><a class="btn btn-lg btn-primary" href="{{thumbnails[0].oneUrl}}" role="button">Sign up today</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img class="second-slide" src="{{thumbnails[0].twoPic}}" alt="Second slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Another example headline.</h1>
+              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <p><a class="btn btn-lg btn-primary" href="{{thumbnails[0].twoUrl}}" role="button">Learn more</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img class="third-slide" src="{{thumbnails[0].threePic}}" alt="Third slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>One more for good measure.</h1>
+              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <p><a class="btn btn-lg btn-primary" href="{{thumbnails[0].threeUrl}}" role="button">Browse gallery</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div><!-- /.carousel -->
+	{% else %}
+		 <div class="carousel-inner" role="listbox">
+        <div class="item active">
+          <img class="first-slide" src="assets/img/index/adv1.jpg" alt="First slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Example headline.</h1>
+              <p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img class="second-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Second slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Another example headline.</h1>
+              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img class="third-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Third slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>One more for good measure.</h1>
+              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div><!-- /.carousel -->
+	{% endif %}
+	</div>
+				</div>
+				<div id="tongyan-policy" class="row down-10 ">
+				<div class="col-md-6"><img src="assets/img/index/mywords.jpg" /></div>
+				<div id="tongyan-info" class="col-md-6">
+					<h3 class="tongyan-title1" id="A1"><strong>文章</strong>资讯→</h3>
+					<div class="row">
+					<ul type="square" class="col-md-4">
+						<li>学校资讯</li>
+						{% for sca in SCarticle %}
+							<li><span><a class="link-dark" href="{{ path('article_detail', {id:sca.id}) }}">{{ sca.title|slice(0, 10) }}</a></span></li>
+						{% endfor %}
+					</ul>
+					<ul type="square" class="col-md-4">
+						<li>推荐资讯</li>
+						{% for rea in Rearticle %}
+							<li><span><a class="link-dark" href="{{ path('article_detail', {id:rea.id}) }}">{{ rea.title|slice(0, 10) }}</a></span></li>
+						{% endfor %}
+					</ul>
+					<ul type="square" class="col-md-4">
+						<li>同言资讯</li>
+						{% for tya in TYarticle %}
+							<li><span><a class="link-dark" href="{{ path('article_detail', {id:tya.id}) }}">{{ tya.title|slice(0, 10) }}</a></span></li>
+						{% endfor %}
+					</ul>
+					</div>
+				</div>
+			</div>
+				<article id="tongyan-recommend" class="row down-10">
+					<header class="col-md-12 channel-header">
+						<em>同言推荐</em>
+						<em>Recommend</em>
+					</header>
+					<div id="tongyan-recommend-list" class="col-md-12 down-10" >
+						<blockquote class="tongyan-title1"><strong>课程</strong>推荐→</blockquote>
+						<div class="course-list">
+						<ul class="row">
+							
+						{% for dfCourses in DFcourses %}
+						
+						{% if loop.index<=4 %}
+						<li>
+						<div class="col-lg-3 col-md-4 col-xs-6">
+						<div class="course-item">
+							<div class="course-img">
+								<a href="{{ path('course_show', {id:dfCourses.id}) }}" target="_blank">
+									{{ lazy_img(filepath(dfCourses.middlePicture, 'course.png'), 'img-responsive', dfCourses.title) }}
+								</a>
+							</div>
+							<div class="course-info">
+								<div class="title">
+									<a class="link-dark" href="{{ path('course_show', {id:dfCourses.id}) }}" target="_blank">
+										{{ dfCourses.title|default('') }}&nbsp;|&nbsp;{{ dfCourses.chineseName|default('') }}
+									</a>
+								</div>
+								<div class="metas clearfix">
+									<span class="num"><i class="es-icon es-icon-people"></i>8</span>
+									<span class="comment"><i class="es-icon es-icon-textsms"></i>0</span>
+									<span class="course-price-widget">
+										<span class="price">
+											<span class="text-success">免费咨询</span>  
+										</span>
+									</span>
+								</div>
+							</div>
+						</div>
+						</div>
+						</li>
+						{% endif %}
+						{#<ul class="col-md-3 thumbnail home-channel-block">
+							<li><a class="link-dark" href="{{ path('course_show', {id:dfCourses.id}) }}" target="_blank"></a></li>
+							<li class="bolder"><a class="link-dark" href="" target="_blank"></a></li>
+							<li class="grey"></li>
+							<li class="grey"><a class="link-dark" href="{{ path('course_show', {id:dfCourses.id}) }}" target="_blank"><i class="glyphicon glyphicon-time"></i>
+							{% set subtitle=dfCourses.subtitle %}
+							{% if subtitle|length>10 %}
+								{{ subtitle[:10] }}...
+							{% else %}
+								{{ subtitle|default('') }}
+							{% endif %}
+							</a></li>
+							<li class="red" style="font-size: 18px;" ><i class="glyphicon glyphicon-heart-empty"></i>免费咨询</li>
+						</ul>#}
+						{% endfor %}
+						</ul>
+						</div>
+					</div>
+				</article>
+				<article id="tongyan-school-recommend" class="row down-10">
+					<div id="tongyan-recommend-list" class="col-md-12 down-10" >
+					<blockquote class="tongyan-title1"><strong>名校</strong>推荐→</blockquote>
+					<div class="course-list">
+					<div class="row">
+					{% for schools in Schools %}
+						<div class="col-lg-3 col-md-4 col-xs-6">
+						<div class="course-item">
+							<div class="course-img">
+								<a href="{{ path('homepage_forward_school', {id:schools.id}) }}" target="_blank">
+									{{ lazy_img(filepath(schools.logo, 'school.png'), 'img-responsive', schools.id|default('')) }}
+								</a>
+							</div>
+						</div>
+						</div>
+						{#<ul class="col-md-3 thumbnail home-channel-block">
+						<li><a class="link-dark" href="{{ path('homepage_forward_school', {id:schools.id}) }}">{{ lazy_img(filepath(schools.largePicture, 'course.png'), 'img-responsive', schools.id|default('')) }}</a></li>
+						</ul>#}
+					{% endfor %}
+					</div>
+					</div>
+				</article>
+				<article id="tongyan-teacher-recommend" class="row down-10">
+				<div id="tongyan-recommend-list" class="col-md-12  down-10" >
+				<blockquote class="tongyan-title1"><strong>名师</strong>推荐→</blockquote>
+				<div class="course-list">
+				<div class="row">
+					{% for teachers in Teachers %}
+					<div class="col-lg-3 col-md-4 col-xs-6">
+						<div class="course-item">
+							<div class="course-img teacher-img">
+								<a href="{{ path('user_show', {id:teachers.id}) }}" target="_blank">
+									{{ lazy_img(filepath(teachers.mediumAvatar, 'course.png'), 'img-circle', teachers.title|default('')) }}
+								</a>
+							</div>
+							<div class="course-info">
+								<div class="title">
+									<a class="link-dark" href="{{ path('user_show', {id:teachers.id}) }}" target="_blank">
+										{% set subtitle=teachers.title %}
+										{% if subtitle|length>10 %}
+											{{ subtitle[:10] }}...
+										{% else %}
+											{{ subtitle|default('') }}
+										{% endif %}
+									</a>
+								</div>
+								<div class="metas clearfix">
+									<span class="num"><i class="es-icon es-icon-people"></i>8</span>
+									<span class="comment"><i class="es-icon es-icon-textsms"></i>0</span>
+									<span class="course-price-widget">
+										<span class="price">
+											<span class="text-success">免费咨询</span>  
+										</span>
+									</span>
+								</div>
+							</div>
+						</div>
+						</div>
+					{#<ul class="col-md-2 thumbnail home-channel-block">
+						<li><a class="link-dark" href="{{ path('user_show', {id:teachers.id}) }}">{{ lazy_img(filepath(teachers.mediumAvatar, 'course.png'), 'img-circle', teachers.title|default('')) }}</a></li>
+						<li class="grey"><a class="link-dark" href="{{ path('user_show', {id:teachers.id}) }}"><em class="black">{{ teachers.nickname|default('') }}</em>&nbsp;</a></li>
+						<li class="grey"><a class="link-dark" href="{{ path('user_show', {id:teachers.id}) }}"><i class="glyphicon glyphicon-time"></i>
+						{% set subtitle=teachers.title %}
+						{% if subtitle|length>10 %}
+							{{ subtitle[:10] }}...
+						{% else %}
+							{{ subtitle|default('') }}
+						{% endif %}
+						</a></li>
+						<li class="red" style="font-size: 18px;" ><i class="glyphicon glyphicon-heart-empty"></i>免费咨询</li>
+					</ul>#}
+					{% endfor %}
+				</div>
+				</div>
+				</div>
+				</div>
+				</article>
+				<article id="your-choice" class="row down-10">
+					<header class="col-md-12 channel-header">
+						<em>你来选择</em>
+						<em>Choice</em>
+					</header>
+					<div id="choice-menu" class="col-md-12 flex-box">
+						<div><i class="glyphicon glyphicon-pencil red"></i>初中生</div>
+						<div><i class="glyphicon glyphicon-book red"></i>高中生</div>
+						<div><i class="glyphicon glyphicon-bookmark red"></i>大学生</div>
+						<div><i class="glyphicon glyphicon-tags red"></i>职场人员</div>
+					</div>
+					<script>
+						var divs=document.querySelectorAll("#choice-menu div");
+						for(var i=0;i<divs.length;i++){
+							divs[i].onmouseout=function(){
+								this.firstChild.style.color="#e83227";
+							}
+							divs[i].onmouseover=function(){
+								this.firstChild.style.color="#fff";
+							}
+						}
+					</script>
+					<div id="educational-list" class="col-md-12 down-10">
+						
+						<blockquote  id="F1">学历文凭</blockquote>
+						<div class="course-list">
+						<div class="row">
+						{% for pcCourses in PCcourses %}
+						<div class="col-lg-3 col-md-4 col-xs-6">
+						<div class="course-item">
+							<div class="course-img">
+								<a href="{{ path('course_show', {id:pcCourses.id}) }}" target="_blank">
+									{{ lazy_img(filepath(pcCourses.middlePicture, 'course.png'), 'img-responsive', pcCourses.title) }}
+								</a>
+							</div>
+							<div class="course-info">
+								<div class="title">
+									<a class="link-dark" href="{{ path('course_show', {id:pcCourses.id}) }}" target="_blank">
+										{{ pcCourses.title|default('') }}&nbsp;|&nbsp;{{ pcCourses.chineseName|default('') }}
+									</a>
+								</div>
+								<div class="metas clearfix">
+									<span class="num"><i class="es-icon es-icon-people"></i>8</span>
+									<span class="comment"><i class="es-icon es-icon-textsms"></i>0</span>
+									<span class="course-price-widget">
+										<span class="price">
+											<span class="text-success">免费咨询</span>  
+										</span>
+									</span>
+								</div>
+							</div>
+						</div>
+						</div>
+						{#<ul class="col-md-3 thumbnail home-channel-block">
+							<li class="down-10"><a class="link-dark" href="{{ path('course_show', {id:pcCourses.id}) }}" target="_blank">{{ lazy_img(filepath(pcCourses.middlePicture, 'course.png'), 'img-responsive', pcCourses.title) }}</a></li>
+							<li class="bolder"><a class="link-dark" href="{{ path('course_show', {id:pcCourses.id}) }}" target="_blank">{{ pcCourses.title|default('') }}</a></li>
+							<li class="grey">{{ pcCourses.chineseName|default('') }}</li>
+							<li class="grey"><i class="glyphicon glyphicon-time"></i><a class="link-dark" href="{{ path('course_show', {id:pcCourses.id}) }}" target="_blank">
+							
+							{% set subtitle=pcCourses.subtitle %}
+							{% if subtitle|length>10 %}
+								{{ subtitle[:10] }}...
+							{% else %}
+								{{ subtitle|default('') }}
+							{% endif %}
+							</a></li>
+							<!--<li class="red" style="font-size: 18px;" ><i class="glyphicon glyphicon-heart-empty"></i>免费咨询</li>-->
+						
+						</ul>#}
+						{% endfor %}
+						</div>
+						</div>
+					</div>
+					<div id="educational-list" class="col-md-12  down-10">
+						
+						<blockquote >职业技能</blockquote>
+						<div class="course-list">
+						<div class="row">
+						{% for vsCourses in VScourses %}
+						<div class="col-lg-3 col-md-4 col-xs-6">
+						<div class="course-item">
+							<div class="course-img">
+								<a href="{{ path('course_show', {id:vsCourses.id}) }}" target="_blank">
+									{{ lazy_img(filepath(vsCourses.middlePicture, 'course.png'), 'img-responsive', vsCourses.title) }}
+								</a>
+							</div>
+							<div class="course-info">
+								<div class="title">
+									<a class="link-dark" href="{{ path('course_show', {id:vsCourses.id}) }}" target="_blank">
+										{{ vsCourses.title|default('') }}&nbsp;|&nbsp;{{ vsCourses.chineseName|default('') }}
+									</a>
+								</div>
+								<div class="metas clearfix">
+									<span class="num"><i class="es-icon es-icon-people"></i>8</span>
+									<span class="comment"><i class="es-icon es-icon-textsms"></i>0</span>
+									<span class="course-price-widget">
+										<span class="price">
+											<span class="text-success">免费咨询</span>  
+										</span>
+									</span>
+								</div>
+							</div>
+						</div>
+						</div>
+						{#<ul class="col-md-3 thumbnail home-channel-block">
+							<li class="down-10"><a class="link-dark" href="{{ path('course_show', {id:vsCourses.id}) }}" target="_blank">{{ lazy_img(filepath(vsCourses.middlePicture, 'course.png'), 'img-responsive', vsCourses.title) }}</a></li>
+							<li class="bolder"><a class="link-dark" href="{{ path('course_show', {id:vsCourses.id}) }}" target="_blank">{{ vsCourses.title|default('') }}</a></li>
+							<li class="grey">{{ vsCourses.chineseName|default('') }}</li>
+							<li class="grey"><i class="glyphicon glyphicon-time"></i><a class="link-dark" href="{{ path('course_show', {id:vsCourses.id}) }}" target="_blank">
+							{% set subtitle=vsCourses.subtitle %}
+							{% if subtitle|length>10 %}
+								{{ subtitle[:10] }}...
+							{% else %}
+								{{ subtitle|default('') }}
+							{% endif %}
+							</a></li>
+							<!--<li class="red" style="font-size: 18px;" ><i class="glyphicon glyphicon-heart-empty"></i>免费咨询</li>-->
+						</ul>#}
+						{% endfor %}
+						</div>
+						</div>
+					</div>
+					<div id="educational-list" class="col-md-12  down-10">
+						
+						<blockquote id="F2">出国留学</blockquote>
+						<div class="course-list">
+						<div class="row">
+						{% for saCourses in SAcourses %}
+						<div class="col-lg-3 col-md-4 col-xs-6">
+						<div class="course-item">
+							<div class="course-img">
+								<a href="{{ path('course_show', {id:saCourses.id}) }}" target="_blank">
+									{{ lazy_img(filepath(saCourses.middlePicture, 'course.png'), 'img-responsive', saCourses.title) }}
+								</a>
+							</div>
+							<div class="course-info">
+								<div class="title">
+									<a class="link-dark" href="{{ path('course_show', {id:saCourses.id}) }}" target="_blank">
+										{{ saCourses.title|default('') }}&nbsp;|&nbsp;{{ saCourses.chineseName|default('') }}
+									</a>
+								</div>
+								<div class="metas clearfix">
+									<span class="num"><i class="es-icon es-icon-people"></i>8</span>
+									<span class="comment"><i class="es-icon es-icon-textsms"></i>0</span>
+									<span class="course-price-widget">
+										<span class="price">
+											<span class="text-success">免费咨询</span>  
+										</span>
+									</span>
+								</div>
+							</div>
+						</div>
+						</div>
+						{#<ul class="col-md-3 thumbnail home-channel-block">
+							<li class="down-10"><a class="link-dark" href="{{ path('course_show', {id:saCourses.id}) }}" target="_blank">{{ lazy_img(filepath(saCourses.middlePicture, 'course.png'), 'img-responsive', saCourses.title) }}</a></li>
+							<li class="bolder"><a class="link-dark" href="{{ path('course_show', {id:saCourses.id}) }}" target="_blank">{{ saCourses.title|default('') }}</a></li>
+							<li class="grey">{{ saCourses.chineseName|default('') }}</li>
+							<li class="grey"><i class="glyphicon glyphicon-time"></i><a class="link-dark" href="{{ path('course_show', {id:saCourses.id}) }}" target="_blank">
+							
+							
+							{% set subtitle=saCourses.subtitle %}
+							{% if subtitle|length>10 %}
+								{{ subtitle[:10] }}...
+							{% else %}
+								{{ subtitle|default('') }}
+							{% endif %}
+							</a></li>
+							<!--<li class="red" style="font-size: 18px;" ><i class="glyphicon glyphicon-heart-empty"></i>免费咨询</li>-->
+						</ul>#}
+						{% endfor %}
+						</div>
+						</div>
+					</div>
+					<div id="educational-list" class="col-md-12  down-10">
+						
+						<blockquote>课外辅导</blockquote>
+						<div class="course-list">
+						<div class="row">
+					    {% for tuCourses in Tucourses %}
+						<div class="col-lg-3 col-md-4 col-xs-6">
+						<div class="course-item">
+							<div class="course-img">
+								<a href="{{ path('course_show', {id:tuCourses.id}) }}" target="_blank">
+									{{ lazy_img(filepath(tuCourses.middlePicture, 'course.png'), 'img-responsive', tuCourses.title) }}
+								</a>
+							</div>
+							<div class="course-info">
+								<div class="title">
+									<a class="link-dark" href="{{ path('course_show', {id:tuCourses.id}) }}" target="_blank">
+										{{ tuCourses.title|default('') }}&nbsp;|&nbsp;{{ tuCourses.chineseName|default('') }}
+									</a>
+								</div>
+								<div class="metas clearfix">
+									<span class="num"><i class="es-icon es-icon-people"></i>8</span>
+									<span class="comment"><i class="es-icon es-icon-textsms"></i>0</span>
+									<span class="course-price-widget">
+										<span class="price">
+											<span class="text-success">免费咨询</span>  
+										</span>
+									</span>
+								</div>
+							</div>
+						</div>
+						</div>
+						{#<ul class="col-md-3 thumbnail home-channel-block">
+							<li class="down-10"><a class="link-dark" href="{{ path('course_show', {id:tuCourses.id}) }}" target="_blank">{{ lazy_img(filepath(tuCourses.middlePicture, 'course.png'), 'img-responsive', tuCourses.title) }}</a></li>
+							<li class="bolder"><a class="link-dark" href="{{ path('course_show', {id:tuCourses.id}) }}" target="_blank">{{ tuCourses.title|default('') }}</a></li>
+							<li class="grey">{{ tuCourses.chineseName|default('') }}</li>
+							<li class="grey"><i class="glyphicon glyphicon-time"></i><a class="link-dark" href="{{ path('course_show', {id:tuCourses.id}) }}" target="_blank">
+							{% set subtitle=tuCourses.subtitle %}
+							{% if subtitle|length>10 %}
+								{{ subtitle[:10] }}...
+							{% else %}
+								{{ subtitle|default('') }}
+							{% endif %}
+							
+							</a></li>
+							<!--<li class="red" style="font-size: 18px;" ><i class="glyphicon glyphicon-heart-empty"></i>免费咨询</li>-->
+						</ul>#}
+						{% endfor %}
+						</div>
+						</div>
+					</div>
+					<div id="educational-list" class="col-md-12  down-10">
+						
+						<blockquote id="F3">才艺专长</blockquote>
+						<div class="course-list">
+						<div class="row">
+						{% for vsCourses in VScourses %}
+						<div class="col-lg-3 col-md-4 col-xs-6">
+						<div class="course-item">
+							<div class="course-img">
+								<a href="{{ path('course_show', {id:vsCourses.id}) }}" target="_blank">
+									{{ lazy_img(filepath(vsCourses.middlePicture, 'course.png'), 'img-responsive', vsCourses.title) }}
+								</a>
+							</div>
+							<div class="course-info">
+								<div class="title">
+									<a class="link-dark" href="{{ path('course_show', {id:vsCourses.id}) }}" target="_blank">
+										{{ vsCourses.title|default('') }}&nbsp;|&nbsp;{{ vsCourses.chineseName|default('') }}
+									</a>
+								</div>
+								<div class="metas clearfix">
+									<span class="num"><i class="es-icon es-icon-people"></i>8</span>
+									<span class="comment"><i class="es-icon es-icon-textsms"></i>0</span>
+									<span class="course-price-widget">
+										<span class="price">
+											<span class="text-success">免费咨询</span>  
+										</span>
+									</span>
+								</div>
+							</div>
+						</div>
+						</div>
+						{#{% if loop.index<=4 %}
+						<ul class="col-md-3 thumbnail home-channel-block">
+							<li class="down-10">
+							<a class="link-dark" href="{{ path('course_show', {id:vsCourses.id}) }}" target="_blank">{{ lazy_img(filepath(vsCourses.middlePicture, 'course.png'), 'img-responsive', vsCourses.title) }}</a></li>
+							<li class="bolder"><a class="link-dark" href="{{ path('course_show', {id:vsCourses.id}) }}" target="_blank">{{ vsCourses.title|default('') }}</a></li>
+							<li class="grey">{{ vsCourses.chineseName|default('') }}</li>
+							<li class="grey"><i class="glyphicon glyphicon-time"></i><a class="link-dark" href="{{ path('course_show', {id:vsCourses.id}) }}" target="_blank">
+							{% set subtitle=vsCourses.subtitle %}
+							{% if subtitle|length>10 %}
+								{{ subtitle[:10] }}...
+							{% else %}
+								{{ subtitle|default('') }}
+							{% endif %}
+							</a></li>
+							<!--<li class="red" style="font-size: 18px;" ><i class="glyphicon glyphicon-heart-empty"></i>免费咨询</li>-->
+						</ul>
+						{% endif %}#}
+						{% endfor %}
+						</div>
+						</div>
+					</div>
+				</article>
+			</div>
+   </div>
+   {% for config in themeConfig.blocks.left|default([]) %}
+      {% set code = config.code %}
+      {% set category = config.categoryId|default(0) ? data('Category', {categoryId: config.categoryId})  : null %}
+      {% if code == 'friend-link' %}
+         {% include 'TopxiaWebBundle:Default:' ~ code ~ '.html.twig' with {friendlyLinks:friendlyLinks} %}
+      {% endif %}
+    {% endfor %}
+    
+   
+	{#<script>
+    $(document).ready(function() {
+        $( '.mysubmenu' ).hover(
+            function(){
+              $(this).children('.dropdown-menu1').slideDown(300);
+            },
+            function(){
+              $(this).children('.dropdown-menu1').slideUp(300);
+            }
+        );
+    }); // end ready
+    </script>#}
+	
+	
+  </body>
+</html>
+ 
+{% endblock %}

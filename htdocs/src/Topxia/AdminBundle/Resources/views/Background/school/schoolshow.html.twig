@@ -1,0 +1,63 @@
+{% extends 'TopxiaWebBundle::bootstrap-modal-layout.html.twig' %}
+
+{% block title %}{{'学校详细信息'|trans}}{% endblock %}
+
+{% block body %}
+
+<table class="table table-striped table-condenseda table-bordered">
+  <tr>
+    <th width="25%">{{'学校中文名'|trans}}</th>
+    <td width="75%">
+      {{ school.chineseName|default('') }}
+    </td>
+  </tr>
+
+  <tr>
+    <th>{{'学校英文名'}}</th>
+    <td>
+      {{ school.englishName|default('') }}
+    </td>
+  </tr>
+  <tr>
+      <th>{{'学校简称'|trans}}</th>
+      <td>
+        {{ school.abbreviation|default('') }}
+      </td>
+  </tr>   
+  <tr>
+    <th>{{'学校类别'|trans}}</th>
+    <td>
+        {{ school.type|default('') }}
+    </td>
+  </tr>
+
+  {#<tr>
+    <th>{{'学校成立时间'|trans}}</th>
+    <td>
+      {{ school.startTime|date('Y-m-d ') }}
+    </td>
+  </tr>#}
+
+  <tr>
+    <th>{{'学校地址'|trans}}</th>
+    <td> 
+      {{ school.schoolAddress|default('') }}
+     </td>
+  </tr>
+  <tr>
+    <th>{{'学校机构类型'|trans}}</th>
+    <td>
+      {% if school.institutionsType == 0 %}
+             {{ '学校'|default('') }}
+      {% else %}
+             {{ '培训机构'|default('') }}
+      {% endif %}
+      </td>
+  </tr>
+</table>
+
+{% endblock %}
+
+{% block footer %}
+  <button type="button" class="btn btn-primary" data-dismiss="modal">{{ '关闭'|trans }}</button>
+{% endblock %}

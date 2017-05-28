@@ -1,0 +1,94 @@
+{% extends 'TopxiaWebBundle:Settings:layout.html.twig' %} {% block title %}更新学校认证信息表{% endblock %} {% set script_controller=
+'schoolAuth/update-schoolAuth' %} {#{% set side_nav = 'schools' %}#} {% block main %} {#左侧菜单{% embed "TopxiaWebBundle:Bootstrap:panel.html.twig"
+with {class:'panel-col'} %}#} {% block heading %}更新学校认证信息表{% endblock %} {% block body %}
+
+<form id="update-schoolAuth-form" class="form-horizontal" method="post">
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">更新学校认证信息表</label>
+        <div class="col-md-7 controls radios">
+            <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+{{ web_macro.flash_messages() }} 
+{#民办非企业登记证书#}
+<div class="form-group">
+    <label class="col-md-2 control-label">{{'民办非企业登记证书'|trans}}</label>
+    <div class="col-md-7 controls radios">
+        <input type="text" id="schoolAuth_registerCertificate" name="schoolAuth[registerCertificate]" class="form-control" data-widget-cid="widget-1"
+            data-explain="" value="{{ schoolAuth.registerCertificate|default('') }}" />
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#办学许可证#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'办学许可证'|trans}}</label>
+    <div class="col-md-7 controls">
+        <input type="text" id="schoolAuth_licenseForSchool" name="schoolAuth[licenseForSchool]" class="form-control" value="{{ schoolAuth.licenseForSchool|default('') }}"
+        />
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#收费许可证或收费项目公示#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'收费许可证或收费项目公示'|trans}}</label>
+    <div class="col-md-7 controls">
+        <input type="text" id="schoolAuth_permitOrProject" name="schoolAuth[permitOrProject]" class="form-control" value="{{ schoolAuth.permitOrProject|default('') }}"
+        />
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#年检合格证#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'年检合格证'|trans}}</label>
+    <div class="col-md-7 controls">
+        <input type="text" id="schoolAuth_annuaInspection" name="schoolAuth[annuaInspection]" class="form-control" value="{{ schoolAuth.annuaInspection|default('') }}"
+        />
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#招生计划审批表#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'招生计划审批表'|trans}}</label>
+    <div class="col-md-7 controls">
+        <input type="text" id="schoolAuth_approvalForm" name="schoolAuth[approvalForm]" class="form-control" value="{{ schoolAuth.approvalForm|default('') }}"
+        />
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#特种专业开办许可证#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'特种专业开办许可证'|trans}}</label>
+    <div class="col-md-7 controls">
+        <input type="text" id="schoolAuth_specialProfessional" name="schoolAuth[specialProfessional]" class="form-control" value="{{ schoolAuth.specialProfessional|default('') }}"
+        />
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#营业执照#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'营业执照'|trans}}</label>
+    <div class="col-md-7 controls">
+        <input type="text" id="schoolAuth_businessLicense" name="schoolAuth[businessLicense]" class="form-control" value="{{ schoolAuth.businessLicense|default('') }}"
+        />
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+<div class="row">
+    <div class="col-md-7 col-md-offset-2">
+        <button id="schoolAuth-update-btn" data-submiting-text="{{'正在更新'|trans}}" type="submit" class="btn btn-primary">{{'更新'|trans}}</button>
+    </div>
+</div>
+<input type="hidden" id="schoolAuth_id" name="schoolAuth[school_id]" value="{{ school_id|default(0) }}">
+<input type="hidden" id="schoolAuth_type" name="schoolAuth[type]" value="{{ schoolAuth.type|default(0) }}">
+<input type="hidden" name="_csrf_token" value="{{ csrf_token('site') }}">
+</form>
+
+{% endblock %} {% endblock %}

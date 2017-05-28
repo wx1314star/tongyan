@@ -1,0 +1,50 @@
+<?php
+
+namespace Topxia\Service\Common\Redis;
+
+use Redis;
+use Flexihash;
+
+class ConsistentHashingRedis
+{
+    private $hash;
+    private $reidsPool;
+
+    public function __construct($config)
+    {
+        $this->hash = new Flexihash();
+
+        $servers      = $config['servers'];
+        $redisServers = array();
+
+        foreach ($servers as $key => $value) {
+            try {
+                $key   = $value['host'].':'.$value['port'];
+                $redis = new Redis();
+                $redis->pconnect($value['host'], $value['port'], $value['timeout'], $value['reserved'], $value['retry_interval']);
+                $redis->setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_PHP);
+                $this->reidsPool[$key] = $redis;
+                $redisServers[]        = $key;
+            } catch (\Exception $e) {
+                throw $e;
+            }
+        }
+
+        $this->hash->addTargets($redisServers);
+    }
+
+    public function close()
+    {
+    }
+
+    public function __call($name, $arguments)
+    {
+        $key   = $arguments[0];
+        $redis = $this->lookup($key);
+        if (!method_exists($redis, $name)) {
+            throw new Exception('method not exists.');
+        }
+
+        return call_user_func_array(array($this->lookup($key), $name), $arguments);
+    }
+}

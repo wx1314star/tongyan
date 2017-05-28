@@ -1,0 +1,160 @@
+# 一个完整的permission配置如下：
+# admin_user_manage:
+#   name: 用户管理
+#   children:               //可选
+#   mode:                   //可选 none, modal, capsules（只有在tabs可用）
+#   group:                  //可选 内置: topBtn, capsule, 也可以自定义
+#   router_name: admin_user //可选 
+#   router_params:          //可选
+#   blank:                  //可选
+#   visable:                //可选
+#   icon:                   //可选
+#   data:                   //可选
+#   before:                 //可选 菜单出现位置在同级的某个菜单之前
+#   after:                  //可选 菜单出现位置在同级的某个菜单之后
+#   disable:                //角色管理分配权限默认开启不用选中
+
+newadmin:
+    name: 后台管理员
+    parent: null
+    children:
+        newadmin_whole:
+            name: 全局
+            children:
+                newadmin_whole_show:
+                    name: 角色管理
+                    children:
+                        newadmin_whole_manage:
+                            name: 角色管理
+                            router_name: newadmin_whole
+                            children:
+                                newadmin_whole_roles:
+                                    name: '设置用户组'
+                                    mode: modal
+                                    group: groupButton
+                                    router_params:
+                                        id: (user.id)
+                        #newadmin_login_record:
+                            #name: 登录日志
+                newadmin_site_setting:
+                    name: 站点设置
+                    children:
+                        newadmin_site:
+                            name: 站点设置
+                            disable: true
+                newadmin_team_manager:
+                    name: 团队管理
+                    children:
+                        newadmin_team:
+                            name: 团队管理
+                            disable: true
+                newadmin_pay_platform:
+                    name: 其它功能正在开发中
+                    children:
+                         newadmin_pay:
+                            name: 其它功能正在开发中
+                            disable: true
+        newadmin_student:
+            name: 学生
+            children:
+                newadmin_enroll_message:
+                    name: 报名信息
+                    router_name: newadmin_student
+                    children:
+                       newadmin_enroll:
+                            name: 报名信息
+                            disable: true
+                newadmin_customization_manager:
+                    name: 定制管理
+                    children:
+                        newadmin_customization:
+                            name: 定制管理
+                            disable: true
+                newadmin_audition_manager:
+                    name: 试听管理
+                    children:
+                        newadmin_audition:
+                            name: 试听管理
+                            disable: true
+                newadmin_leaveSchool_manager:
+                    name: 退学管理
+                    children:
+                        newadmin_leaveSchool:
+                            name: 退学管理
+                            disable: true
+                newadmin_forSchool_manager:
+                    name: 换校管理
+                    children:
+                        newadmin_forSchool:
+                            name: 换校管理
+                            disable: true
+        newadmin_school:
+            name: 学校机构
+            children:
+                newadmin_registersc_manager:
+                    name: 注册管理
+                    router_name: newadmin_school
+                    children:
+                        newadmin_registersc:
+                            name: 注册管理
+                            disable: true
+                newadmin_authentication_manager:
+                    name: 认证管理
+                    children:
+                        newadmin_authentication:
+                            name: 认证管理
+                            disable: true
+                newadmin_coursesc_manager:
+                    name: 课程管理
+                    children:
+                        newadmin_coursesc:
+                            name: 课程管理
+                            disable: true
+                            # group: btn
+                            # blank: true
+                newadmin_articlesc_manager:
+                    name: 文章管理
+                    children:
+                        newadmin_articlesc:
+                            name: 文章管理
+                            disable: true        
+        newadmin_statistics:
+            name: 统计
+            children:
+                newadmin_schoolst_statistics:
+                    name: 学校统计
+                    router_name: newadmin_statistics
+                    children:
+                           newadmin_schoolst:
+                                name: 学校统计
+                                disable: true
+                newadmin_enrollstat_statistics:
+                    name: 报名统计
+                    children:
+                        newadmin_enrollstat:
+                            name: 报名统计
+                            disable: true
+                newadmin_auditionstat_statistics:
+                    name: 试听统计
+                    children:
+                        newadmin_auditionstat:
+                            name: 试听统计
+                            disable: true
+                newadmin_customizationstat_statistics:
+                    name: 定制统计
+                    children:
+                        newadmin_customizationstat:
+                            name: 定制统计 
+                            disable: true
+                newadmin_leaveSchoolstat_statistics:
+                    name: 退学统计
+                    children:
+                        newadmin_leaveSchoolstat:
+                            name: 退学统计
+                            disable: true
+                newadmin_forSchoolstat_statistics:
+                    name: 换校统计
+                    children:
+                        newadmin_forSchoolstat:
+                            name: 换校统计
+                            disable: true

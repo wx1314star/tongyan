@@ -1,0 +1,449 @@
+{#{% extends 'TopxiaWebBundle::bootstrap-modal-layout.html.twig' %}#}
+{#{% extends 'TopxiaWebBundle::bootstrap-modal-layout.html.twig' %}#}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html> <!--<![endif]-->
+{# returns app.request.locale if available and app.request.defaultLocale if app.request.locale is not set#}
+<html lang="{{ app.request.getLocale() }}">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <title>
+    {%- block title -%}
+      {{ setting('site.name', 'kmbdqn') }}{% if setting('site.slogan') %} - {{ setting('site.slogan') }}{% endif %}{% if  setting('copyright.owned','0') != '1' or setting('copyright.thirdCopyright')|default(0) == 2 %} - Powered By YNKMBDQN{% endif %}
+    {%- endblock -%}
+  </title>
+  <meta name="keywords" content="{% spaceless %}{% block keywords %}{{ setting('site.seo_keywords') }}{% endblock %}{% endspaceless %}" />
+  <meta name="description" content="{% spaceless %}{% block description %}{{ setting('site.seo_description') }}{% endblock %}{% endspaceless %}" />
+  <meta content="{{ csrf_token('site') }}" name="csrf-token" />
+  <meta content="{{ app.user.isLogin()|default(0) }}" name="is-login" />
+  <meta content="{{ setting('login_bind.weixinmob_enabled')|default(0) }}" name="is-open" />
+  {{ setting('login_bind.verify_code', '')|raw }}
+  {% if setting('site.favicon') %}
+  <link rel="icon" href="{{ asset(setting('site.favicon')) }}" type="image/x-icon" />
+  <link rel="shortcut icon" href="{{ asset(setting('site.favicon')) }}" type="image/x-icon" media="screen"/>
+  {% endif %}
+  <link href="{{ asset('assets/v2/bootstrap/css/bootstrap.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/v2/css/main.css') }}" rel="stylesheet" />
+
+  {#<link rel="stylesheet" media="screen" href="{{ asset('assets/css/common.css') }}" />
+  <link rel="stylesheet" media="screen" href="{{ asset('assets/css/font-awesome.min.css') }}" />
+  <link rel="stylesheet" media="screen" href="{{ asset('assets/v2/css/es-icon.css') }}" />#}
+{#{% block title %}{{'学生报名学校表'|trans}}{% endblock %}#}
+{#{% set script_controller = 'student/add-stu-enlist'%}#}
+{#{% block body %}#}
+    <body>
+    <form id="add-wxstu-form" role="form" class="form-horizontal" method="post" action="{{ url('student_add', {id:school.id}) }}">
+    <div class="form-group">
+        <label class="col-md-5 control-label">添加学生报名信息</label>
+        <div class="col-md-7 controls radios">
+            <div class="help-block" style="display:none;"></div>
+        </div>
+    </div>
+    {#{{ web_macro.flash_messages() }}#}
+    {% if flag == 1 %}
+    <div class="form-group">
+        <label class="col-md-2 control-label">{{'姓名'|trans}}</label>
+        <div class="col-md-7 controls radios">
+            <input type="text" id="student_name" name="student[name]" class="form-control" value="{{ userProfile.truename|default('') }}"
+            />
+            <div class="help-block" style="display:none;"></div>
+        </div>
+    </div>
+
+    {#民族#}
+    <div class="form-group form-forIam-group form-notStudent-group">
+        <label class="col-md-2 control-label">{{'民族'|trans}}</label>
+        <div class="col-md-7 controls">
+            <input type="text" id="student_nation" name="student[nation]" class="form-control" value="{{ userProfile.nation|default('') }}"
+            />
+            <div class="help-block" style="display:none;"></div>
+        </div>
+    </div>
+
+    {#生日#}
+    <div class="form-group form-forIam-group form-notStudent-group">
+        <label class="col-md-2 control-label">{{'生日'|trans}}</label>
+        <div class="col-md-7 controls">
+            <input type="text" id="datetimepicker" name="student[birthday]" class="date" value="{{ userProfile.birthday is empty ? "
+                " : userProfile.birthday|date("Y-m-d ") }}" data-date-format="yyyy-mm-dd" /> {{ '格式为yyyy-mm-dd' }}
+            <div class="help-block" style="display:none;"></div>
+        </div>
+    </div>
+
+    {#身高#}
+    <div class="form-group form-forIam-group form-notStudent-group">
+        <label class="col-md-2 control-label">{{'身高'|trans}}</label>
+        <div class="col-md-7 controls">
+            <input type="text" id="student_height" name="student[height]" class="form-control" value="{{ userProfile.height|default('') }}"
+            />
+            <div class="help-block" style="display:none;"></div>
+        </div>
+    </div>
+
+    {#体重#}
+    <div class="form-group form-forIam-group form-notStudent-group">
+        <label class="col-md-2 control-label">{{'体重'|trans}}</label>
+        <div class="col-md-7 controls">
+            <input type="text" id="student_weight" name="student[weight]" class="form-control" value="{{ userProfile.weight|default('') }}"
+            />
+            <div class="help-block" style="display:none;"></div>
+        </div>
+    </div>
+
+    {#联系方式#}
+    <div class="form-group form-forIam-group form-notStudent-group">
+        <label class="col-md-2 control-label">{{'联系方式'|trans}}</label>
+        <div class="col-md-7 controls">
+            <input type="text" id="student_phone" name="student[phone]" class="form-control" value="{{ userProfile.mobile|default('') }}"
+            />
+            <div class="help-block" style="display:none;"></div>
+        </div>
+    </div>
+
+    {#身份证号码#}
+    <div class="form-group form-forIam-group form-notStudent-group">
+        <label class="col-md-2 control-label">{{'身份证号码'|trans}}</label>
+        <div class="col-md-7 controls">
+            <input type="text" id="student_IDcards" name="student[IDcards]" class="form-control" value="{{ userProfile.idcard|default('') }}"
+            />
+            <div class="help-block" style="display:none;"></div>
+        </div>
+    </div>
+
+    {#毕业学校#}
+    <div class="form-group form-forIam-group form-notStudent-group">
+        <label class="col-md-2 control-label">{{'毕业学校'|trans}}</label>
+        <div class="col-md-7 controls">
+            <input type="text" id="student_graduateSchool" name="student[graduateSchool]" class="form-control" value="{{ userProfile.graduateSchool|default('') }}"
+            />
+            <div class="help-block" style="display:none;"></div>
+        </div>
+    </div>
+
+    {#准考证号码#}
+    <div class="form-group form-forIam-group form-notStudent-group">
+        <label class="col-md-2 control-label">{{'准考证号码'|trans}}</label>
+        <div class="col-md-7 controls">
+            <input type="text" id="student_admissionTickerNum" name="student[admissionTickerNum]" class="form-control" value="{{ userProfile.admissionTickerNum|default('') }}"
+            />
+            <div class="help-block" style="display:none;"></div>
+        </div>
+    </div>
+
+    {#毕业考试分数#}
+    <div class="form-group form-forIam-group form-notStudent-group">
+        <label class="col-md-2 control-label">{{'毕业总分'|trans}}</label>
+        <div class="col-md-7 controls">
+            <input type="text" id="student_graduationTestScore" name="student[graduationTestScore]" class="form-control" value="{{ userProfile.graduationTestScore|default('') }}"
+            />
+            <div class="help-block" style="display:none;"></div>
+        </div>
+    </div>
+
+    {#地址#}
+    <div class="form-group form-forIam-group form-notStudent-group">
+        <label class="col-md-2 control-label">{{'地址'|trans}}</label>
+        <div class="col-md-7 controls">
+            <input type="text" id="student_address" name="student[address]" class="form-control" value="" />
+            <div class="help-block" style="display:none;"></div>
+        </div>
+    </div>
+
+    {#监护人姓名#}
+    <div class="form-group form-forIam-group form-notStudent-group">
+        <label class="col-md-2 control-label">{{'监护人姓名'|trans}}</label>
+        <div class="col-md-7 controls">
+            <input type="text" id="student_guardianName" name="student[guardianName]" class="form-control" value="{{ userProfile.guardianName|default('') }}"
+            />
+            <div class="help-block" style="display:none;"></div>
+        </div>
+    </div>
+
+    {#监护人联系方式#}
+    <div class="form-group form-forIam-group form-notStudent-group">
+        <label class="col-md-2 control-label">{{'监护人电话'|trans}}</label>
+        <div class="col-md-7 controls">
+            <input type="text" id="student_guardianPhone" name="student[guardianPhone]" class="form-control" value="{{ userProfile.guardianPhone|default('') }}"
+            />
+            <div class="help-block" style="display:none;"></div>
+        </div>
+    </div>
+
+    {#推荐老师#}
+    {#<div class="form-group form-forIam-group form-notStudent-group">
+        <label class="col-md-2 control-label">{{'推荐老师'|trans}}</label>
+        <div class="col-md-7 controls">
+            <select id="student_recommendTeacher" name="student[recommendTeacher]" class="form-control" data-widget-cid="widget-2" >
+            {% if teacher %}
+                {% for teac in teacher %}
+                    <option value="{{ teac.id }}">
+                        {% if teac.truename %}
+                            {{ teac.truename|default('') }}
+                        {% else %}
+                            {{ teac.nickname|default('') }}
+                        {% endif %}
+                    </option>
+                {% endfor %}
+            {% else %}
+                <option value="0">
+                    {{'无'|trans}}
+                </option>
+            {% endif %}
+        </select>
+            <div class="help-block" style="display:none;"></div>
+        </div>
+    </div>#}
+
+    {#所报学校#}
+    <div class="form-group form-forIam-group form-notStudent-group">
+        <label class="col-md-2 control-label">{{'所报学校'|trans}}</label>
+        <div class="col-md-7 controls">
+            <input type="text" id="student_reportedSchool" name="student[reportedSchool]" class="form-control" readonly="true" value="{{ school.chineseName|default('') }}"
+            />
+            <div class="help-block" style="display:none;"></div>
+        </div>
+    </div>
+
+    {#选择支付方式#}
+    <div class="form-group form-forIam-group form-notStudent-group">
+        <label class="col-xs-2 control-label">{{'支付方式'|trans}}</label>
+            <div class="col-md-7 controls">
+                <select id="student_payment" name="payment" class="form-control" data-widget-cid="widget-2" >
+                    <option value="0">
+                        {{'--请选择支付方式--'|trans}}
+                    </option>
+                    <option value="1">
+                        {{'线下支付'|trans}}
+                    </option>
+                    <option value="2">
+                        {{'线上全额缴费'|trans}}
+                    </option>
+                    <option value="3">
+                        {{'线上预交部分定金'|trans}}
+                    </option>
+                </select>
+            </div>
+    {#<div class="help-block" style="display:none;"></div>#} 
+    </div>
+
+    <style>
+        input[type="checkbox"] {
+            margin-top: -6px;
+        }
+    </style>
+
+    {#所报课程#}
+    <div class="form-group form-forIam-group form-notStudent-group">
+        <label class="col-md-2 control-label">{{'所报课程'|trans}}</label>
+             <div class="col-md-7 controls">
+
+        
+    {#原来的多选框#}
+    {#{% for cou in courses %}
+    <div class="form-group form-forIam-group form-notStudent-group">
+        <label class="col-md-2"></label>
+        <div class="col-md-1 controls">
+            <input type="checkbox" id="student_reportedCourse" name="reportedCourse[]" class="form-control my-margin-top-0" value="{{ cou.id|default('') }}" />
+            <div class="help-block" style="display:none;"></div>
+        </div>
+        <label class="col-md-8"> {{ cou.title|default('')}} </label>
+    </div>
+    {% endfor %}#}
+
+    {#现在换下拉框单选#}
+            <select id="student_reportedCourse" name="student[reportedCourse]" class="form-control" data-widget-cid="widget-2" >
+            {% if courses %}
+                {% for cour in courses %}
+                    <option value="{{ cour.id }}">
+                            {{ cour.title|default('') }}
+                    </option>
+                {% endfor %}
+            {% else %}
+                <option value="0">
+                    {{'无'|trans}}
+                </option>
+            {% endif %}
+            </select>
+            </div>
+    </div>
+    {#<div class="help-block" style="display:none;"></div>#}
+
+    {% elseif flag == 2 %}
+    <div class="form-group">
+        <label class="col-md-2 control-label">{{'姓名'|trans}}</label>
+        <div class="col-md-7 controls radios">
+            <input type="text" id="student_name" name="student[name]" class="form-control" value="{{ userProfile.truename|default('') }}"
+            />
+            <div class="help-block" style="display:none;"></div>
+        </div>
+    </div>
+
+    {#民族#}
+    <div class="form-group form-forIam-group form-notStudent-group">
+        <label class="col-md-2 control-label">{{'民族'|trans}}</label>
+        <div class="col-md-7 controls">
+            <input type="text" id="student_nation" name="student[nation]" class="form-control" value="{{ userProfile.nation|default('') }}"
+            />
+            <div class="help-block" style="display:none;"></div>
+        </div>
+    </div>
+
+    {#生日#}
+    <div class="form-group form-forIam-group form-notStudent-group">
+        <label class="col-md-2 control-label">{{'生日'|trans}}</label>
+        <div class="col-md-7 controls">
+            <input type="text" id="datetimepicker" name="student[birthday]" class="date" value="{{ userProfile.birthday is empty ? "
+                " : userProfile.birthday|date("Y-m-d ") }}" data-date-format="yyyy-mm-dd" /> {{ '格式为yyyy-mm-dd' }}
+            <div class="help-block" style="display:none;"></div>
+        </div>
+    </div>
+
+    {#身高#}
+    <div class="form-group form-forIam-group form-notStudent-group">
+        <label class="col-md-2 control-label">{{'身高'|trans}}</label>
+        <div class="col-md-7 controls">
+            <input type="text" id="student_height" name="student[height]" class="form-control" value="{{ userProfile.height|default('') }}"
+            />
+            <div class="help-block" style="display:none;"></div>
+        </div>
+    </div>
+
+    {#体重#}
+    <div class="form-group form-forIam-group form-notStudent-group">
+        <label class="col-md-2 control-label">{{'体重'|trans}}</label>
+        <div class="col-md-7 controls">
+            <input type="text" id="student_weight" name="student[weight]" class="form-control" value="{{ userProfile.weight|default('') }}"
+            />
+            <div class="help-block" style="display:none;"></div>
+        </div>
+    </div>
+
+    {#联系方式#}
+    <div class="form-group form-forIam-group form-notStudent-group">
+        <label class="col-md-2 control-label">{{'联系方式'|trans}}</label>
+        <div class="col-md-7 controls">
+            <input type="text" id="student_phone" name="student[phone]" class="form-control" value="{{ userProfile.mobile|default('') }}"
+            />
+            <div class="help-block" style="display:none;"></div>
+        </div>
+    </div>
+
+    {#身份证号码#}
+    <div class="form-group form-forIam-group form-notStudent-group">
+        <label class="col-md-2 control-label">{{'身份证号码'|trans}}</label>
+        <div class="col-md-7 controls">
+            <input type="text" id="student_IDcards" name="student[IDcards]" class="form-control" value="{{ userProfile.idcard|default('') }}"
+            />
+            <div class="help-block" style="display:none;"></div>
+        </div>
+    </div>
+
+    {#地址#}
+    <div class="form-group form-forIam-group form-notStudent-group">
+        <label class="col-md-2 control-label">{{'地址'|trans}}</label>
+        <div class="col-md-7 controls">
+            <input type="text" id="student_address" name="student[address]" class="form-control" value="" />
+            <div class="help-block" style="display:none;"></div>
+        </div>
+    </div>
+
+    {#监护人姓名#}
+    <div class="form-group form-forIam-group form-notStudent-group">
+        <label class="col-md-2 control-label">{{'监护人姓名'|trans}}</label>
+        <div class="col-md-7 controls">
+            <input type="text" id="student_guardianName" name="student[guardianName]" class="form-control" value="{{ userProfile.guardianName|default('') }}"
+            />
+            <div class="help-block" style="display:none;"></div>
+        </div>
+    </div>
+
+    {#监护人联系方式#}
+    <div class="form-group form-forIam-group form-notStudent-group">
+        <label class="col-md-2 control-label">{{'监护人电话'|trans}}</label>
+        <div class="col-md-7 controls">
+            <input type="text" id="student_guardianPhone" name="student[guardianPhone]" class="form-control" value="{{ userProfile.guardianPhone|default('') }}"
+            />
+            <div class="help-block" style="display:none;"></div>
+        </div>
+    </div>
+
+    {#所报学校#}
+    <div class="form-group form-forIam-group form-notStudent-group">
+        <label class="col-md-2 control-label">{{'所报学校'|trans}}</label>
+        <div class="col-md-7 controls">
+            <input type="text" id="student_reportedSchool" name="student[reportedSchool]" class="form-control" readonly="true" value="{{ school.chineseName|default('') }}"
+            />
+            <div class="help-block" style="display:none;"></div>
+        </div>
+    </div>
+
+    {#选择支付方式#}
+    <div class="form-group form-forIam-group form-notStudent-group">
+        <label class="col-xs-2 control-label">{{'支付方式'|trans}}</label>
+         <div class="col-md-7 controls">
+            <select id="student_payment" name="payment" class="form-control" data-widget-cid="widget-2" >
+                <option value="0">
+                    {{'--请选择支付方式--'|trans}}
+                </option>
+                <option value="1">
+                    {{'线下支付'|trans}}
+                </option>
+                <option value="2">
+                    {{'线上全额缴费'|trans}}
+                </option>
+                <option value="3">
+                    {{'线上预交部分定金'|trans}}
+                </option>
+            </select>
+        </div>
+    {#<div class="help-block" style="display:none;"></div>#} 
+    </div>
+
+    <style>
+        input[type="checkbox"] {
+            margin-top: -6px;
+        }
+    </style>
+    {#所报课程#}
+    <div class="form-group form-forIam-group form-notStudent-group">
+        <label class="col-md-2 control-label">{{'所报课程'|trans}}</label>
+        <div class="col-md-7 controls">
+
+    {#现在换下拉框单选#}
+            <select id="student_reportedCourse" name="student[reportedCourse]" class="form-control" data-widget-cid="widget-2" >
+            {% if courses %}        
+                {% for cour in courses %}
+                    <option value="{{ cour.id }}">
+                            {{ cour.title|default('') }}
+                    </option>
+                {% endfor %}
+            {% else %}
+                <option value="0">
+                    {{'无'|trans}}
+                </option>
+            {% endif %}
+            </select>
+            </div>
+    {#<div class="help-block" style="display:none;"></div>#} 
+    </div>
+    {% endif %} 
+    <div class="row">
+        <div class="col-md-7 col-md-offset-2">
+            <button id="wxstu-save-btn" data-submiting-text="{{'正在保存'|trans}}" type="submit" class="btn btn-primary">{{'保存'|trans}}</button>
+            {#<a href="javascript:void(0);" class="easyui-linkbutton" conCls="icon-ok" onclick="perSubmit()">保存</a>#}
+        </div>
+    </div>
+    <input type="hidden" id="student_id" name="student[school_id]" value="{{ school.id|default('') }}" />
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('site') }}" />
+    </form>
+
+{#{% include 'TopxiaWebBundle::script_boot.html.twig' with {script_main: asset('bundles/topxiaweb/js/app.js')} %}#}
+{#<script src="{{ asset('bundles/topxiaweb/js/controller/student/add.js') }}"></script>#}
+{#<button type="button" class="btn btn-link pull-right" data-dismiss="modal">{{'关闭'|trans}}</button>#}
+</body>
+{#{% endblock %}#}

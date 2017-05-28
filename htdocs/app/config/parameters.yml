@@ -1,0 +1,14 @@
+parameters:
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: 3306
+    database_name: edusoho
+    database_user: edusoho_root
+    database_password: '9YHUyFL2V7c2hGPA'
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    locale: zh_CN
+    secret: tranapezksg0gkw4wgcckocw0kwsksg
+    user_partner: none

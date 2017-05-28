@@ -1,0 +1,235 @@
+			/********重置默认标签样式***********/
+			dl,dd,dt{
+				/*取消dt的缩进*/
+				margin:0px;
+				padding:0px;
+			}
+			li{
+				/*取消li前面的图标*/
+				list-style: none;
+			}
+			em{
+				/*取消em的斜体*/
+				font-style: normal;
+			}
+			/**************通用样式**********************/
+			.flex-box{
+				/*水平flex父级*/
+				display: flex;
+			}
+			.v-flex-box{
+				/*垂直对齐的flex父级*/
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+			}
+			.shadow{
+				/*加阴影的框*/
+				box-shadow: 3px 3px 6px #e7e9e8;
+			}
+			.bolder{
+				/*字体加粗*/
+				font-weight: bolder;
+			}
+			.grey{
+				/*系统灰色*/
+				color:#919191;
+			}
+			.red{
+				/*系统红色*/
+				color:#e83227;
+			}
+			.black{
+				/*系统黑色*/
+				color:#000000;
+			}
+			.background-red{
+				background-color:#e83227;
+			}
+			.icon-course:before{
+				content:"\f08e";
+			}
+			.font-color-white{
+				color:white;
+			}
+			/****************自定义样式***********************/
+			.search{
+				/*搜索文本部分父级*/
+				display:flex;
+				justify-content: space-around;
+			}
+			input.search{
+				/*搜索文本框*/
+				width:200px;
+				height: 20px;
+				border:1px solid #e83227;
+			}
+			
+			.member-setting input[type='text']{
+				/*会员城市文本框*/
+				width:100px;
+				height: 100px;
+			}
+			#course-digest{
+				/*课程分类父级*/
+				width: 100%;
+				height:100%;
+			}
+			#course-menu{
+				height:50px;
+				border-bottom: 2px solid #e83227;
+				display: flex;
+				justify-content: space-between;
+			}
+			#course-digest-title{
+				width:250px;
+				display: flex;
+				justify-content: center;
+			}
+			#course-digest-title i{
+				align-self:center;
+			}
+			#course-adv{
+				/*border: 1px solid black;*/
+			}
+			#course-nav{
+				display: flex;
+				align-self: flex-end;
+			}
+			#course-nav i{
+				margin-left: 20px;
+				
+			}
+			#course-menu div:last-of-type{
+				align-self: flex-end;
+			}
+			#digset-list{
+				border: 1px solid black;
+				width:17%;
+				margin-top: 5px;
+				padding:10px 20px 10px 20px;
+			}
+			#digset-list dt{
+				margin-top: 10px;
+			}
+			.adv{
+				margin-left: 20px;
+				margin-top: 5px;
+			}
+			#tongyan-policy{
+				margin-top: 10px;
+			}
+			.containor{
+				background-color: #f8f8f8;
+			}
+			.tongyan-title1{
+				font-size:22px;
+				margin-left:10px;
+			}
+			.tongyan-title1 strong{
+				color:#e83227;
+			}
+			#tongyan-info ul li{
+				list-style-type: square ;
+				color:red;
+			}
+			#tongyan-info ul li span{
+				color:black;
+			}
+			#tongyan-info ul li:first-of-type{
+				list-style-image: url("../img/index/diamond.jpg");
+				font-size: 20px;
+				padding-bottom:5px ;
+			}
+			.channel-header{
+				margin-top: 10px;
+				background-color: #f7f7f7;
+				border-bottom: 2px solid #d2d2d2;
+				text-align: center;
+				padding-top: 20px;
+				padding-bottom:10px ;
+			}
+			.channel-header em{
+				display: block;
+				font-size: 24px;
+				font-weight: 300px;
+				font-style: normal;
+			}
+			#tongyan-recommend{
+				padding-bottom: 1px;
+			}
+			#tongyan-recommend-list{
+				margin-top: 15px;
+			}
+			#tongyan-recommend-list ul li{
+				list-style: none;
+			}
+			#tongyan-school-recommend{
+				padding-top: 10px;
+			}
+			#tongyan-teacher-recommend{
+				padding-top: 10px;
+			}
+			#choice-menu{
+				margin-top: 10px;
+				padding-top: 20px;
+				padding-bottom: 20px;
+				font-size: 24px;
+				justify-content: space-around;
+			}
+			
+			#choice-menu div{
+				padding: 20px 40px;
+				align-self: center;
+				border-radius: 5px;
+				box-shadow: 4px 4px 6px #000000;
+			}
+			#choice-menu div:hover{
+				background-color: #e83227;
+				color:#fff;
+				box-shadow: 4px 4px 6px #888;
+			}
+			#choice-menu div i{
+				margin-right: 3px;
+			}
+			/*学历文凭*/
+			#educational-list{
+				justify-content: space-around;
+			}
+			#educational-list header{
+				width:96px;
+				height:280px;
+				display: block;
+				background-color: #df5352;
+				color:#fff;
+				text-align: center;
+				font-size: 49px;
+				padding: 20px 0px;
+				margin-top:10px;
+			}
+			/*通用样式*/
+			.flex-box{
+				display: flex;
+			}
+			.v-flex-box{
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+			}
+			.shadow{
+				box-shadow: 3px 3px 6px #ababab;
+			}
+			.bolder{
+				font-weight: bolder;
+			}
+			.grey{
+				color:#919191;
+			}
+			.red{
+				color:#e83227;
+			}
+			.black{
+				color:#000000;
+			}
+			
+			

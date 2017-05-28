@@ -1,0 +1,172 @@
+{% extends 'TopxiaWebBundle:Settings:layout.html.twig' %} {% block title %}学生报名学校更新{% endblock %} 
+{% set script_controller ='students/update-student' %}{#{% set side_nav = 'schools' %}#} 
+{% block main %} {#左侧菜单{% embed "TopxiaWebBundle:Bootstrap:panel.html.twig"
+with {class:'panel-col'} %}#} {% block heading %}学生报名学校更新{% endblock %} {% block body %}
+
+<form id="update-student-form" class="form-horizontal" method="post">
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">更新学生报名信息</label>
+        <div class="col-md-7 controls radios">
+            <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+{{ web_macro.flash_messages() }} {#中文名称#}
+<div class="form-group">
+    <label class="col-md-2 control-label">{{'姓名'|trans}}</label>
+    <div class="col-md-7 controls radios">
+        <input type="text" id="student_name" name="student[name]" class="form-control" value="{{ student.name|default('') }}" />
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#民族#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'民族'|trans}}</label>
+    <div class="col-md-7 controls">
+        <input type="text" id="student_nation" name="student[nation]" class="form-control" value="{{ student.nation|default('') }}"
+        />
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#生日#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'生日'|trans}}</label>
+    <div class="col-md-7 controls">
+        <input type="text" id="datetimepicker" name="student[birthday]" class="date" value="{{ birthday is empty ? "
+            " : birthday|date("Y-m-d ") }}" data-date-format="yyyy-mm-dd" />
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#身高#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'身高'|trans}}</label>
+    <div class="col-md-7 controls">
+        <input type="text" id="student_height" name="student[height]" class="form-control" value="{{ student.height|default('') }}"
+        />
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#体重#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'体重'|trans}}</label>
+    <div class="col-md-7 controls">
+        <input type="text" id="student_weight" name="student[weight]" class="form-control" value="{{ student.weight|default('') }}"
+        />
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#联系方式#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'联系方式'|trans}}</label>
+    <div class="col-md-7 controls">
+        <input type="text" id="student_phone" name="student[phone]" class="form-control" value="{{ student.phone|default('') }}"
+        />
+        <div class="help-block" style="display:none;"></div>
+    </div>
+</div>
+
+{#身份证号码#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'身份证号码'|trans}}</label>
+    <div class="col-md-7 controls">
+        <input type="text" id="student_IDcards" name="student[IDcards]" class="form-control" value="{{ student.IDcards|default('') }}"
+        />
+        <div class="help-block" style="display:none;"></div>
+    </div>
+</div>
+
+{#毕业学校#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'毕业学校'|trans}}</label>
+    <div class="col-md-7 controls">
+        <input type="text" id="student_graduateSchool" name="student[graduateSchool]" class="form-control" value="{{ student.graduateSchool|default('') }}"
+        />
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#准考证号码#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'准考证号码'|trans}}</label>
+    <div class="col-md-7 controls">
+        <input type="text" id="student_admissionTickerNum" name="student[admissionTickerNum]" class="form-control" value="{{ student.admissionTickerNum|default('') }}"
+        />
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#毕业考试分数#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'毕业考试分数'|trans}}</label>
+    <div class="col-md-7 controls">
+        <input type="text" id="student_graduationTestScore" name="student[graduationTestScore]" class="form-control" value="{{ student.graduationTestScore|default('') }}"
+        />
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#地址#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'地址'|trans}}</label>
+    <div class="col-md-7 controls">
+        <input type="text" id="student_address" name="student[address]" class="form-control" value="{{ student.address|default('') }}"
+        />
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#监护人姓名#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'监护人姓名'|trans}}</label>
+    <div class="col-md-7 controls">
+        <input type="text" id="student_guardianName" name="student[guardianName]" class="form-control" value="{{ student.guardianName|default('') }}"
+        />
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#监护人联系方式#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'监护人联系方式'|trans}}</label>
+    <div class="col-md-7 controls">
+        <input type="text" id="student_guardianPhone" name="student[guardianPhone]" class="form-control" value="{{ student.guardianPhone|default('') }}"
+        />
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#所报学校#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'所报学校'|trans}}</label>
+    <div class="col-md-7 controls">
+        <input type="text" id="student_reportedSchool" name="student[reportedSchool]" class="form-control" value="{{ student.reportedSchool|default('') }}"
+        />
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#所报课程#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'所报课程'|trans}}</label>
+    <div class="col-md-7 controls">
+        <input type="text" id="student_reportedCourse" name="student[reportedCourse]" class="form-control" value="{{ student.reportedCourse|default('') }}"
+        />
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+<div class="row">
+    <div class="col-md-7 col-md-offset-2">
+        <button id="student-update-btn" data-submiting-text="{{'正在更新'|trans}}" type="submit" class="btn btn-primary">{{'更新'|trans}}</button>
+    </div>
+</div>
+<input type="hidden" id="schools_id" name="schools[id]" value="{{ school.id|default('') }}">
+<input type="hidden" name="_csrf_token" value="{{ csrf_token('site') }}">
+</form>
+
+{% endblock %} {% endblock %}

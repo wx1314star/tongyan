@@ -1,0 +1,128 @@
+{% extends 'TopxiaWebBundle:Settings:layout.html.twig' %} {% block title %}更新学校{% endblock %} {% set script_controller= 'schools/update-school'
+%}{% set side_nav = 'schools' %}{% block main %} {#左侧菜单{% embed "TopxiaWebBundle:Bootstrap:panel.html.twig" with {class:'panel-col'}
+%}#} {% block heading %}更新学校{% endblock %} {% block body %}
+
+<form id="update-schools-form" class="form-horizontal" method="post">
+   
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">更新学校信息</label>
+        <div class="col-md-7 controls radios">
+            <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+ {{ web_macro.flash_messages() }}
+
+{#中文名称#}
+<div class="form-group">
+    <label class="col-md-2 control-label">{{'中文名称'|trans}}</label>
+    <div class="col-md-7 controls radios">
+        <input type="text" id="schools_chineseName" name="schools[chineseName]" class="form-control" data-widget-cid="widget-1" data-explain=""
+            value="{{ schools.chineseName|default('') }}" />
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#英文名称#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'英文名称'|trans}}</label>
+    <div class="col-md-7 controls">
+        <input type="text" id="schools_englishName" name="schools[englishName]" class="form-control" value="{{ schools.englishName|default('') }}"
+        />
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#简称#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'简称'|trans}}</label>
+    <div class="col-md-7 controls">
+        <input type="text" id="schools_abbreviation" name="schools[abbreviation]" class="form-control" value="{{ schools.abbreviation|default('') }}"
+        />
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#类别#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'类别'|trans}}</label>
+    <div class="col-md-7 controls">
+        <input type="text" id="schools_type" name="schools[type]" class="form-control" value="{{ schools.type|default('') }}" />
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#学校地址#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'学校地址'|trans}}</label>
+    <div class="col-md-7 controls">
+        <input type="text" id="schools_schoolAddress" name="schools[schoolAddress]" class="form-control" value="{{ schools.schoolAddress|default('') }}"
+        />
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#校园人文#}
+<div class="form-group">
+    <label class="col-md-2 control-label">{{'校园人文'|trans}}</label>
+    <div class="col-md-7 controls">
+        <textarea name="schools[campusHumanities]" rows="10" id="schools_campusHumanities" class="form-control" data-image-upload-url="{{ path('editor_upload', {token:upload_token('user')}) }}">{{ schools.campusHumanities|default('') }}</textarea>
+    </div>
+</div>
+
+{#校园风情#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'校园风情'|trans}}</label>
+    <div class="col-md-7 controls">
+        <textarea name="schools[campusAmorousFeelings]" rows="10" id="schools_campusAmorousFeelings" class="form-control" data-image-upload-url="{{ path('editor_upload', {token:upload_token('user')}) }}">{{ schools.campusAmorousFeelings|default('') }}</textarea>
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#省份#}
+<div class="form-group">
+    <label for="3" class="col-md-2 control-label">{{'省份'|trans}}</label>
+    <div class="col-md-7 controls">
+        <select id="schools_province_id" name="schools[province_id]" class="form-control" data-widget-cid="widget-2" data-explain="">
+                               {% if province %}
+                               <option value="{{ province.id }}" selected="selected">{{ province.name|default('') }}</option>
+                               {% endif %}
+                               {% for pro in provinces %}
+                               <option value="{{ pro.id }}">
+                                   {{ pro.name|default('') }}
+                               </option>
+                               {% endfor %}
+                            </select>
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#城市#}
+<div class="form-group">
+    <label for="3" class="col-md-2 control-label">{{'城市'|trans}}</label>
+    <div class="col-md-7 controls">
+        <select id="schools_city_id" name="schools[city_id]" class="form-control" data-widget-cid="widget-2" data-explain="">
+                               {% if city %}
+                               <option value="{{ city.id }}" selected="selected">{{ city.name|default('') }}</option>
+                               {% endif %}
+                               {% for ct in citys %}
+                               <option value="{{ct.id }}">
+                                   {{ ct.name|default('') }}
+                               </option>
+                               {% endfor %}
+                            </select>
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+<div class="row">
+    <div class="col-md-7 col-md-offset-2">
+        <button id="schools-update-btn" data-submiting-text="{{'正在更新'|trans}}" type="submit" class="btn btn-primary">{{'更新'|trans}}</button>
+    </div>
+</div>
+<input type="hidden" id="schools_id" name="schools[id]" value="{{ schools.id|default('') }}">
+<input type="hidden" name="_csrf_token" value="{{ csrf_token('site') }}">
+</form>
+
+{% endblock %} {% endblock %}

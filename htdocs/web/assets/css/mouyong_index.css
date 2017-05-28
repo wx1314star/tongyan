@@ -1,0 +1,227 @@
+			/********重置默认标签样式***********/
+			dl,dd,dt{
+				/*取消dt的缩进*/
+				margin:0px;
+				padding:0px;
+			}
+			/***频道分栏左边框的颜色****/
+			blockquote{
+				border-left-color: #d50f03;
+			}
+			li{
+				/*取消li前面的图标*/
+				list-style: none;
+				font-size: 14px;
+			}
+			em{
+				/*取消em的斜体*/
+				font-style: normal;
+			}
+			.link-dark img{width:100%;height:100%;}
+			/**************通用样式**********************/
+			.flex-box{
+				/*水平flex父级*/
+				display: flex;
+			}
+			.v-flex-box{
+				/*垂直对齐的flex父级*/
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+			}
+			.shadow{
+				/*加阴影的框*/
+				box-shadow: 3px 3px 6px #e7e9e8;
+			}
+			.bolder{
+				/*字体加粗*/
+				font-weight: bolder;
+			}
+			.grey{
+				/*系统灰色*/
+				color:#919191;
+			}
+			.red{
+				/*系统红色*/
+				color:#e83227;
+			}
+			.black{
+				/*系统黑色*/
+				color:#000000;
+			}
+			.background-red{
+				background-color:#e83227;
+			}
+			.icon-course:before{
+				content:"\f08e";
+			}
+			.font-color-white{
+				color:white;
+			}
+			/*图片外边框*/
+			.thumbnail{
+				margin: 6px;
+			}
+			ul.thumbnail:hover{
+				box-shadow: 0px 10px 20px #e7e9e8;
+				border-color:#888; 
+			}
+			/****************自定义样式***********************/
+			
+			#course-menu{
+				height:50px;
+				border-bottom: 2px solid #e83227;
+				display: flex;
+				
+			}
+			#course-digest-title{
+				/*课程分类水平居中*/
+				display: flex;
+				justify-content: center;
+			}
+			#course-digest-title i{
+				/*课程分类垂直居中*/
+				align-self:center;
+				font-weight: bolder;
+			}
+			#course-nav{
+				align-self: flex-end;
+			}
+			#course-nav i{
+				margin-left: 40px;
+			}
+			#course-menu div:last-of-type{
+				align-self: flex-end;
+			}
+			#digset-list{
+				/*border: 2px solid black;*/
+				font-size: 22px;
+				margin-top: 5px;
+				padding:10px 20px 10px 20px;
+				background: rgba(255, 255, 255, 0.7);
+			}
+			#digset-list dt{
+				margin-top: 10px;
+			}
+			/*调整标题文本字体大小*/
+			/*.tongyan-title1{
+				font-size:22px;
+			}*/
+			h3.tongyan-title1{
+				margin-bottom: 30px;
+			}
+			.tongyan-title1 strong{
+				/*调整头两个字的颜色*/
+				color:#e83227;
+				
+			}
+			#tongyan-info ul{
+				padding-left:28px ;
+			}
+			#tongyan-info ul li{
+				/*每条资讯的前部小方块*/
+				margin-top: 3%;
+				color:#e83227;
+			}
+			#tongyan-info ul li span{
+				/*把文字改成黑色，前面的小方块仍然为红色*/
+				color:black;
+			}
+			#tongyan-info ul li:first-of-type{
+				/*每个资讯块的第一条小标题的样式*/
+				/*list-style-image: url("../img/index/diamond.jpg");*/
+				list-style: none;
+				border-left: 3px solid #d50f03;
+				font-size: 18px;
+				padding-left: 10px;
+				margin-left:-5px;
+				/*padding-bottom:5px;*/
+				margin-bottom: 7%;
+				color:black;
+			}
+			
+			.channel-header{
+				/*每个频道的头部样式*/
+				text-align: center;
+				padding-top: 20px;
+				padding-bottom:10px;
+			}
+			.channel-header em{
+				/*修改频道名字的样式*/
+				display: block;
+				font-size: 24px;
+				font-weight: 300px;
+				font-style: normal;
+			}
+			
+			#choice-menu{
+				/*你的选择菜单的基础样式*/
+				margin-top: 10px;
+				padding-top: 20px;
+				padding-bottom: 20px;
+				font-size: 24px;
+				justify-content: space-around;
+			}
+			
+			#choice-menu div{
+				/*把你的选择菜单做出阴影的圆角小盒子*/
+				padding: 20px 40px;
+				align-self: center;
+				border-radius: 5px;
+				box-shadow: 4px 4px 6px #000000;
+			}
+			#choice-menu div:hover{
+				/*在鼠标放上去的时候变红，文字变白*/
+				background-color: #e83227;
+				box-shadow: 4px 4px 6px #888;
+				color:#fff;
+			}
+			#choice-menu div i{
+				/*让文字图标与文字之间有间隔*/
+				margin-right: 3px;
+			}
+			#educational-list header{
+				/*学校分类样式*/
+				width:75px;
+				height:240px;
+				display: block;
+				background-color: #e50011;
+				color:#fff;
+				text-align: center;
+				font-size: 40px;
+			}
+			.text-success{
+				color:#e83227;
+			}
+			/*通用样式*/
+			.teacher-img{
+				text-align: center;
+				margin-top: 5px;
+			}
+			.flex-box{
+				display: flex;
+			}
+			.v-flex-box{
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+			}
+			.home-channel-block{
+				width:20%;
+				margin-left: 3%;  
+			}
+			.shadow{
+				box-shadow: 3px 3px 6px #f5f5f5;
+			}
+			.bolder{
+				font-weight: bolder;
+			}
+			.grey{
+				color:#919191;
+			}
+			.red{
+				color:#e83227;
+			}
+			.black{
+				color:#000000;
+			}		

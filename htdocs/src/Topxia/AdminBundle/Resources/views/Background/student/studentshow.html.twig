@@ -1,0 +1,45 @@
+{% extends 'TopxiaWebBundle::bootstrap-modal-layout.html.twig' %}
+
+{% block title %}{{'学生报名详细信息'|trans}}{% endblock %}
+
+{% block body %}
+
+<table class="table table-striped table-condenseda table-bordered">
+  <tr>
+    <th width="25%">{{'学生姓名'|trans}}</th>
+    <td width="75%">
+      {{ student.name|default('') }}
+    </td>
+  </tr>
+  <tr>
+      <th>{{'联系方式'|trans}}</th>
+      <td>
+        {{ student.phone|default('') }}
+      </td>
+  </tr>   
+  <tr>
+    <th>{{'身份证号'|trans}}</th>
+    <td>
+      {{ student.IDcards|default('保密')  }}
+    </td>
+  </tr>
+   <tr>
+    <th>{{'地址'}}</th>
+    <td>
+      {{ student.address|default('') }}
+    </td>
+  </tr>
+  <tr>
+    <th>{{'报名时间'|trans}}</th>
+    <td> 
+      {{ student.createTime|date('Y-m-d ') }}
+     </td>
+  </tr>
+  
+</table>
+
+{% endblock %}
+
+{% block footer %}
+  <button type="button" class="btn btn-primary" data-dismiss="modal">{{ '关闭'|trans }}</button>
+{% endblock %}

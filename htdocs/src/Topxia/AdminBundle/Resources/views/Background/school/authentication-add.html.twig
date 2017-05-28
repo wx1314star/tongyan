@@ -1,0 +1,97 @@
+{% extends 'TopxiaAdminBundle::new-layout.html.twig' %}
+
+{% set menu = 'newadmin_authentication' %}
+{% block title %}添加学校认证信息表{% endblock %} 
+{% set script_controller='schoolAuth/add-schoolAuth' %} {#{% set side_nav = 'schools' %}#} {% block main %} {#左侧菜单{% embed "TopxiaWebBundle:Bootstrap:panel.html.twig"
+with {class:'panel-col'} %}#} 
+
+<form id="add-schoolAuth-form" class="form-horizontal" method="post">
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">添加学校认证信息表</label>
+        <div class="col-md-7 controls radios">
+            <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+{{ web_macro.flash_messages() }}
+
+{% if flag == 1 %}
+
+{#民办非企业登记证书#}
+<div class="form-group">
+    <label class="col-md-2 control-label">{{'民办非企业登记证书'|trans}}</label>
+    <div class="col-md-7 controls radios">
+        {#<a href="#modal" data-toggle="modal" data-url="{{path('newadmin_school_uploadCer', {id: user.id})}}" class="btn btn-default btn-sm">查看</a>#}
+        <a href="#modal" data-toggle="modal" data-url="{{ path('newadmin_school_uploadCer', {id: school_id}) }}" class="btn btn-default btn-sm">查看/上传图片</a>
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#办学许可证#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'办学许可证'|trans}}</label>
+    <div class="col-md-7 controls">
+         <a href="#modal" data-toggle="modal" data-url="{{ path('newadmin_school_uploadLis', {id: school_id}) }}" class="btn btn-default btn-sm">查看/上传图片</a>
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#收费许可证或收费项目公示#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'收费许可证或收费项目公示'|trans}}</label>
+    <div class="col-md-7 controls">
+        <a href="#modal" data-toggle="modal" data-url="{{ path('newadmin_school_uploadPer', {id: school_id}) }}" class="btn btn-default btn-sm">查看/上传图片</a>
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#年检合格证#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'年检合格证'|trans}}</label>
+    <div class="col-md-7 controls">
+        <a href="#modal" data-toggle="modal" data-url="{{ path('newadmin_school_uploadAnn', {id: school_id}) }}" class="btn btn-default btn-sm">查看/上传图片</a>
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#招生计划审批表#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'招生计划审批表'|trans}}</label>
+    <div class="col-md-7 controls">
+        <a href="#modal" data-toggle="modal" data-url="{{ path('newadmin_school_uploadApp', {id: school_id}) }}" class="btn btn-default btn-sm">查看/上传图片</a>
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#特种专业开办许可证#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'特种专业开办许可证'|trans}}</label>
+    <div class="col-md-7 controls">
+        <a href="#modal" data-toggle="modal" data-url="{{ path('newadmin_school_uploadApp', {id: school_id}) }}" class="btn btn-default btn-sm">查看/上传图片</a>
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{% elseif flag == 2 %}
+{#营业执照#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'营业执照'|trans}}</label>
+    <div class="col-md-7 controls">
+        <a href="#modal" data-toggle="modal" data-url="{{ path('newadmin_school_uploadBus', {id: school_id}) }}" class="btn btn-default btn-sm">查看/上传图片</a>
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{% endif %}
+
+<div class="row">
+    <div class="col-md-7 col-md-offset-2">
+        <button id="schoolAuth-save-btn" data-submiting-text="{{'正在保存'|trans}}" type="submit" class="btn btn-primary">{{'保存'|trans}}</button>
+    </div>
+</div>
+<input type="hidden" id="schoolAuth_id" name="schoolAuth[school_id]" value="{{ school_id|default(0) }}">
+<input type="hidden" id="schoolAuth_type" name="schoolAuth[type]" value="{{ schoolAuth.type|default(0) }}">
+<input type="hidden" name="_csrf_token" value="{{ csrf_token('site') }}">
+</form>
+
+{% endblock %} 

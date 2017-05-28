@@ -1,0 +1,39 @@
+{% extends 'TopxiaAdminBundle::layout.html.twig' %}
+
+{% set menu = 'newadmin_weixinsc' %}
+
+{% block main %}
+  <div class="well well-sm">
+    <form id="weixin-form" role="form" class="form-horizontal" method="post" action="{{ url('newadmin_weixinsc') }}">
+    <table id="student-enrollstat-table" class="table table-striped table-hover" data-search-form="#school-searchSt-form">
+    {{ web_macro.flash_messages() }}
+    <thead>
+    <tr>
+      <th>{{'AppID'|trans}}</th>
+      <th>{{'商户号'|trans}}</th>
+      {#<th>{{'学校创办时间'|trans}}</th>#}
+      <th>{{'商户支付密钥'|trans}}</th>
+      <th>{{'公众账号Secret'|trans}}  
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="weixin-save-btn" data-submiting-text="{{'正在保存'|trans}}" type="submit" class="btn btn-primary">{{'更改'|trans}}</button></th> 
+            {#<a href="javascript:void(0);" class="easyui-linkbutton" conCls="icon-ok" onclick="perSubmit()">保存</a>#}
+     
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><input type="text" id="weixin_appid" name="weixin[app_id]" value="{{ weixin.app_id|default('0') }}" /></td>
+            <td><input type="text" id="weixin_mch_id" name="weixin[mch_id]" value="{{ weixin.mch_id|default('0') }}" /></td>
+            <td><input type="text" id="weixin_wx_key" name="weixin[wx_key]" value="{{ weixin.wx_key|default('0') }}" size="35" /></td>
+            <td><input type="text" id="weixin_appSecret" name="weixin[appSecret]" value="{{ weixin.appSecret|default('0') }}" size="30" /></td>
+        </tr>
+        </tbody>
+    </table>
+    
+        
+    
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('site') }}" />
+    <input type="hidden" name="weixin[id]" value="{{ weixin.id }}" />
+    </form>
+  </div>
+
+{% endblock %}

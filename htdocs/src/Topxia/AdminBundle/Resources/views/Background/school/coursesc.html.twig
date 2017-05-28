@@ -1,0 +1,102 @@
+{% extends 'TopxiaAdminBundle::layout.html.twig' %}
+
+{% set menu = 'admin_coursesc_manager' %}
+{% set script_controller = 'level/level' %} 
+
+{% block main %}
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<body>
+	<article>
+		<form id="mouyong-search-form" role="form" class="form-horizontal" method="post">
+			<div class="col-sm-12">
+				检索信息添加
+			</div>
+      {% if tmpSize == 0 %}
+				<div class="form-group">
+				<input type="hidden" name="id" value="0" />
+				<div class="col-sm-3">
+					<input class="form-control" name="name" placeholder="请添加一级检索菜单显示名称" />
+				</div>
+				<div class="col-sm-1">
+					<input class="btn btn-default" type="button" value="添加检索" onclick="speakermoreAddNextSearch(this)" />
+				</div>
+				<div class="col-sm-2">
+					<input type="button" class="btn btn-default" value="删除检索" onclick="speakermoreRemovethisSearch(this)" />
+				</div>
+				
+				<label class="col-sm-1">级别：</label>
+				<div class="col-sm-1">
+					<select class="form-control" name="level">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+					</select>
+				</div>
+			</div>
+      {% endif %}
+      {% for level in list %}
+			<div class="form-group">
+				<input type="hidden" name="id[]" value="{{level.id|default('0') }}" />
+				<div class="col-sm-3">
+					<input class="form-control" name="name[]" value="{{level.name|default('') }}" placeholder="请添加一级检索菜单显示名称" />
+				</div>
+				<div class="col-sm-1">
+					<input class="btn btn-default" type="button" value="添加检索" onclick="speakermoreAddNextSearch(this)" />
+				</div>
+				<div class="col-sm-2">
+					<input type="button" class="btn btn-default" value="删除检索" onclick="speakermoreRemovethisSearch(this)" />
+				</div>
+				
+				<label class="col-sm-1">级别：</label>
+				<style>
+					select.form-control{
+						padding: 6px 20px 6px 4px;
+					}
+				</style>
+				<div class="col-sm-1">
+					<select class="form-control" name="level[]">
+						<option value="1" {% if level.level == 1 %} selected {% endif %} >1</option>
+            <option value="2" {% if level.level == 2 %} selected {% endif %} >2</option>
+            <option value="3" {% if level.level == 3 %} selected {% endif %} >3</option>
+					</select>
+				</div>
+			</div>
+      {% endfor %}
+			<div class="col-sm-1">
+				<input type="submit" class="btn btn-success" value="保存"  id="level-save-btn" data-submiting-text="{{'正在保存'|trans}}"/>
+			</div>
+      <input type="hidden" name="_csrf_token" value="{{ csrf_token('site') }}">
+		</form>
+		
+	</article>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="http://code.jquery.com/jquery.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="js/bootstrap.min.js"></script>
+	<script>
+		
+		var speakermoreAddNextSearch=function(btn){
+			var myDiv=$(btn).parent().parent();
+			child=myDiv.clone(true);
+			child.find("input[name='id[]']").val(0);
+			child.find("select").get(0).selectedIndex=myDiv.find("select").get(0).selectedIndex;
+			child.find("input.form-control").val("");
+			myDiv.after(child);
+		}
+		var speakermoreRemovethisSearch=function(btn){
+			var myDiv=$(btn).parent().parent();
+			myDiv.css("display","none");
+			myDiv.prepend("<input name='deleteId[]' type='hidden' value='"+myDiv.find("input[name='id[]']").val()+"' />");
+			myDiv.find("input[name='id[]']").val(-1);
+		}
+	</script>
+</body>
+
+{% endblock %}

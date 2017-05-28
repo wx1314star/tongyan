@@ -1,0 +1,27 @@
+{% extends 'TopxiaWebBundle:User:layout.html.twig' %}
+{% block title %}{{'在学%school.chineseName%'|trans({'%school.chineseName%': setting('school.chineseName')|default('学校'|trans)})}} - {{ parent() }}{% endblock %}
+{% set pageNav = 'learning' %}
+{% block main %}
+  {% if schools %}
+    <div class="recommend-class-list row">
+      {% for school in schools %}
+        {#{% set teachers = school['teachers']|default(null) %}#}
+        <div class="col-md-3 col-sm-6">
+          <div class="class-item">
+            <div class="class-img-wrap">
+              <a class="class-img" href="{{ path('homepage_forward_school', {id:school.id}) }}">
+                <img class="img-responsive" src="{{ filepath(school.logo, 'classroom.png') }}" alt="{{ school.chineseName }}">
+              </a>
+            </div>
+            <h3><a class="link-dark" href="{{ path('homepage_forward_school', {id:school.id}) }}">{{ school.chineseName }}</a></h3>
+            {#<div class="metas">{{'共%classroom.courseNum%门课程'|trans({'%classroom.courseNum%':classroom.courseNum})}}</div>#}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="empty">{{'无在学的%school.chineseName%！'|trans({'%school.chineseName%': setting('school.chineseName')|default('学校'|trans)})}}</div>
+  {% endif %}
+
+  {{ web_macro.paginator(paginator) }}
+{% endblock %}

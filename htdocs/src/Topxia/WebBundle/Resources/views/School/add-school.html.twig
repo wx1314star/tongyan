@@ -1,0 +1,177 @@
+{% extends 'TopxiaWebBundle:Settings:layout.html.twig' %}
+
+{% block title %}添加学校{% endblock %} 
+{% block main %} 
+{% block heading %}添加学校{% endblock %} 
+{% block body %}
+<script type="text/javascript" src="{{ asset('/../winxin/template/default/statics/js/jquery-1.7.2.min.js')}}"></script>
+<form id="add-schools-form" class="form-horizontal" method="post" action="{{ url('school_add') }}">
+    
+    <div class="form-group">
+        <label class="col-md-2 control-label">{{'添加学校或培训机构信息'|trans}}</label>
+        <div class="col-md-7 controls radios">
+            <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+{{ web_macro.flash_messages() }}
+{#用户注册账号#}
+<div class="form-group">
+    <label class="col-md-2 control-label">{{'用户注册账号(学校管理员账号)'|trans}}</label>
+    <div class="col-md-7 controls radios">
+        <input type="text" id="userName" name="userName" class="form-control" data-widget-cid="widget-1" data-explain=""
+            value="{{ userName|default('') }}" readonly="true" /><span>{{'*用户注册账号(学校管理员账号,如需更换，请'}}<a href="{{ path('logout') }}">{{'注销当前用户'}}</a>{{'并用学校管理员账号重新登录|必填项)'|trans}}<a href="{{ path('register') }}">{{'没有账号|注册'}}</a></span>
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#中文名称#}
+<div class="form-group">
+    <label class="col-md-2 control-label">{{'中文名称'|trans}}</label>
+    <div class="col-md-7 controls radios">
+        <input type="text" id="schools_chineseName" name="schools[chineseName]" class="form-control" data-widget-cid="widget-1" data-explain=""
+            value="{{ schools.chineseName|default('') }}" /><span>{{'*学校或培训机构中文名称(必填项)'|trans}}</span>
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#英文名称#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'英文名称'|trans}}</label>
+    <div class="col-md-7 controls">
+        <input type="text" id="schools_englishName" name="schools[englishName]" class="form-control" value="{{ schools.englishName|default('') }}"
+        /><span>{{'学校或培训机构英文名称(选填项)'|trans}}</span>
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#简称#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'简称'|trans}}</label>
+    <div class="col-md-7 controls">
+        <input type="text" id="schools_abbreviation" name="schools[abbreviation]" class="form-control" value="{{ schools.abbreviation|default('') }}"
+        /><span>{{'学校或培训机构简称(选填项)'|trans}}</span>
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#类别#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'类别'|trans}}</label>
+    <div class="col-md-7 controls">
+        <input type="text" id="schools_type" name="schools[type]" class="form-control" value="{{ schools.type|default('') }}" />
+        <span>{{'*学校或培训机构类别(选填项)'|trans}}</span>
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#学校地址#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'学校地址'|trans}}</label>
+    <div class="col-md-7 controls">
+        <input type="text" id="schools_schoolAddress" name="schools[schoolAddress]" class="form-control" value="{{ schools.schoolAddress|default('') }}"
+        /><span>{{'学校或培训机构地址(选填项)'|trans}}</span>
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#校园人文#}
+<div class="form-group">
+    <label class="col-md-2 control-label">{{'校园人文'|trans}}</label>
+    <div class="col-md-7 controls">
+        <textarea name="schools[campusHumanities]" rows="10" id="schools_campusHumanities" class="form-control" data-image-upload-url="{{ path('editor_upload', {token:upload_token('user')}) }}">{{ schools.campusHumanities|default('') }}</textarea>
+        <span>{{'学校或培训机构校园人文(选填项)'|trans}}</span>
+    </div>
+</div>
+
+{#校园风情#}
+<div class="form-group form-forIam-group form-notStudent-group">
+    <label class="col-md-2 control-label">{{'校园风情'|trans}}</label>
+    <div class="col-md-7 controls">
+        <textarea name="schools[campusAmorousFeelings]" rows="10" id="schools_campusAmorousFeelings" class="form-control" data-image-upload-url="{{ path('editor_upload', {token:upload_token('user')}) }}">{{ schools.campusAmorousFeelings|default('') }}</textarea>
+        <span>{{'学校或培训机构校园风情(选填项)'|trans}}</span>
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#培训类型#}
+<div class="form-group">
+    <label for="3" class="col-md-2 control-label">{{'培训类型'|trans}}</label>
+    <div class="col-md-7 controls">
+        <select id="schools_institutionsType" name="schools[institutionsType]" class="form-control" data-widget-cid="widget-2" data-explain="">
+                               <option value="0">
+                                   {{ '学校'|default('') }}
+                               </option>
+                                <option value="1">
+                                   {{ '培训机构'|default('') }}
+                               </option>
+        </select>
+        <span>{{'*培训类型<学校or培训机构>(必填项)'|trans}}</span>
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#省份#}
+<div class="form-group">
+    <label for="3" class="col-md-2 control-label">{{'省份'|trans}}</label>
+    <div class="col-md-7 controls">
+        <select id="schools_province_id" name="schools[province_id]" class="form-control" data-widget-cid="widget-2" data-explain="">
+                               {% for pro in provinces %}
+                               <option value="{{ pro.id }}">
+                                   {{ pro.name|default('') }}
+                               </option>
+                               {% endfor %}
+                            </select>
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+{#城市#}
+<div class="form-group">
+    <label for="3" class="col-md-2 control-label">{{'城市'|trans}}</label>
+    <div class="col-md-7 controls">
+        <select id="schools_city_id" name="schools[city_id]" class="form-control" data-widget-cid="widget-2" data-explain="">
+                               {% for ct in citys %}
+                               <option value="{{ct.id }}">
+                                   {{ ct.name|default('') }}
+                               </option>
+                               {% endfor %}
+                            </select>
+        <div class="help-block" style="display:none;"></div>
+</div>
+</div>
+
+<div class="row">
+    <div class="col-md-7 col-md-offset-2">
+        <button id="schools-save-btn" data-submiting-text="{{'正在保存'|trans}}" type="submit" class="btn btn-primary">{{'保存'|trans}}</button>
+    </div>
+</div>
+<input type="hidden" id="schools_id" name="schools[id]" value="{{ schools.id|default('') }}">
+<input type="hidden" name="_csrf_token" value="{{ csrf_token('site') }}">
+</form>
+
+</div>
+
+<script>
+    var url = "{{ path('tag_city') }}" + '#';
+    function getSelectVal(){ 
+    $.getJSON(url,{province_id:$("#schools_province_id").val()},function(json){ 
+        var city_id = $("#schools_city_id"); 
+        $("option",city_id).remove(); //清空原有的选项 
+        $.each(json,function(index,array){ 
+            var option = "<option value='"+array['id']+"'>"+array['name']+"</option>"; 
+            city_id.append(option); 
+        }); 
+    }); 
+}
+
+$(function(){ 
+    getSelectVal(); 
+    $("#schools_province_id").change(function(){ 
+        getSelectVal(); 
+    }); 
+});
+
+</script>
+
+{% endblock %} 
+{% endblock %}
