@@ -7,6 +7,8 @@ interface PayLogService
 
   public function getPayLog($id);
 
+  public function getPayLogByStudentId($id);
+
   public function updatePayLog($id, $pay_log);
 
   //public function deleteStudent($id);

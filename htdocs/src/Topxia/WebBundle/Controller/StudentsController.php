@@ -79,8 +79,8 @@ class StudentsController extends BaseController
                     return $this->redirect($this->generateUrl('homepage'));
                 break;  
                 case 2:
-                    // return $this->redirect($this->generateUrl('student_pay', array('id' => $newStudent['id'])));
-                    return $this->redirect($this->generateUrl('student_pay', array('id' => 25)));
+                    return $this->redirect($this->generateUrl('student_pay', array('id' => $newStudent['id'])));
+                    // return $this->redirect($this->generateUrl('student_pay', array('id' => 25)));
                 break;
                 case 3:
                     return $this->redirect($this->generateUrl('student_pay', array('id' => $newStudent['id'])));

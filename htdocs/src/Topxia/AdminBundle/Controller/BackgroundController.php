@@ -586,15 +586,72 @@ class BackgroundController extends BaseController
             ));
     }
 
+    // 退学管理
     public function leaveSchoolAction(Request $request)
     {
+        $flag = 1;
+        $students = $this->getStudentsService()->findStudentByFlag($flag);
+        for($i = 0; $i < count($students); $i++) {
+             $id = $students[$i]['reportedCourse'];
+             $course = $this->getCourseService()->getCourse($id);
+             $students[$i]['course'] = $course['title'];
+             $students[$i]['price'] = $course['price'];
+        }
         return $this->render('TopxiaAdminBundle:Background:student/leaveSchool.html.twig', array(
+            'students' => $students
             ));
     }
 
+    // 换校管理
     public function forSchoolAction(Request $request)
     {
+        $flag = 2;
+        $students = $this->getStudentsService()->findStudentByFlag($flag);
+        for($i = 0; $i < count($students); $i++) {
+             $id = $students[$i]['reportedCourse'];
+             $course = $this->getCourseService()->getCourse($id);
+             $students[$i]['course'] = $course['title'];
+             $students[$i]['price'] = $course['price'];
+        }
         return $this->render('TopxiaAdminBundle:Background:student/forSchool.html.twig', array(
+            ));
+    }
+
+    //同意退学
+    public function leaveSchoolAcceptAction(Request $request, $id)
+    {
+        $student = $this->getStudentsService()->getStudent($id);
+        $flag = $this->getStudentsService()->deleteStudent($id, $student);
+        $message = "";
+        if($flag > 0)
+        {
+            $message = "同意退学成功,稍候将发送短信到用户".$student['phone']."手机号";
+             /*短信接口,填写电话号码和内容*/
+            //$status = SmsToolkit::sendSMS($student['phone'],'您已退学成功');
+        }
+        else
+        {
+            $message = "退学失败，请联系管理员";
+        }
+        return $this->render('TopxiaAdminBundle:Background:student/leave_school.html.twig', array(
+            ));
+    }
+
+    //同意换校
+    public function forSchoolAcceptAction(Request $request, $id)
+    {
+        $student = $this->getStudentsService()->getStudent($id);
+        $flag = $this->getStudentsService()->deleteStudent($id, $student);
+        $message = "";
+        if($flag > 0)
+        {
+            $message = "同意换校成功,稍候将发送短信到用户".$student['phone']."手机号";
+        }
+        else
+        {
+            $message = "换校失败，请联系管理员";
+        }
+        return $this->render('TopxiaAdminBundle:Background:student/leave_school.html.twig', array(
             ));
     }
 
@@ -869,10 +926,28 @@ class BackgroundController extends BaseController
         }
     }
 
+    // 查看学校
     public function schoolShowAction(Request $request, $id)
     {
         $school = $this->getSchoolsService()->getSchool($id);
         return $this->render('TopxiaAdminBundle:Background:school/schoolshow.html.twig', array(
+            'school' => $school
+            ));
+    }
+
+    // 设置学校权重
+    public function schoolWeightAction(Request $request, $id)
+    {
+        if ($request->getMethod() == 'POST') {
+            $school = $request->request->get('school');
+            $schools = $this->getSchoolsService()->getSchool($id);
+            $schools['weight'] = $school['weight'];
+            $school = $this->getSchoolsService()->updateSchool($id, $schools);
+            $this->setFlashMessage('success', $this->getServiceKernel()->trans('设置学校权重成功。'));
+            return $this->redirect($this->generateUrl('newadmin_messagesc'));
+        }
+        $school = $this->getSchoolsService()->getSchool($id);
+        return $this->render('TopxiaAdminBundle:Background:school/schoolWeight.html.twig', array(
             'school' => $school
             ));
     }

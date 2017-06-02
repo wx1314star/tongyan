@@ -11,9 +11,9 @@
       <th>{{'学校中文名'|trans}}</th>
       <th>{{'学校类型'|trans}}</th>
       {#<th>{{'学校创办时间'|trans}}</th>#}
-      <th>{{'学校地址'|trans}}</th>
+      <th style="text-align: center;">{{'学校地址'|trans}}</th>
       <th>{{'学校或机构'|trans}}</th>
-      <th colspan="4" align="center">{{'操作'|trans}}</th>
+      <th colspan="4" style="text-align: center;">{{'操作'|trans}}</th>
     </tr>
   </thead>
   <tbody>
@@ -31,7 +31,8 @@
              {{ '培训机构'|default('') }}</td>
             {% endif %}
             </td>
-            <td><a href="#modal" data-toggle="modal" data-url="{{ path('newadmin_school_show', {id:school.id}) }}" class="btn btn-default btn-sm">查看</a></td>
+            <td><a href="#modal" data-toggle="modal" data-url="{{ path('newadmin_school_weight', {id:school.id}) }}" class="btn btn-default btn-sm">设置学校权重</a></td>
+            <td><a href="#modal" data-toggle="modal" data-url="{{ path('newadmin_school_show', {id:school.id}) }}" class="btn btn-default btn-sm">查看学校</a></td>
             <td><a href="{{ path('newadmin_showSchoolAuth',{school_id:school.id}) }}" data-toggle="modal" data-url="" class="btn btn-default btn-sm"  target="_blank">查看上传认证图片</a></td>
             {% if school.status == 1 %}
             <td><a href="{{ path('newadmin_schoolAuthorizeTrue', {school_id:school.id}) }}" data-toggle="modal" data-url="" class="btn btn-default btn-sm">授权学校</a></td>

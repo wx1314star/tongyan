@@ -76,18 +76,6 @@ newadmin:
                         newadmin_audition:
                             name: 试听管理
                             disable: true
-                newadmin_leaveSchool_manager:
-                    name: 退学管理
-                    children:
-                        newadmin_leaveSchool:
-                            name: 退学管理
-                            disable: true
-                newadmin_forSchool_manager:
-                    name: 换校管理
-                    children:
-                        newadmin_forSchool:
-                            name: 换校管理
-                            disable: true
         newadmin_school:
             name: 学校机构
             children:

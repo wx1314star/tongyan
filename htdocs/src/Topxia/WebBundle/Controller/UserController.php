@@ -631,6 +631,54 @@ class UserController extends BaseController
         ));
     }
 
+    // 个人中心退学
+    public function dropOutAction(Request $request, $id)
+    {
+        $student = $this->getStudentsService()->getStudentByUserId($id);
+        $pay = $this->getPayService()->getPayByStuId($student['id']);
+        $message = "";
+        if($pay != null && $pay['status'] != 1)
+        {
+            $message = "您的退学申请已经提交，请耐心等待后台管理员审核，审核通过之后会通过短信通知您,请保持您的电话畅通";
+            $student['flag'] = 1;
+            $this->getStudentsService()->updateStudent($id, $student);
+            /*短信接口,填写电话号码和内容*/
+            //$status = SmsToolkit::sendSMS('xxxxxxxxxxx','您已报名成功');
+        }
+        else
+        {
+            $message = "确认报道后不能进行退学申请";
+        }
+
+        return $this->render('TopxiaWebBundle:User:drop_out.html.twig', array(
+            'message'   => $message
+        ));
+    }
+
+    // 个人中心换校
+    public function forSchoolAction(Request $request, $id)
+    {
+        $student = $this->getStudentsService()->getStudentByUserId($id);
+        $pay = $this->getPayService()->getPayByStuId($student['id']);
+        $message = "";
+        if($pay != null && $pay['status'] != 2)
+        {
+            $message = "您的换校申请已经提交，请耐心等待后台管理员审核，审核通过之后会通过短信通知您,请保持您的电话畅通";
+            $student['flag'] = 2;
+            $this->getStudentsService()->updateStudent($student['id'], $student);
+            /*短信接口,填写电话号码和内容*/
+            //$status = SmsToolkit::sendSMS('xxxxxxxxxxx','您已报名成功');
+        }
+        else
+        {
+            $message = "确认报道后不能进行换校申请";
+        }
+
+        return $this->render('TopxiaWebBundle:User:for_school.html.twig', array(
+            'message'   => $message
+        ));
+    }
+
     protected function _getUserFollowing()
     {
         $user         = $this->getCurrentUser();
@@ -683,6 +731,11 @@ class UserController extends BaseController
     protected function getSchoolsService()
     {
         return $this->getServiceKernel()->createService('Schools.SchoolsService');
+    }
+
+    protected function getPayService()
+    {
+        return $this->getServiceKernel()->createService('Pay.PayService');
     }
 
 }

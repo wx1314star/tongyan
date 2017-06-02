@@ -23,7 +23,7 @@
     {% block title %}
       {{ currentMenu.name|trans }} - {{ menu|parent_permission.name|trans }} - {{ menu|parent_permission.code|parent_permission.name|trans  }}
     {% endblock %}
-    {% if not setting('copyright.owned') %} ss| Bdqn{% endif %}
+    {% if not setting('copyright.owned') %} 学校| Bdqn{% endif %}
   </title>
 
   {% if setting('site.favicon') %}

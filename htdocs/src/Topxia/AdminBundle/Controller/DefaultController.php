@@ -100,13 +100,13 @@ class DefaultController extends BaseController
             if (in_array('ROLE_SUPER_ADMIN', $user->getRoles())){
                 return $this->redirect($this->generateUrl('admin'));
             }else if(in_array('ROLE_ADMIN', $user->getRoles()) || in_array('ROLE_SCHOOL_ADMIN', $user->getRoles())){
-                return $this->redirect($this->generateUrl('newadmin'));
+                return $this->render('TopxiaAdminBundle:Default:newindex.html.twig');
             }else{
-                return $this->redirect($this->generateUrl('homepage'));
+                return $this->redirect($this->generateUrl('user_show', array('id' => $user['id'])));
             }
             
         }
-        // return $this->render('TopxiaAdminBundle:Default:newindex.html.twig');
+         //return $this->render('TopxiaAdminBundle:Default:newindex.html.twig');
     }
 
     public function noticeAction(Request $request)

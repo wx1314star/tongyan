@@ -1952,7 +1952,21 @@ newadmin_forSchool:
     defaults: { _controller: TopxiaAdminBundle:Background:forSchool }
     permissions: [newadmin_foSchool_manager]
 
+newadmin_leave_school_accept:
+    pattern:  /leave_school_accept/{id}
+    defaults: { _controller: TopxiaAdminBundle:Background:leaveSchoolAccept }
+
+newadmin_for_school_accept:
+    pattern:  /for_school_accept/{id}
+    defaults: { _controller: TopxiaAdminBundle:Background:forSchoolAccept }
+
 #学校#
+# 设置学校权重 #
+newadmin_school_weight:
+    pattern:  newadmin/{id}/school/weight
+    defaults: { _controller: TopxiaAdminBundle:Background:schoolWeight }
+    permissions: [admin]
+
 newadmin_school_show:
     pattern:  newadmin/{id}/school/show
     defaults: { _controller: TopxiaAdminBundle:Background:schoolShow }

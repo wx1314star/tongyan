@@ -9,9 +9,11 @@ interface StudentsDao
 
   public function getStudentByUserId($id);
 
+  public function findStudentByFlag($flag);
+
   public function updateStudent($id, $student);
 
-  public function deleteStudent($id);
+  public function deleteStudent($id, $student);
 
   public function findStudents($school_id);
 

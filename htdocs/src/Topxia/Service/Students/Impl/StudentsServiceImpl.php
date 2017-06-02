@@ -42,50 +42,55 @@ class StudentsServiceImpl extends BaseService implements StudentsService
         $students['courseId']     =   empty($student['courseId'])? 0:$student['courseId'];
         $students['createTime'] = time();
        
-        return $this->getStudentsDao()->addStudent($id, $students);
+        return $this->getStudentsDao()->addStudent($id, $student);
     }
 
     public function updateStudent($id, $student)
     {
-        $students = array();
+        // $students = array();
 
-        $students['name']     =   empty($student['name'])?'':$student['name'];
-        $students['nation']     =   empty($student['nation'])?'':$student['nation'];
-        $students['birthday']     =   empty($student['birthday'])?'':strtotime($student['birthday']);
-        $students['height']     =   empty($student['height'])?'':$student['height'];
-        $students['weight']     =   empty($student['weight'])?'':$student['weight'];
-        $students['phone']     =   empty($student['phone'])?'':$student['phone'];
-        $students['IDcards']     =   empty($student['IDcards'])?'':$student['IDcards'];
-        $students['graduateSchool']     =   empty($student['graduateSchool'])?'':$student['graduateSchool'];
-        $students['admissionTickerNum']     =   empty($student['admissionTickerNum'])?'':$student['admissionTickerNum'];
-        $students['graduationTestScore']     =   empty($student['graduationTestScore'])?'':$student['graduationTestScore'];
-        $students['address']     =   empty($student['address'])?'':$student['address'];
-        $students['guardianName']     =   empty($student['guardianName'])?'':$student['guardianName'];
-        $students['guardianPhone']     =   empty($student['guardianPhone'])?'':$student['guardianPhone'];
-        $students['reportedSchool']     =   empty($student['reportedSchool'])?0:$student['reportedSchool'];
-        $students['reportedCourse']     =   empty($student['reportedCourse'])?0:$student['reportedCourse'];
-        $students['school_id']     =   $id;
-        $students['recommendTeacher']     =   empty($student['recommendTeacher'])? 0:$student['recommendTeacher'];
-        $students['userId']     =   empty($student['userId'])? 0:$student['userId'];
-        $students['courseId']     =   empty($student['courseId'])? 0:$student['courseId'];
-        $students['status']     =   empty($student['status'])? 0:$student['status'];
-        $students['updateTime'] = time();
+        // $students['name']     =   empty($student['name'])?'':$student['name'];
+        // $students['nation']     =   empty($student['nation'])?'':$student['nation'];
+        // $students['birthday']     =   empty($student['birthday'])?'':strtotime($student['birthday']);
+        // $students['height']     =   empty($student['height'])?'':$student['height'];
+        // $students['weight']     =   empty($student['weight'])?'':$student['weight'];
+        // $students['phone']     =   empty($student['phone'])?'':$student['phone'];
+        // $students['IDcards']     =   empty($student['IDcards'])?'':$student['IDcards'];
+        // $students['graduateSchool']     =   empty($student['graduateSchool'])?'':$student['graduateSchool'];
+        // $students['admissionTickerNum']     =   empty($student['admissionTickerNum'])?'':$student['admissionTickerNum'];
+        // $students['graduationTestScore']     =   empty($student['graduationTestScore'])?'':$student['graduationTestScore'];
+        // $students['address']     =   empty($student['address'])?'':$student['address'];
+        // $students['guardianName']     =   empty($student['guardianName'])?'':$student['guardianName'];
+        // $students['guardianPhone']     =   empty($student['guardianPhone'])?'':$student['guardianPhone'];
+        // $students['reportedSchool']     =   empty($student['reportedSchool'])?0:$student['reportedSchool'];
+        // $students['reportedCourse']     =   empty($student['reportedCourse'])?0:$student['reportedCourse'];
+        // $students['school_id']     =   $id;
+        // $students['recommendTeacher']     =   empty($student['recommendTeacher'])? 0:$student['recommendTeacher'];
+        // $students['userId']     =   empty($student['userId'])? 0:$student['userId'];
+        // $students['courseId']     =   empty($student['courseId'])? 0:$student['courseId'];
+        // $students['status']     =   empty($student['status'])? 0:$student['status'];
+        // $students['updateTime'] = time();
        
-        return $this->getStudentsDao()->updateStudent($id, $students);
+        return $this->getStudentsDao()->updateStudent($id, $student);
     }
 
-    public function deleteStudent($id)
+    public function deleteStudent($id, $student)
     {
         //return $this->getSchoolsDao()->deleteSchool($id);
-        $student = $this->getStudentsDao().getStudent($id);
-        $student['status']                = empty($fields['status']) ? 0 : $fields['status'];
-        return $this->getStudentsDao()->updateStudent($id, $school);
+        // $student = $this->getStudentsDao().getStudent($id);
+        // $student['status']                = empty($fields['status']) ? 0 : $fields['status'];
+        return $this->getStudentsDao()->deleteStudent($id, $student);
 
     }
 
     public function getStudent($id)
     {
         return $this->getStudentsDao()->getStudent($id);
+    }
+
+    public function findStudentByFlag($flag)
+    {
+        return $this->getStudentsDao()->findStudentByFlag($flag);
     }
 
     public function getStudentByUserId($id)

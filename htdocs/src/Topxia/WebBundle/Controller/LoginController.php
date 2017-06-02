@@ -106,7 +106,7 @@ class LoginController extends BaseController
     public function backgroundAction(Request $request)
     {
         $user = $this->getCurrentUser();
-
+        
         if ($user->isLogin()) {
             if (in_array('ROLE_SUPER_ADMIN', $user->getRoles())){
                 return $this->createMessageResponse('info', $this->getServiceKernel()->trans('你已经登录了'), null, 3000, $this->generateUrl('admin'));
@@ -129,10 +129,10 @@ class LoginController extends BaseController
             return $this->redirect($this->generateUrl('login_bind', array('type' => 'weixinmob', '_target_path' => $this->getTargetPath($request), 'inviteCode' => $inviteCode)));
         }
         $session = $request->getSession();
-        $_target_path = 'newadmin';
+       
+        $_target_path = 'homepage';
         $session->set('_target_path', $_target_path);
         $path = $session->get('_target_path');
-
         $_target_path = $this->getTargetPath($request);
         return $this->render('TopxiaWebBundle:Login:newindex.html.twig', array(
             'last_username' => $request->getSession()->get(SecurityContext::LAST_USERNAME),

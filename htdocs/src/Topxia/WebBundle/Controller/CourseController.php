@@ -726,12 +726,14 @@ class CourseController extends CourseBaseController
         }
 
         $users = $this->getUserService()->findUsersByIds($userIds);
+        $user = $this->getCurrentUser();
 
         return $this->render("TopxiaWebBundle:Course:courses-block-{$view}.html.twig", array(
             'courses'      => $courses,
             'users'        => $users,
             'classroomIds' => $classroomIds,
-            'mode'         => $mode
+            'mode'         => $mode,
+            'user'         => $user
         ));
     }
 

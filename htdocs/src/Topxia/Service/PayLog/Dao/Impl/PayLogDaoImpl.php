@@ -43,6 +43,16 @@ class PayLogDaoImpl extends BaseDao implements PayLogDao
         );
     }
 
+    public function getPayLogByStudentId($id)
+    {
+        $that = $this;
+        return $this->fetchCached("id:{$id}", $id, function ($id) use ($that) {
+            $sql = "SELECT * FROM {$that->getTable()} WHERE student_id = ? LIMIT 1";
+            return $that->getConnection()->fetchAssoc($sql, array($id)) ?: null;
+        }
+        );
+    }
+
 
     public function findAllPayLog()
     { 

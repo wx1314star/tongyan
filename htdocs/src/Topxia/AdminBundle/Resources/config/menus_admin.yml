@@ -150,10 +150,22 @@ admin:
                             name: 学校信息管理
                             disable: true
                 newadmin_weixinsc_school:
-                    name: 微信设置
+                    name: 第三方功能设置
                     children:
                         newadmin_weixinsc:
-                            name: 微信支付设置
+                            name: 第三方功能设置(微信、短信等)
+                            disable: true
+                newadmin_leaveSchool_manager:
+                    name: 退学管理
+                    children:
+                        newadmin_leaveSchool:
+                            name: 退学管理
+                            disable: true
+                newadmin_forSchool_manager:
+                    name: 换校管理
+                    children:
+                        newadmin_forSchool:
+                            name: 换校管理
                             disable: true
         admin_course:
             name: 课程

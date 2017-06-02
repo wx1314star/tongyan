@@ -28,7 +28,7 @@ class SchoolsDaoImpl extends BaseDao implements SchoolsDao
     /*首页加载根据最新的时间显示4所学校或机构*/
     public function findSchoolByNewTime()
     { 
-        $sql = "SELECT id,logo FROM {$this->table} where status = 0 ORDER BY createTime DESC LIMIT 4";
+        $sql = "SELECT id,logo FROM {$this->table} where status = 0 ORDER BY weight DESC LIMIT 4";
         return $this->getConnection()->fetchAll($sql) ? : array();
     }
 

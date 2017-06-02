@@ -61,9 +61,9 @@
   </td>
   <td>
     <div class="btn-group">
-      {% if has_permission('admin_course_content_manage') %}
+      {#{% if has_permission('admin_course_content_manage') %}#}
         <a class="btn btn-default btn-sm" href="{{ path('course_manage', {id:course.id}) }}" target="_blank">{{'管理'|trans}}</a>
-      {% endif %}
+      {#{% endif %}#}
       {#<select class="btn btn-default btn-sm dropdown-toggle">
         <option value="设置"></option>						
 				<option value="{{course.id}}">{{ '删除该课程'|default('') }}</option>

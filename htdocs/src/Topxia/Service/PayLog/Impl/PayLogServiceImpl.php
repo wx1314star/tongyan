@@ -29,7 +29,12 @@ class PayLogServiceImpl extends BaseService implements PayLogService
 
     public function getPayLog($id)
     {
-         return $this->getPayLogDao()->getPayLog($id);
+        return $this->getPayLogDao()->getPayLog($id);
+    }
+
+    public function getPayLogByStudentId($id)
+    {
+        return $this->getPayLogDao()->getPayLogByStudentId($id);
     }
 
     public function findAllPayLog()

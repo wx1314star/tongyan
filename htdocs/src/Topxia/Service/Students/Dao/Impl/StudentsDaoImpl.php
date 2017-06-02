@@ -27,7 +27,7 @@ class StudentsDaoImpl extends BaseDao implements StudentsDao
         $this->clearCached();
 
         if ($affected <= 0) {
-            throw $this->createDaoException('Update school error.');
+            throw $this->createDaoException('Update student error.');
         }
 
         return $this->getStudent($id);
@@ -53,9 +53,26 @@ class StudentsDaoImpl extends BaseDao implements StudentsDao
         );
     }
 
-    public function deleteStudent($id)
+    public function findStudentByFlag($flag)
     {
-        
+        $that = $this;
+        return $this->fetchCached("flag:{$flag}", $flag, function ($flag) use ($that) {
+            $sql = "SELECT * FROM {$that->getTable()} WHERE flag = ? LIMIT 14";
+            return $this->getConnection()->fetchAll($sql, array($flag)) ? : array();
+        }
+        );
+    }
+
+    public function deleteStudent($id, $student)
+    {
+        $affected = $this->getConnection()->delete($this->table, $student, array('id' => $id));
+        $this->clearCached();
+
+        if ($affected <= 0) {
+            throw $this->createDaoException('Delete student error.');
+        }
+
+        return $affected;
     }
 
     public function findStudents($school_id)

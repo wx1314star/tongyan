@@ -104,32 +104,32 @@ class SchoolsServiceImpl extends BaseService implements SchoolsService
 
     public function updateSchool($id, $fields)
     {
-        $school = array();
+        // $school = array();
         
-        $school['chineseName']            = empty($fields['chineseName']) ? '' : $fields['chineseName'];
-        $school['englishName']            = empty($fields['englishName']) ? '' : $fields['englishName'];
-        $school['abbreviation']           = empty($fields['abbreviation']) ? '' : $fields['abbreviation'];
-        $school['type']                   = empty($fields['type']) ? '' : $fields['type'];
-        $school['schoolAddress']          = empty($fields['schoolAddress']) ? '' : $fields['schoolAddress'];
+        // $school['chineseName']            = empty($fields['chineseName']) ? '' : $fields['chineseName'];
+        // $school['englishName']            = empty($fields['englishName']) ? '' : $fields['englishName'];
+        // $school['abbreviation']           = empty($fields['abbreviation']) ? '' : $fields['abbreviation'];
+        // $school['type']                   = empty($fields['type']) ? '' : $fields['type'];
+        // $school['schoolAddress']          = empty($fields['schoolAddress']) ? '' : $fields['schoolAddress'];
 
-        $school['smallPicture']           = empty($fields['smallPicture']) ? '' : $fields['smallPicture'];
-        $school['middlePicture']          = empty($fields['middlePicture']) ? '' : $fields['middlePicture'];
-        $school['largePicture']           = empty($fields['largePicture']) ? '' : $fields['largePicture'];
+        // $school['smallPicture']           = empty($fields['smallPicture']) ? '' : $fields['smallPicture'];
+        // $school['middlePicture']          = empty($fields['middlePicture']) ? '' : $fields['middlePicture'];
+        // $school['largePicture']           = empty($fields['largePicture']) ? '' : $fields['largePicture'];
 
-        $school['province_id']            = empty($fields['province_id']) ? 1 : $fields['province_id'];
-        $school['city_id']                = empty($fields['city_id']) ? 1 : $fields['city_id'];
-        $school['status']                 = isset($fields['status']) ? $fields['status'] : 1  ;
-        $school['updateTime']             = time();
-        //$school['status']                = empty($fields['status']) ? 1 : $fields['status'];
-        if (!empty($fields['campusHumanities'])) {
-            $school['campusHumanities'] = $this->purifyHtml($fields['campusHumanities']);
-        }
+        // $school['province_id']            = empty($fields['province_id']) ? 1 : $fields['province_id'];
+        // $school['city_id']                = empty($fields['city_id']) ? 1 : $fields['city_id'];
+        // $school['status']                 = isset($fields['status']) ? $fields['status'] : 1  ;
+        // $school['updateTime']             = time();
+        // //$school['status']                = empty($fields['status']) ? 1 : $fields['status'];
+        // if (!empty($fields['campusHumanities'])) {
+        //     $school['campusHumanities'] = $this->purifyHtml($fields['campusHumanities']);
+        // }
 
-        //$school['campusHumanities']       = empty($fields['campusHumanities']) ? '' : $fields['campusHumanities'];
-        if (!empty($fields['campusAmorousFeelings'])) {
-            $school['campusAmorousFeelings'] = $this->purifyHtml($fields['campusAmorousFeelings']);
-        }
+        // //$school['campusHumanities']       = empty($fields['campusHumanities']) ? '' : $fields['campusHumanities'];
+        // if (!empty($fields['campusAmorousFeelings'])) {
+        //     $school['campusAmorousFeelings'] = $this->purifyHtml($fields['campusAmorousFeelings']);
+        // }
 
-        return $this->getSchoolsDao()->updateSchool($id, $school);
+        return $this->getSchoolsDao()->updateSchool($id, $fields);
     }
 }

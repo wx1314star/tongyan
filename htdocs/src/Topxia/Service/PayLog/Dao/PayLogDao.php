@@ -6,6 +6,8 @@ interface PayLogDao
   //public function addStudent($id, $student);
 
   public function getPayLog($id);
+  
+  public function getPayLogByStudentId($id);
 
   public function updatePayLog($id, $pay_log);
 

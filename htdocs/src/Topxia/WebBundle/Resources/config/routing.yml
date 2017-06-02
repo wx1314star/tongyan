@@ -60,6 +60,17 @@ schoolAuth_update:
     pattern:  /update/schoolAuth/{id}
     defaults: { _controller: TopxiaWebBundle:SchoolAuth:updateSchoolAuth }
 
+# 个人中心、退学、换校、定制部分
+drop_out:
+    pattern:  /drop_out/student/{id}
+    defaults: { _controller: TopxiaWebBundle:User:dropOut }
+
+for_school:
+    pattern:  /for_school/student/{id}
+    defaults: { _controller: TopxiaWebBundle:User:forSchool }
+
+# 登录部分
+
 login_background:
     pattern:  /login/background
     defaults: { _controller: TopxiaWebBundle:Login:background }

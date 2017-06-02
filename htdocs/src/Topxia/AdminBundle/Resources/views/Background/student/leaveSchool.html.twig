@@ -4,7 +4,35 @@
 
 {% block main %}
   <div class="well well-sm">
-    <a href="{{ url('newadmin') }}">亲，该功能正在开发中...点击返回后台管理首页面</a>
+  <table id="student-leave-table" class="table table-striped table-hover" data-search-form="#student-searchSt-form">
+    <thead>
+    <tr>
+      <th>{{'学生姓名'|trans}}</th>
+      <th>{{'联系方式'|trans}}</th>
+      <th>{{'身份证号'|trans}}</th>
+      <th>{{'所报课程'|trans}}</th>
+      <th>{{'课程费用'|trans}}</th>
+      <th>{{'报名时间'|trans}}</th>
+      <th>{{'操作'|trans}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if students %}
+      {% for student in students %}
+        <tr>
+          <td>{{ student.name|default('') }}</td>
+          <td>{{ student.phone|default('') }}</td>
+          <td>{{ student.IDcards|default('') }}</td>
+          <td>{{ student.course|default('') }}</td>
+          <td>{{ student.price|default('') }}</td>
+          <td>{{ student.createTime is empty ? "" : student.createTime|date("Y-m-d ") }}</td>
+          <td><a href="#modal" data-toggle="modal" data-url="{{ path('newadmin_student_show', {id:student.id}) }}" class="btn btn-default btn-sm">查看</a></td>
+          <td><a href="#modal" data-toggle="modal" data-url="{{ path('newadmin_report', {id:student.id}) }}" class="btn btn-default btn-sm">同意该学生退学</a></td>
+        </tr>
+      {% endfor %}
+    {% endif %}
+  </tbody>
+</table>
   </div>
 
 {% endblock %}
