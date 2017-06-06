@@ -15,7 +15,7 @@ with {class:'panel-col'} %}#} {% block heading %}学生报名学校更新{% endb
 <div class="form-group">
     <label class="col-md-2 control-label">{{'姓名'|trans}}</label>
     <div class="col-md-7 controls radios">
-        <input type="text" id="student_name" name="student[name]" class="form-control" value="{{ student.name|default('') }}" />
+        <input type="text" id="student_name" name="student[name]" class="form-control" value="{{ student.name|default('') }}" required="required" />
         <div class="help-block" style="display:none;"></div>
 </div>
 </div>
@@ -75,7 +75,7 @@ with {class:'panel-col'} %}#} {% block heading %}学生报名学校更新{% endb
     <label class="col-md-2 control-label">{{'身份证号码'|trans}}</label>
     <div class="col-md-7 controls">
         <input type="text" id="student_IDcards" name="student[IDcards]" class="form-control" value="{{ student.IDcards|default('') }}"
-        />
+        required="required" />
         <div class="help-block" style="display:none;"></div>
     </div>
 </div>

@@ -27,7 +27,7 @@
           <td>{{ student.price|default('') }}</td>
           <td>{{ student.createTime is empty ? "" : student.createTime|date("Y-m-d ") }}</td>
           <td><a href="#modal" data-toggle="modal" data-url="{{ path('newadmin_student_show', {id:student.id}) }}" class="btn btn-default btn-sm">查看</a></td>
-          <td><a href="#modal" data-toggle="modal" data-url="{{ path('newadmin_report', {id:student.id}) }}" class="btn btn-default btn-sm">同意该学生退学</a></td>
+          <td><a href="#modal" data-toggle="modal" data-url="{{ path('newadmin_leave_school_accept', {id:student.id}) }}" class="btn btn-default btn-sm">同意该学生退学</a></td>
         </tr>
       {% endfor %}
     {% endif %}

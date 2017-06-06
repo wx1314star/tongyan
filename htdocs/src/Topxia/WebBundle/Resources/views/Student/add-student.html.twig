@@ -50,7 +50,7 @@
         <label class="col-md-2 control-label">{{'姓名'|trans}}</label>
         <div class="col-md-7 controls radios">
             <input type="text" id="student_name" name="student[name]" class="form-control" value="{{ userProfile.truename|default('') }}"
-            />
+            required="required" />
             <div class="help-block" style="display:none;"></div>
         </div>
     </div>
@@ -60,7 +60,7 @@
         <label class="col-md-2 control-label">{{'民族'|trans}}</label>
         <div class="col-md-7 controls">
             <input type="text" id="student_nation" name="student[nation]" class="form-control" value="{{ userProfile.nation|default('') }}"
-            />
+            required="required" />
             <div class="help-block" style="display:none;"></div>
         </div>
     </div>
@@ -100,7 +100,7 @@
         <label class="col-md-2 control-label">{{'联系方式'|trans}}</label>
         <div class="col-md-7 controls">
             <input type="text" id="student_phone" name="student[phone]" class="form-control" value="{{ userProfile.mobile|default('') }}"
-            />
+            required="required" pattern="/^[1][3][0-9]{9}$/" />
             <div class="help-block" style="display:none;"></div>
         </div>
     </div>
@@ -110,7 +110,7 @@
         <label class="col-md-2 control-label">{{'身份证号码'|trans}}</label>
         <div class="col-md-7 controls">
             <input type="text" id="student_IDcards" name="student[IDcards]" class="form-control" value="{{ userProfile.idcard|default('') }}"
-            />
+            required="required" pattern="/^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/"/>
             <div class="help-block" style="display:none;"></div>
         </div>
     </div>
@@ -169,7 +169,7 @@
         <label class="col-md-2 control-label">{{'监护人电话'|trans}}</label>
         <div class="col-md-7 controls">
             <input type="text" id="student_guardianPhone" name="student[guardianPhone]" class="form-control" value="{{ userProfile.guardianPhone|default('') }}"
-            />
+            required="required"/>
             <div class="help-block" style="display:none;"></div>
         </div>
     </div>
@@ -278,7 +278,7 @@
         <label class="col-md-2 control-label">{{'姓名'|trans}}</label>
         <div class="col-md-7 controls radios">
             <input type="text" id="student_name" name="student[name]" class="form-control" value="{{ userProfile.truename|default('') }}"
-            />
+            required="required" />
             <div class="help-block" style="display:none;"></div>
         </div>
     </div>
@@ -328,7 +328,7 @@
         <label class="col-md-2 control-label">{{'联系方式'|trans}}</label>
         <div class="col-md-7 controls">
             <input type="text" id="student_phone" name="student[phone]" class="form-control" value="{{ userProfile.mobile|default('') }}"
-            />
+            required="required" pattern="/^[1][3][0-9]{9}$/" />
             <div class="help-block" style="display:none;"></div>
         </div>
     </div>
@@ -338,7 +338,7 @@
         <label class="col-md-2 control-label">{{'身份证号码'|trans}}</label>
         <div class="col-md-7 controls">
             <input type="text" id="student_IDcards" name="student[IDcards]" class="form-control" value="{{ userProfile.idcard|default('') }}"
-            />
+            required="required" pattern="/^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/"/>
             <div class="help-block" style="display:none;"></div>
         </div>
     </div>
@@ -347,7 +347,7 @@
     <div class="form-group form-forIam-group form-notStudent-group">
         <label class="col-md-2 control-label">{{'地址'|trans}}</label>
         <div class="col-md-7 controls">
-            <input type="text" id="student_address" name="student[address]" class="form-control" value="" />
+            <input type="text" id="student_address" name="student[address]" class="form-control" value="" required="required"/>
             <div class="help-block" style="display:none;"></div>
         </div>
     </div>

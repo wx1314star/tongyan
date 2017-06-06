@@ -69,6 +69,10 @@ for_school:
     pattern:  /for_school/student/{id}
     defaults: { _controller: TopxiaWebBundle:User:forSchool }
 
+person_customized:
+    pattern: /person/customized
+    defaults: { _controller: TopxiaWebBundle:Default:customization }
+
 # 登录部分
 
 login_background:

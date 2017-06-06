@@ -64,12 +64,6 @@ newadmin:
                        newadmin_enroll:
                             name: 报名信息
                             disable: true
-                newadmin_customization_manager:
-                    name: 定制管理
-                    children:
-                        newadmin_customization:
-                            name: 定制管理
-                            disable: true
                 newadmin_audition_manager:
                     name: 试听管理
                     children:

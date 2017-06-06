@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class DefaultController extends BaseController
 {
+    // 首页部分
     public function indexAction(Request $request)
     {
         $user = $this->getCurrentUser();
@@ -224,6 +225,24 @@ class DefaultController extends BaseController
         if ($affected <= 0) {
             $this->setFlashMessage('danger', $this->getServiceKernel()->trans('删除学校信息成功。'));
         }
+        return $this->redirect($this->generateUrl('homepage'));
+    }
+
+    // 首页定制课程部分
+    public function customizationAction(Request $request)
+    {
+        if ($request->getMethod() == 'POST') {
+            $student = $request->request->get('student');
+            $this->getCustomizedService()->addCustomized($student);
+        }
+        // $data = array();
+        // $province_id = $request->query->get('province_id');
+        // $callback = $request->query->get('callback');
+        // $citys = $this->getCityService()->findCityByProvinceId($province_id);
+        // foreach ($citys as $city) {
+        //     $data[] = array('id' => $city['id'],  'name' => $city['name'] );
+        // }
+        // return new JsonResponse($data);
         return $this->redirect($this->generateUrl('homepage'));
     }
 
@@ -506,5 +525,10 @@ class DefaultController extends BaseController
     protected function getThumbnailsService()
     {
         return $this->getServiceKernel()->createService('Thumbnails.ThumbnailsService');
+    }
+
+    protected function getCustomizedService()
+    {
+        return $this->getServiceKernel()->createService('Customized.CustomizedService');
     }
 }

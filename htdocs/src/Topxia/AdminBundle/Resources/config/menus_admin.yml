@@ -167,6 +167,12 @@ admin:
                         newadmin_forSchool:
                             name: 换校管理
                             disable: true
+                newadmin_customization_manager:
+                    name: 定制管理
+                    children:
+                        newadmin_customization:
+                            name: 定制管理
+                            disable: true
         admin_course:
             name: 课程
             children:

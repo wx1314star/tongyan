@@ -1937,6 +1937,10 @@ newadmin_customization:
     defaults: { _controller: TopxiaAdminBundle:Background:customization }
     permissions: [newadmin_customization_manager]
 
+newadmin_person_customization:
+    pattern:  /person/customization/{id}
+    defaults: { _controller: TopxiaAdminBundle:Background:personCustomization }
+
 newadmin_audition:
     pattern:  /audition
     defaults: { _controller: TopxiaAdminBundle:Background:audition }

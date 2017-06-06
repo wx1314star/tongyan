@@ -574,9 +574,35 @@ class BackgroundController extends BaseController
             ));
     }
 
+    //定制课程
     public function customizationAction(Request $request)
     {
+        $students = $this->getCustomizedService()->findAll();
         return $this->render('TopxiaAdminBundle:Background:student/customization.html.twig', array(
+            'students'  => $students
+            ));
+    }
+
+    //处理个人定制
+    public function personCustomizationAction(Request $request, $id)
+    {
+        $student = $this->getCustomizedService()->getCustomized($id);
+        $name = $student['userName'];
+        $student['status'] = 1;
+        $flag = $this->getCustomizedService()->updateCustomized($id, $student);
+        $message = "";
+        if($flag > 0)
+        {
+            $message = "已处理该".$name."学生定制课程";
+             /*短信接口,填写电话号码和内容*/
+            //$status = SmsToolkit::sendSMS($phone,'您已定制课程成功');
+        }
+        else
+        {
+            $message = "处理定制失败，请联系管理员";
+        }
+        return $this->render('TopxiaAdminBundle:Background:student/customization_message.html.twig', array(
+            'message'  => $message
             ));
     }
 
@@ -614,6 +640,7 @@ class BackgroundController extends BaseController
              $students[$i]['price'] = $course['price'];
         }
         return $this->render('TopxiaAdminBundle:Background:student/forSchool.html.twig', array(
+            'students' => $students
             ));
     }
 
@@ -621,19 +648,21 @@ class BackgroundController extends BaseController
     public function leaveSchoolAcceptAction(Request $request, $id)
     {
         $student = $this->getStudentsService()->getStudent($id);
-        $flag = $this->getStudentsService()->deleteStudent($id, $student);
+        $phone = $student['phone'];
+        $flag = $this->getStudentsService()->deleteStudent((int)$id, $student);
         $message = "";
         if($flag > 0)
         {
-            $message = "同意退学成功,稍候将发送短信到用户".$student['phone']."手机号";
+            $message = "同意退学成功,稍候将发送短信到用户".$phone."手机";
              /*短信接口,填写电话号码和内容*/
-            //$status = SmsToolkit::sendSMS($student['phone'],'您已退学成功');
+            //$status = SmsToolkit::sendSMS($phone,'您已退学成功');
         }
         else
         {
             $message = "退学失败，请联系管理员";
         }
         return $this->render('TopxiaAdminBundle:Background:student/leave_school.html.twig', array(
+            'message' => $message
             ));
     }
 
@@ -641,17 +670,21 @@ class BackgroundController extends BaseController
     public function forSchoolAcceptAction(Request $request, $id)
     {
         $student = $this->getStudentsService()->getStudent($id);
-        $flag = $this->getStudentsService()->deleteStudent($id, $student);
+        $phone = $student['phone'];
+        $flag = $this->getStudentsService()->deleteStudent((int)$id, $student);
         $message = "";
         if($flag > 0)
         {
-            $message = "同意换校成功,稍候将发送短信到用户".$student['phone']."手机号";
+            $message = "同意换校成功,稍候将发送短信到用户".$phone."手机";
+              /*短信接口,填写电话号码和内容*/
+            //$status = SmsToolkit::sendSMS($phone,'您已换校成功');
         }
         else
         {
             $message = "换校失败，请联系管理员";
         }
-        return $this->render('TopxiaAdminBundle:Background:student/leave_school.html.twig', array(
+        return $this->render('TopxiaAdminBundle:Background:student/for_school.html.twig', array(
+            'message' => $message
             ));
     }
 
@@ -1144,6 +1177,7 @@ class BackgroundController extends BaseController
             ));
     }
 
+    // 定制课程统计
     public function customizationstatAction(Request $request)
     {
         return $this->render('TopxiaAdminBundle:Background:statistics/customizationstat.html.twig', array(
@@ -1510,6 +1544,11 @@ class BackgroundController extends BaseController
     protected function getWeiXinService()
     {
         return $this->getServiceKernel()->createService('WeiXin.WeiXinService');
+    }
+
+    protected function getCustomizedService()
+    {
+        return $this->getServiceKernel()->createService('Customized.CustomizedService');
     }
 
     // 文章资讯

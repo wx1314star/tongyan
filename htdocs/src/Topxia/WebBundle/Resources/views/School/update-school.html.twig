@@ -19,7 +19,7 @@
     <label class="col-md-2 control-label">{{'中文名称'|trans}}</label>
     <div class="col-md-7 controls radios">
         <input type="text" id="schools_chineseName" name="schools[chineseName]" class="form-control" data-widget-cid="widget-1" data-explain=""
-            value="{{ schools.chineseName|default('') }}" />
+            value="{{ schools.chineseName|default('') }}" required="required" />
         <div class="help-block" style="display:none;"></div>
 </div>
 </div>

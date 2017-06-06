@@ -21,7 +21,6 @@
       {{ block_show('jianmo:home_top_banner') }}
     {% endcache %}#}
   <body>
-  <style>
   	 <style type="text/css">  
         .dropdown-submenu {  
             position: relative;
@@ -75,9 +74,68 @@
 		.dropdown-menu > li{
 			font-size:22px;
 		}
-    </style>  
-  </style>
+
+		{#右下角定制部分#}
+		#adver {
+				position: absolute;
+				right: 50px;
+				bottom: 10px;
+				z-index: 2;
+			}
+			
+		.num01 {
+				width: 300px;
+				background-color: white;
+				height: 320px;
+				font-size: 14px;
+				line-height: 40px;
+				border: 1px dodgerblue solid;
+				padding: 15px;
+				margin: 0px;
+			}
+			
+		.num01 form input {
+				width: 180px;
+				height: 25px;
+			}
+			
+		.num01 .submit {
+				color: #FFF;
+				font-size: 14px;
+				background: #e83227;
+				border: 0px;
+				height: 40px;
+				margin-left: 50px;
+				margin-top: 10px;
+				cursor: pointer;
+			}
+    </style> 
+
+	<script type="text/javascript">
+			var adverTop; //层距页面顶端距离
+			var adverLeft;
+			var adverObject; //层对象
+
+			window.onload = function() {
+				//alert(Number.isNaN(123));
+				adverObject = document.getElementById("adver"); //获得层对象
+				if(adverObject.currentStyle) {
+					adverTop = parseInt(adverObject.currentStyle.top);
+					adverLeft = parseInt(adverObject.currentStyle.left);
+				} else {
+					adverTop = parseInt(getComputedStyle(adverObject, null).top);
+					adverLeft = parseInt(getComputedStyle(adverObject, null).left);
+				}
+			};
+			window.onscroll = function() {
+				adverObject.style.top = adverTop + document.documentElement.scrollTop + document.body.scrollTop + "px";
+				adverObject.style.left = adverLeft + document.documentElement.scrollLeft + document.body.scrollLeft + "px";
+				//alert(adverObject.style.top);
+				//alert(adverObject.style.left);
+			};
+		</script>
    <div class="container">
+   		
    		<header class="row">
 			<div class="col-md-3"><img src="assets/img/index/tongyanglogo.jpg" /></div>
 			<div class="col-md-offset-4 down-10">
@@ -194,9 +252,8 @@
 						<i class="glyphicon glyphicon-list-alt"><a href="#A1">文章资讯</a></i>
 						<i class="glyphicon glyphicon-gift">学校分类</i>
 					</div>
-					<div class="col-md-offset-2"><img src="assets/img/index/customer-course.jpg" />定制课程</div>
+					<div class="col-md-offset-2"><img src="assets/img/index/customer-course.jpg" /><a href="#adver">定制课程</a></div>
 			</div>
-				
 				<div id="course-adv" class="row  down-10 dropdown">
 					<div class="col-md-12">
 					<div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -733,7 +790,21 @@
 					</div>
 				</article>
 			</div>
-   </div>
+			{#定制课程部分#}
+			<div id="adver" class="col-xs-2">
+				<div class="num01">
+				<form action="{{ path('person_customized') }}" method="post">
+					<h2>定制课程</h2>
+					<label for="one">想学什么</label>&nbsp;<input type="text" name="student[courseName]" id="one" placeholder="请输入您想学的专业" required="required"/><br /> 
+					<label for="two">所在城市</label>&nbsp;<input type="text" name="student[cityName]" id="two" placeholder="请输入您所在的城市" required="required" /><br />
+					<label for="three">手机号码</label>&nbsp;<input type="text" name="student[phone]" id="three" placeholder="请输入您的手机号码" required="required" pattern="/^[1][3][0-9]{9}$/" /><br /> 
+					<label for="four">您的姓名</label>&nbsp;<input type="text" name="student[userName]" id="four" placeholder="请输入您的姓名" required="required"/><br />
+					<input type="hidden" name="_csrf_token" value="{{ csrf_token('site') }}">
+					<input type="submit" value="提交定制" class="submit" />
+				</form>
+				</div>
+			</div>
+   		</div>
    {% for config in themeConfig.blocks.left|default([]) %}
       {% set code = config.code %}
       {% set category = config.categoryId|default(0) ? data('Category', {categoryId: config.categoryId})  : null %}

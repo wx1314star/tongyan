@@ -65,6 +65,7 @@ class StudentsDaoImpl extends BaseDao implements StudentsDao
 
     public function deleteStudent($id, $student)
     {
+        //$this->clearCached();
         $affected = $this->getConnection()->delete($this->table, $student, array('id' => $id));
         $this->clearCached();
 

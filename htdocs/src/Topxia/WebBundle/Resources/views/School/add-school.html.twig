@@ -29,7 +29,7 @@
     <label class="col-md-2 control-label">{{'中文名称'|trans}}</label>
     <div class="col-md-7 controls radios">
         <input type="text" id="schools_chineseName" name="schools[chineseName]" class="form-control" data-widget-cid="widget-1" data-explain=""
-            value="{{ schools.chineseName|default('') }}" /><span>{{'*学校或培训机构中文名称(必填项)'|trans}}</span>
+            value="{{ schools.chineseName|default('') }}" required="required" /><span>{{'*学校或培训机构中文名称(必填项)'|trans}}</span>
         <div class="help-block" style="display:none;"></div>
 </div>
 </div>
@@ -59,7 +59,7 @@
     <label class="col-md-2 control-label">{{'类别'|trans}}</label>
     <div class="col-md-7 controls">
         <input type="text" id="schools_type" name="schools[type]" class="form-control" value="{{ schools.type|default('') }}" />
-        <span>{{'*学校或培训机构类别(选填项)'|trans}}</span>
+        <span>{{'vn 学校或培训机构类别(选填项)'|trans}}</span>
         <div class="help-block" style="display:none;"></div>
 </div>
 </div>
