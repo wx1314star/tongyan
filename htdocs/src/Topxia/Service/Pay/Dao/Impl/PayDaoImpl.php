@@ -14,7 +14,7 @@ class PayDaoImpl extends BaseDao implements PayDao
         $em = $this->getConnection();
         $em->beginTransaction();
         try{
-            $pay['payID'] = time().mt_rand(10000,99999);
+            
             $affected = $em->insertNew($this->table, $pay);
             //$this->clearCached();
             $newPay = $em->lastInsertId();
@@ -32,7 +32,7 @@ class PayDaoImpl extends BaseDao implements PayDao
         }
        
 
-        //return $this->getPay($this->getConnection()->lastInsertId());
+        return $this->getPay($this->getConnection()->lastInsertId());
 
     }
 

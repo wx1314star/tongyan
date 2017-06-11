@@ -1,0 +1,185 @@
+{% extends 'TopxiaWebBundle:User:layout.html.twig' %}
+{% block title %}{{'报名信息'|default('')}}{% endblock %}
+{% block main %}
+  
+    <div class="recommend-class-list row">
+      <style type="text/css">
+			body {
+				/*width: 1000px;*/
+				font-size: 14px;
+				position: relative;
+			}
+			a{
+				color: #000;
+				text-decoration: none;
+			}
+			a:hover .num3{
+				display: block;
+                color: #e50011;
+			}
+			.num3{
+				width: 300px;
+				background: #FBFBFB;
+				border: 1px #999 solid;
+				display: none;
+				position: absolute;
+				top: 300px;
+				right: 300px;
+			}
+			.num3 table tr td{border: 0px;}
+			.title {
+				color: #e50011;
+				border-bottom: 2px #e50011 solid;
+			}
+			
+			.input {
+				width: 220px;
+				height: 25px;
+			}
+			
+			.submit {
+				color: #666;
+				width: 60px;
+				height: 30px;
+				cursor: pointer;
+			}
+			{#.num1{
+				width: 100px;
+				height: 25px;
+				background: #FFF3EF;
+				border: 1px #Fed9dE solid;
+			}#}
+			{#.num2{
+				width: 100px;
+				height: 25px;
+				background: #F5F5F5;
+				border: 1px #e6e6e5 solid;
+			}#}
+			.pad td{
+				border: 1px #999 solid;
+				padding: 10px;
+				vertical-align: top;
+			}
+			tr{height: 30px;}
+			span{
+				color: #999;
+			}
+			img{vertical-align: top;}
+		</style>
+		{% if signUps %}
+		{% for signUp in signUps %}
+        <table border="0" width="900px">
+			<form action="" method="post">
+				<tr>
+					<td><span class="title">报名信息</span></td>
+					<td width="100px"></td>
+					<td align="right" colspan="3"><input type="text" class="input" placeholder="请输入订单号" required="required"/><input type="submit" value="查询" class="submit" /></td>
+				</tr>
+            </form>
+            <form action="" method="post">
+				<tr style="color: #666666;background: #F5F5F5;height: 30px;">
+					<td width="400px" align="center">课程详细</td>
+					<td>学生姓名</td>
+					<td>报名凭证</td>
+					<td>全部状态</td>
+					<td>操作</td>
+				</tr>
+				<tr style="height: 10px;"></tr>
+				<tr>
+					<td colspan="5" bgcolor="#F5F5F5" style="border: 1px #999 solid;">
+						<table border="0" width="100%">
+							<tr>
+								<td width="200px"><span>{{ signUp.signUpTime|date('Y-n-d H:i:s') }}</span></td>
+								<td width="250px"><span>订单号：</span>{{ signUp.orderNum|default('000') }}</td>
+							</tr>
+							<tr>
+								<td>支付方式： 	{% if signUp.payment == 1 %}
+          										{{ '线下缴费'|default('') }}
+      											{% elseif signUp.payment == 2 %}
+          										{{ '线上全额缴费'|default('') }}
+												{% elseif signUp.payment == 3 %}
+												{{ '预交部分定金'|default('') }}
+      											{% endif %}
+								</td>
+								<td>报名费总额：￥{{ signUp.courseCost|default(0.00) }}</td>
+								<td width="200px">已缴纳费用：￥{{ signUp.paidInCost|default(0.00) }}</td>
+								<td>还需缴纳费用:￥{{ signUp.backFee|default(0.00) }}</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr class="pad">
+					<td style="color: #e50011;">
+						<img src="" width="65" height="65"/>{{ signUp.course_name|default('') }}
+					</td>
+					<td>
+						{{ signUp.student_name|default('') }}
+					</td>
+					<td>
+						{{ signUp.sign_num|default('') }}
+					</td>
+					<td>
+						<span>已报名</span><br />
+						<a href="">报名信息<div class="num3">
+							<h3 style="border-bottom: 1px #999999 solid;padding-left: 30px;">报名信息</h4>
+							<table border="0" >
+								<tr>
+									<td style="color: #666;text-align: right;">学生姓名：</td>
+									<td>{{ student.name|default('') }}</td>
+								</tr>
+								<tr>
+									<td style="color: #666;text-align: right;">身份证：</td>
+									<td>{{ student.IDcards|default('') }}</td>
+								</tr>
+								<tr>
+									<td style="color: #666;text-align: right;">联系方式：</td>
+									<td>{{ student.phone|default('') }}</td>
+								</tr>
+								<tr>
+									<td style="color: #666;text-align: right;">性别：</td>
+									<td>{% if student.sex == 1 %}{{ '男'|default('') }}{% else %}{{ '女'|default('') }}{% endif %}</td>
+								</tr>
+								<tr>
+									<td style="color: #666;text-align: right;">民族：</td>
+									<td>{{ student.nation|default('') }}</td>
+								</tr>
+								<tr>
+									<td style="color: #666;text-align: right;">毕业院校：</td>
+									<td>{{ student.graduateSchool|default('') }}</td>
+								</tr>
+								<tr>
+									<td style="color: #666;text-align: right;">所属学校：</td>
+									<td>{{ schoolName|default('') }}</td>
+								</tr>
+								<tr>
+									<td style="color: #666;text-align: right;">所报课程：</td>
+									<td>{{ courseName|default('') }}</td>
+								</tr>
+							</table>
+						</div></a>
+						
+					</td>
+					<td style="line-height: 30px;">
+						<a href="#modal" data-toggle="modal" data-url="{{ path('drop_out', {id:user.id}) }}" class="btn btn-default btn-sm" >退学申请</a><br />
+						<a href="#modal" data-toggle="modal" data-url="{{ path('for_school', {id:user.id}) }}" class="btn btn-default btn-sm" >换校申请</a>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="6" align="right">
+						<input type="button" value="上一页"/>
+						1
+						<input type="button" value="下一页"/>
+						共1页 到第<input type="text" size="3" />页
+						<input type="submit" value="确定" />
+					</td>
+				</tr>
+			</form>
+		</table>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="empty">{{'没有找到相关的报名信息'|default('')}}</div>
+  {% endif %}
+
+  {#{{ web_macro.paginator(paginator) }}#}
+{% endblock %}

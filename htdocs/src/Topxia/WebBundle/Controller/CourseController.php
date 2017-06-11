@@ -977,4 +977,6 @@ class CourseController extends CourseBaseController
         return $this->getServiceKernel()->createService('Schools.SchoolsService');
     }
 
+    
+
 }

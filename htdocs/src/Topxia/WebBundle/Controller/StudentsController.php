@@ -32,28 +32,37 @@ class StudentsController extends BaseController
                 //     }
                 // }
                 //$birthday = date("Y-m-d", $student['birthday']);
+                /*身份验证接口，填身份证号码和真实姓名*/
+                //$status = AuthenticationToolkit::auth('xxxxxxxxxxxx','xx');
+                /*短信接口,填写电话号码和内容*/
+                 $randNum = ''.mt_rand(100000,999999);
+                //$status = SmsToolkit::sendSMS('xxxxxxxxxxx','您已报名成功,请牢记验证报名凭证号'.$randNum);
+                 $student['userId'] = $user['id'];
+                 $student['reportedSchool'] = $student['school_id'];
+                 $newStudent = $this->getStudentsService()->addStudent($student['school_id'], $student);
+                 $school = $this->getSchoolsService()->getSchool($$student['school_id']);
+                 $course = $this->getCourseService()->getCourse($student['reportedCourse']);
 
-                // $newStudent = $this->getStudentsService()->addStudent($student['school_id'], $student);
-                // $course = $this->getCourseService()->getCourse($student['reportedCourse']);
-                
-
-                // $pay = array(
-                //     'student_id'  => $newStudent['id'],
-                //     'course_id'   => $course['id'],
-                //     'studentName' => $student['name'],
-                //     'courseCost'  => $course['price'],
-                //     'payment'     => $payment,
-                //     'createDate'  => time()
-                // );
+                 $orderNum = time().mt_rand(10000,99999);
+                 $signUp = array(
+                    'student_id'   => $newStudent['id'],
+                    'student_name' => $student['name'],
+                    'sign_num'     => $randNum, 
+                    'status'       => 0,
+                    'school_id'    => $student['school_id'],
+                    'school_name'  => $school['chineseName'],
+                    'course_id'    => $course['id'],
+                    'course_name'  => $course['title'],
+                    'course_img'   => $course['middlePicture'],
+                    'courseCost'   => $course['price'],
+                    'payment'      => $payment,
+                    'orderNum'     => $orderNum,
+                    'createTime'   => time(),
+                    'signUpTime'   => time()
+                 );
+                //  添加学生报名信息表纪录
+                $newSignUp = $this->getSignUpService()->addSignUp($signUp);
             
-                // $pay_log = array(
-                //     'student_id'  => $newStudent['id'],
-                //     'school_id'   => $student['school_id'],
-                //     'user_id'     => $user['id'],
-                //     'createDate'  => time()
-                // );
-                // $this->getPayService()->addPay($pay, $pay_log);
-
                 // 释放
                 // $em->flush();
                 // 提交
@@ -79,11 +88,11 @@ class StudentsController extends BaseController
                     return $this->redirect($this->generateUrl('homepage'));
                 break;  
                 case 2:
-                    return $this->redirect($this->generateUrl('student_pay', array('id' => $newStudent['id'])));
+                    return $this->redirect($this->generateUrl('student_pay', array('id' => $newSignUp['id'])));
                     // return $this->redirect($this->generateUrl('student_pay', array('id' => 25)));
                 break;
                 case 3:
-                    return $this->redirect($this->generateUrl('student_pay', array('id' => $newStudent['id'])));
+                    return $this->redirect($this->generateUrl('student_pay', array('id' => $newSignUp['id'])));
                 break;
                 default:
                     return $this->redirect($this->generateUrl('homepage'));
@@ -102,7 +111,7 @@ class StudentsController extends BaseController
              //  跳转到个人用户
              if($student != null)
              {
-                
+                return $this->redirect($this->generateUrl('user_show', array('id' => $user['id'])));
              }
              /*查询招生老师*/
             //  $teacher = $this->getUserService()->findUserBySchoolId($id);
@@ -150,25 +159,48 @@ class StudentsController extends BaseController
 
     public function studentPayAction(Request $request, $id)
     {
+        $user = $this->getCurrentUser();
         if ($request->getMethod() == 'POST') {
-             return $this->redirect($this->generateUrl('student_pay_suc', array('id' => $id)));
+            return $this->redirect($this->generateUrl('student_pay_suc', array('id' => $id)));
         }
-        $pay = $this->getPayService()->getPay($id);
-        return $this->render('TopxiaWebBundle:Student:winxin_payList.html.twig', array(
-                'pay' => $pay
-                ));
+            $signUp = $this->getSignUpService()->getSignUp($id);
+            // 添加订单部分
+            $pay = array(
+                    'student_id'  => $signUp['student_id'],
+                    'course_id'   => $signUp['course_id'],
+                    'studentName' => $signUp['student_name'],
+                    'courseCost'  => $signUp['courseCost'],
+                    'payment'     => $signUp['payment'],
+                    'orderNum'    => $signUp['orderNum'],
+                    'createDate'  => time()
+                    );
+            
+            $pay_log = array(
+                    'student_id'  => $signUp['student_id'],
+                    'school_id'   => $signUp['school_id'],
+                    'user_id'     => $user['id'],
+                    'createDate'  => time()
+                    );
+            $newPay = $this->getPayService()->addPay($pay, $pay_log);
+            $signUp['status'] = 1;
+            $signUps = $this->getSignUpService()->updateSignUp($signUp);
+            //$pay = $this->getPayService()->getPay($id);
+            return $this->render('TopxiaWebBundle:Student:winxin_payList.html.twig', array(
+                    'pay' => $newPay
+                    ));
         
     }
 
     public function studentPaySucAction(Request $request, $id)
     {
         $pay = $this->getPayService()->getPay($id);
-        $url1 = WeiXinToolkit::initial();
+        // 微信支付部分
+        //$url1 = WeiXinToolkit::initial();
         //$url2 = QrcodeToolkit::init($url1);
         //$host = $_SERVER['REMOTE_ADDR'];
         return $this->render('TopxiaWebBundle:Student:winxin_paySuc.html.twig', array(
-                'pay'   => $pay,
-                'url1' => $url1
+                'pay'   => $pay
+                // 'url1' => $url1
                 //'url2' => QrcodeToolkit::init($url1)
                 //'host' => $host
                 ));
@@ -227,6 +259,11 @@ class StudentsController extends BaseController
     protected function getPayService()
     {
         return $this->getServiceKernel()->createService('Pay.PayService');
+    }
+
+    protected function getSignUpService()
+    {
+        return $this->getServiceKernel()->createService('SignUp.SignUpService');
     }
 
 }

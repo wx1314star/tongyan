@@ -634,16 +634,34 @@ class UserController extends BaseController
     // 个人中心退学
     public function dropOutAction(Request $request, $id)
     {
-        $student = $this->getStudentsService()->getStudentByUserId($id);
-        $pay = $this->getPayService()->getPayByStuId($student['id']);
         $message = "";
-        if($pay != null && $pay['status'] != 1)
-        {
+        if ($request->getMethod() == 'POST') {
+            //$message = "";
             $message = "您的退学申请已经提交，请耐心等待后台管理员审核，审核通过之后会通过短信通知您,请保持您的电话畅通";
-            $student['flag'] = 1;
-            $this->getStudentsService()->updateStudent($id, $student);
+           
+            //$this->getStudentsService()->updateStudent($id, $student);
             /*短信接口,填写电话号码和内容*/
             //$status = SmsToolkit::sendSMS('xxxxxxxxxxx','您已报名成功');
+            return $this->render('TopxiaWebBundle:User:drop_out.html.twig', array(
+            'message'   => $message
+            ));
+        }
+
+        $user = $this->getCurrentUser();
+        $student = $this->getStudentsService()->getStudentByUserId($id);
+        $signUp = $this->getSignUpService()->getSignUpByStuId($student['id']);
+        //$pay = $this->getPayService()->getPayByStuId($student['id']);
+        
+        if($signUp != null && $signUp['status'] != 1)
+        {
+            // $message = "您的退学申请已经提交，请耐心等待后台管理员审核，审核通过之后会通过短信通知您,请保持您的电话畅通";
+            // $student['flag'] = 1;
+            // $this->getStudentsService()->updateStudent($id, $student);
+            /*短信接口,填写电话号码和内容*/
+            //$status = SmsToolkit::sendSMS('xxxxxxxxxxx','您已报名成功');
+            return $this->render('TopxiaWebBundle:User:drop_out_form.html.twig', array(
+                'user' => $user
+            ));
         }
         else
         {
@@ -655,19 +673,38 @@ class UserController extends BaseController
         ));
     }
 
+
+
     // 个人中心换校
     public function forSchoolAction(Request $request, $id)
     {
-        $student = $this->getStudentsService()->getStudentByUserId($id);
-        $pay = $this->getPayService()->getPayByStuId($student['id']);
-        $message = "";
-        if($pay != null && $pay['status'] != 2)
-        {
+       $message = "";
+        if ($request->getMethod() == 'POST') {
+            //$message = "";
             $message = "您的换校申请已经提交，请耐心等待后台管理员审核，审核通过之后会通过短信通知您,请保持您的电话畅通";
-            $student['flag'] = 2;
-            $this->getStudentsService()->updateStudent($student['id'], $student);
+           
+            //$this->getStudentsService()->updateStudent($id, $student);
             /*短信接口,填写电话号码和内容*/
             //$status = SmsToolkit::sendSMS('xxxxxxxxxxx','您已报名成功');
+            return $this->render('TopxiaWebBundle:User:for_school.html.twig', array(
+            'message'   => $message
+            ));
+        }
+
+        $user = $this->getCurrentUser();
+        $student = $this->getStudentsService()->getStudentByUserId($id);
+        $signUp = $this->getSignUpService()->getSignUpByStuId($student['id']);
+
+        if($signUp != null && $signUp['status'] != 1)
+        {
+            // $message = "您的退学申请已经提交，请耐心等待后台管理员审核，审核通过之后会通过短信通知您,请保持您的电话畅通";
+            // $student['flag'] = 1;
+            // $this->getStudentsService()->updateStudent($id, $student);
+            /*短信接口,填写电话号码和内容*/
+            //$status = SmsToolkit::sendSMS('xxxxxxxxxxx','您已报名成功');
+            return $this->render('TopxiaWebBundle:User:for_school_form.html.twig', array(
+                'user' => $user
+            ));
         }
         else
         {
@@ -676,6 +713,34 @@ class UserController extends BaseController
 
         return $this->render('TopxiaWebBundle:User:for_school.html.twig', array(
             'message'   => $message
+        ));
+    }
+
+    // 个人中心报名信息
+    public function signUpAction(Request $request, $id)
+    {
+        //$user     = $this->getCurrentUser();
+        $user                 = $this->tryGetUser($id);
+        $userProfile          = $this->getUserService()->getUserProfile($user['id']);
+        $userProfile['about'] = strip_tags($userProfile['about'], '');
+        $userProfile['about'] = preg_replace("/ /", "", $userProfile['about']);
+        //$newUser  = $this->array_no_empty($user);
+        //$newUserP = $this->array_no_empty($userProfile);
+        $user                 = array_merge($user, $userProfile);
+        $student  = $this->getStudentsService()->getStudentByUserId($id);
+        $school = $this->getSchoolsService()->getSchool($student['reportedSchool']);
+        $schoolName = $school['chineseName'];
+        $course = $this->getCourseService()->getCourse($student['reportedCourse']);
+        $courseName = $course['title'];
+        $signUp   = $this->getSignUpService()->findAll($student['id']);
+
+
+        return $this->render('TopxiaWebBundle:User:sign_up_info.html.twig', array(
+            'signUps'   => $signUp,
+            'user'      => $user,
+            'student'   => $student,
+            'schoolName'=> $schoolName,
+            'courseName'=> $courseName
         ));
     }
 
@@ -737,5 +802,25 @@ class UserController extends BaseController
     {
         return $this->getServiceKernel()->createService('Pay.PayService');
     }
+
+    protected function getSignUpService()
+    {
+        return $this->getServiceKernel()->createService('SignUp.SignUpService');
+    }
+
+    function array_no_empty($arr) {  
+        if (is_array($arr)) {  
+            foreach ( $arr as $k => $v ) {  
+                if (empty($v) && $v !==‘0’) unset($arr[$k]);  
+                elseif (is_array($v)) {  
+                    $t = array_no_empty($v);  
+                if($t) $arr[$k] = $t;  
+                else unset($arr[$k]);  
+                }  
+            }  
+        }  
+    return $arr;  
+  
+    }  
 
 }

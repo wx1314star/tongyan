@@ -46,7 +46,7 @@
 		</div>
 		<div class="container order border border-gray-white text-default">
 			<div class="order-info bg-gray-white padding-small-top padding-small-bottom padding-large-left padding-large-right border-bottom">
-				<p>订单提交成功，请您尽快付款！ <span class="text-sub">订单号：{{ pay.payID|default('') }}</span></p>
+				<p>订单提交成功，请您尽快付款！ <span class="text-sub">订单号：{{ pay.orderNum|default('') }}</span></p>
 				<p>应付订单总额：<span class="text-mix">￥{{ pay.courseCost|default('') }}</span></p>
 				<p class="text-sub">请使用以下支付方式尽快完成付款</p>
 			</div>

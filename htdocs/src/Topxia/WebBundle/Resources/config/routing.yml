@@ -73,6 +73,10 @@ person_customized:
     pattern: /person/customized
     defaults: { _controller: TopxiaWebBundle:Default:customization }
 
+sign_up_stu:
+    pattern: /sign_up/student/{id}
+    defaults: { _controller: TopxiaWebBundle:User:signUp }
+
 # 登录部分
 
 login_background:

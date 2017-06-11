@@ -1,0 +1,27 @@
+{% extends 'TopxiaWebBundle::bootstrap-modal-layout.html.twig' %}
+
+{% block title %}{{'学生换校'|trans}}{% endblock %}
+
+{% block body %}
+        <style type="text/css">
+            form{
+	            line-height: 33px;
+                }
+        </style>
+        <form id="drop-form" role="form" class="form-horizontal" method="post" action="{{ url('for_school', {id:user.id}) }}">
+			<p>学生姓名：<input type="text" required="required" /></p>
+			<p>联系方式：<input type="text" required="required" /></p>
+			<p>&nbsp;&nbsp;&nbsp;&nbsp;原学校：<input type="text"  required="required" /></p>
+			<p>&nbsp;&nbsp;&nbsp;&nbsp;原课程：<input type="text"  required="required" /></p>
+			<p>所换学校：<input type="text"  required="required" /></p>
+			<p>所换课程：<input type="text"  required="required" /></p>
+			<p>换校缘由：<textarea rows="3" cols="25" required="required"></textarea></p>
+			<p>附件上传：</p>
+			<p><input type="submit" value="提交"> <input type="reset" value="取消"></p>
+		</form>
+
+{% endblock %}
+
+{% block footer %}
+  <button type="button" class="btn btn-primary" data-dismiss="modal">{{ '关闭'|trans }}</button>
+{% endblock %}

@@ -70,7 +70,8 @@
         <label class="col-md-2 control-label">{{'生日'|trans}}</label>
         <div class="col-md-7 controls">
             <input type="text" id="datetimepicker" name="student[birthday]" class="date" value="{{ userProfile.birthday is empty ? "
-                " : userProfile.birthday|date("Y-m-d ") }}" data-date-format="yyyy-mm-dd" /> {{ '格式为yyyy-mm-dd' }}
+                " : userProfile.birthday|date("Y-m-d ") }}" data-date-format="yyyy-mm-dd" 
+                pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" /> {{ '格式为yyyy-mm-dd' }}
             <div class="help-block" style="display:none;"></div>
         </div>
     </div>
@@ -100,7 +101,7 @@
         <label class="col-md-2 control-label">{{'联系方式'|trans}}</label>
         <div class="col-md-7 controls">
             <input type="text" id="student_phone" name="student[phone]" class="form-control" value="{{ userProfile.mobile|default('') }}"
-            required="required" pattern="/^[1][3][0-9]{9}$/" />
+            required="required" pattern="(\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$" />
             <div class="help-block" style="display:none;"></div>
         </div>
     </div>
@@ -110,7 +111,7 @@
         <label class="col-md-2 control-label">{{'身份证号码'|trans}}</label>
         <div class="col-md-7 controls">
             <input type="text" id="student_IDcards" name="student[IDcards]" class="form-control" value="{{ userProfile.idcard|default('') }}"
-            required="required" pattern="/^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/"/>
+            required="required" />
             <div class="help-block" style="display:none;"></div>
         </div>
     </div>
@@ -298,7 +299,8 @@
         <label class="col-md-2 control-label">{{'生日'|trans}}</label>
         <div class="col-md-7 controls">
             <input type="text" id="datetimepicker" name="student[birthday]" class="date" value="{{ userProfile.birthday is empty ? "
-                " : userProfile.birthday|date("Y-m-d ") }}" data-date-format="yyyy-mm-dd" /> {{ '格式为yyyy-mm-dd' }}
+                " : userProfile.birthday|date("Y-m-d ") }}" data-date-format="yyyy-mm-dd" 
+                pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" /> {{ '格式为yyyy-mm-dd' }}
             <div class="help-block" style="display:none;"></div>
         </div>
     </div>
@@ -328,7 +330,7 @@
         <label class="col-md-2 control-label">{{'联系方式'|trans}}</label>
         <div class="col-md-7 controls">
             <input type="text" id="student_phone" name="student[phone]" class="form-control" value="{{ userProfile.mobile|default('') }}"
-            required="required" pattern="/^[1][3][0-9]{9}$/" />
+            required="required" pattern="(\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$" />
             <div class="help-block" style="display:none;"></div>
         </div>
     </div>
@@ -338,7 +340,7 @@
         <label class="col-md-2 control-label">{{'身份证号码'|trans}}</label>
         <div class="col-md-7 controls">
             <input type="text" id="student_IDcards" name="student[IDcards]" class="form-control" value="{{ userProfile.idcard|default('') }}"
-            required="required" pattern="/^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/"/>
+            required="required" />
             <div class="help-block" style="display:none;"></div>
         </div>
     </div>

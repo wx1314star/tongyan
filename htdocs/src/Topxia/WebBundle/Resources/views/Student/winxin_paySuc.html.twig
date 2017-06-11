@@ -14,7 +14,7 @@
 	</div>
 	<div class="container order border border-gray-white text-default">
 		<div class="order-info bg-gray-white padding-small-top padding-small-bottom padding-large-left padding-large-right border-bottom">
-			<p>订单提交成功，请您尽快付款！ <span class="text-sub">订单交易号：{{ pay.payID|default('') }}</span></p>
+			<p>订单提交成功，请您尽快付款！ <span class="text-sub">订单交易号：{{ pay.orderNum|default('') }}</span></p>
 			<p>应付订单总额：<span class="text-mix">￥{{ pay.courseCost|default('') }}</span></p>
 			<p class="text-sub">您选择了微信扫码付款，请使用微信扫一扫功能扫码下方二维码完成付款</p>
 		</div>
@@ -43,7 +43,7 @@ var gateway = "{{url1}}";
 	setInterval("checkStatus()",3000);
 
 function checkStatus(){
-	$.getJSON('url("pay/index/ajax_check")?>',{order_sn:'{{ pay.payID|default('') }}'},function(ret){
+	$.getJSON('url("pay/index/ajax_check")?>',{order_sn:'{{ pay.orderNum|default('') }}'},function(ret){
 		if(ret.status==1){
 			location.href = '{$gateway[url_forward]}';
 		}
