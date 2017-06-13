@@ -34,13 +34,20 @@ class DefaultController extends BaseController
         $citys = $this->getCityService()->findCityBySchoolIdOrSchoolAll(null);
 
         //获得默认初中生课程方法(学历文凭)
-        $PCcourses = $this->getCourseService()->findCoursesByPopulationClassify(0);
+        // $PCcourses = $this->getCourseService()->findCoursesByPopulationClassify(0);
         //获得课程方法
-        $VScourses = $this->getCourseService()->findCoursesByPopulationClassify(1);
-        //获得课程方法
-        $SAcourses = $this->getCourseService()->findCoursesByPopulationClassify(2);
-        //获得课程方法
-        $Tucourses = $this->getCourseService()->findCoursesByPopulationClassify(3);
+        // $VScourses = $this->getCourseService()->findCoursesByPopulationClassify(1);
+        // //获得课程方法
+        // $SAcourses = $this->getCourseService()->findCoursesByPopulationClassify(2);
+        // //获得课程方法
+        // $Tucourses = $this->getCourseService()->findCoursesByPopulationClassify(3);
+
+        // 根据课程分类获得下半部分课程代码
+        $PCcourses = $this->getCourseService()->findCoursesBylevelId(1);
+        $VScourses = $this->getCourseService()->findCoursesBylevelId(2);
+        $SAcourses = $this->getCourseService()->findCoursesBylevelId(3);
+        $Tucourses = $this->getCourseService()->findCoursesBylevelId(4);
+        $CYcourses = $this->getCourseService()->findCoursesBylevelId(5);
 
         //获得默认推荐根据课程创建时间显示方法
         $DFcourses = $this->getCourseService()->findCoursesByTime();
@@ -95,6 +102,7 @@ class DefaultController extends BaseController
             'list'      => $list,
             'Schools'   => $school,
             'citys'     => $citys,
+            'CYcourses' => $CYcourses,
             'PCcourses' => $PCcourses,
             'DFcourses' => $DFcourses,
             'SCarticle' => $SCarticle,

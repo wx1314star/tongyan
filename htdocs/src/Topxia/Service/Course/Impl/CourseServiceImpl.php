@@ -22,6 +22,11 @@ class CourseServiceImpl extends BaseService implements CourseService
         return $this->getCourseDao()->findCoursesByPopulationClassify($id);
     }
 
+    public function findCoursesBylevelId($id)
+    {
+        return $this->getCourseDao()->findCoursesBylevelId($id);
+    }
+
     public function findCoursesByTime()
     {
         return $this->getCourseDao()->findCoursesByTime();
@@ -486,6 +491,8 @@ class CourseServiceImpl extends BaseService implements CourseService
     {
         $argument = $fields;
         $course   = $this->getCourseDao()->getCourse($id);
+        $populationClassify = $fields['populationClassify'];
+        $level_id = $fields['level_id'];
 
         if (empty($course)) {
             throw $this->createServiceException($this->getKernel()->trans('课程不存在，更新失败！'));
@@ -503,6 +510,9 @@ class CourseServiceImpl extends BaseService implements CourseService
 
         $fields        = $this->fillOrgId($fields);
         $fields        = CourseSerialize::serialize($fields);
+        // 添加更新课程适宜人群和课程分类
+        $fields['populationClassify']  = $populationClassify;
+        $fields['level_id'] = $level_id;
         $updatedCourse = $this->getCourseDao()->updateCourse($id, $fields);
 
         $this->dispatchEvent("course.update", array('argument' => $argument, 'course' => $updatedCourse, 'sourceCourse' => $course));

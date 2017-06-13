@@ -44,39 +44,15 @@ class SchoolsServiceImpl extends BaseService implements SchoolsService
      /*添加学生信息*/
     public function addSchool($id, $fields)
     {
-        //$school = $this->getSchool($id);
 
-        /*$fields = ArrayToolkit::filter($fields, array(
-            'chineseName'       => '',
-            'englishName'       => '',
-            'abbreviation'      => '',
-            'type'              => '',
-            'schoolAddress'     => '',
-            'campusHumanities'  => '',
-      'campusAmorousFeelings'   => ''
-        ));*/
-        $school = array();
-        
-        $school['chineseName']            = empty($fields['chineseName']) ? '' : $fields['chineseName'];
-        $school['englishName']            = empty($fields['englishName']) ? '' : $fields['englishName'];
-        $school['abbreviation']           = empty($fields['abbreviation']) ? '' : $fields['abbreviation'];
-        $school['type']                   = empty($fields['type']) ? '' : $fields['type'];
-        $school['schoolAddress']          = empty($fields['schoolAddress']) ? '' : $fields['schoolAddress'];
-        $school['province_id']            = empty($fields['province_id']) ? 1 : $fields['province_id'];
-        $school['city_id']                = empty($fields['city_id']) ? 1 : $fields['city_id'];
-         $school['status']                = isset($fields['status']) ? $fields['status'] : 1  ;
-        $school['smallPicture']           = empty($fields['smallPicture']) ? '' : $fields['smallPicture'];
-        $school['middlePicture']          = empty($fields['middlePicture']) ? '' : $fields['middlePicture'];
-        $school['largePicture']           = empty($fields['largePicture']) ? '' : $fields['largePicture'];
-
-        $school['createTime']             = time();
+        $fields['createTime'] = time();
         if (!empty($fields['campusHumanities'])) {
-            $school['campusHumanities'] = $this->purifyHtml($fields['campusHumanities']);
+            $fields['campusHumanities'] = $this->purifyHtml($fields['campusHumanities']);
         }
 
         //$school['campusHumanities']       = empty($fields['campusHumanities']) ? '' : $fields['campusHumanities'];
         if (!empty($fields['campusAmorousFeelings'])) {
-            $school['campusAmorousFeelings'] = $this->purifyHtml($fields['campusAmorousFeelings']);
+            $fields['campusAmorousFeelings'] = $this->purifyHtml($fields['campusAmorousFeelings']);
         }
 
         //$school['campusAmorousFeelings']  = empty($fields['campusAmorousFeelings']) ? '' : $fields['campusAmorousFeelings'];
@@ -84,13 +60,11 @@ class SchoolsServiceImpl extends BaseService implements SchoolsService
 
         //$school['createdTime'] = time();
 
-        $schools = $this->getSchoolsDao()->addSchool($school);
+        return $this->getSchoolsDao()->addSchool($fields);
 
         //$this->dispatchEvent('school.add', new ServiceEvent(array('school' => $school, 'fields' => $fields)));
 
         //$this->getDispatcher()->dispatch('school.add', new ServiceEvent($schools));
-
-        return $schools;
     }
 
     public function deleteSchool($id)

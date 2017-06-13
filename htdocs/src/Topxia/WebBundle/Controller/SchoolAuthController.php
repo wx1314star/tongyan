@@ -26,6 +26,10 @@ class SchoolAuthController extends BaseController
                     $school = $this->getSchoolsService()->addSchool(0, $school);
                     $newUser = $this->getUserService()->getUser($user['id']);
                     $newUser['schoolId'] = $school['id'];
+                    $userProfile = $this->getUserService()->getUserProfile($user['id']);
+                    $userProfile['signature'] = "这家伙很懒，什么都没留下";
+                    $userProfile['about'] = "这家伙很懒，什么都没留下";
+                    $profile = $this->getUserService()->updateUserProfile($user['id'], $userProfile);
                     $this->getUserService()->updateUser($newUser['id'], $newUser);
                     //$birthday = date("Y-m-d", $student['birthday']);
           
@@ -33,20 +37,37 @@ class SchoolAuthController extends BaseController
              
                     return $this->redirect($this->generateUrl('schoolAuth_add', array('id' => $school['id'])));
                 }else{
+                    if(null != $userLogin){
+                        $school['userId'] = $userLogin['id'];
+                        $school = $this->getSchoolsService()->addSchool($school['userId'], $school);
+                        $newUser = $this->getUserService()->getUser($userLogin['id']);
+                        $newUser['schoolId'] = $school['id'];
+                        $userProfile = $this->getUserService()->getUserProfile($user['id']);
+                        $userProfile['signature'] = "这家伙很懒，什么都没留下";
+                        $userProfile['about'] = "这家伙很懒，什么都没留下";
+                        $profile = $this->getUserService()->updateUserProfile($user['id'], $userProfile);
+                        $this->getUserService()->updateUser($newUser['id'], $newUser);
+                    //$birthday = date("Y-m-d", $student['birthday']);
+          
+                        $this->setFlashMessage('success', $this->getServiceKernel()->trans('基础信息保存成功。'));
+                        return $this->redirect($this->generateUrl('schoolAuth_add', array('id' => $school['id'])));
+                    }
                     $this->setFlashMessage('error', $this->getServiceKernel()->trans('该用户没有注册，请注册!!'));
                     return $this->redirect($this->generateUrl('register'));
                 }
             }else{
-                 $school['userId'] = $userLogin['id'];
-                 $school = $this->getSchoolsService()->addSchool(0, $school);
-                 $newUser = $this->getUserService()->getUser($userLogin['id']);
-                 $newUser['schoolId'] = $school['id'];
-                 $this->getUserService()->updateUser($newUser['id'], $newUser);
-                //$birthday = date("Y-m-d", $student['birthday']);
+                //  $school['userId'] = $userLogin['id'];
+                //  $school = $this->getSchoolsService()->addSchool(0, $school);
+                //  $newUser = $this->getUserService()->getUser($userLogin['id']);
+                //  $newUser['schoolId'] = $school['id'];
+                //  $this->getUserService()->updateUser($newUser['id'], $newUser);
+                // //$birthday = date("Y-m-d", $student['birthday']);
           
-                 $this->setFlashMessage('success', $this->getServiceKernel()->trans('基础信息保存成功。'));
+                //  $this->setFlashMessage('success', $this->getServiceKernel()->trans('基础信息保存成功。'));
              
-                 return $this->redirect($this->generateUrl('schoolAuth_add', array('id' => $school['id'])));
+                //  return $this->redirect($this->generateUrl('schoolAuth_add', array('id' => $school['id'])));
+                $this->setFlashMessage('error', $this->getServiceKernel()->trans('该用户没有注册，请注册!!'));
+                return $this->redirect($this->generateUrl('register'));
             }
             
         }

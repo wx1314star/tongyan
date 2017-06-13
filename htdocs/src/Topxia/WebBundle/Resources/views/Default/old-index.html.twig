@@ -216,7 +216,6 @@
 							{% if loop.last %}
 								<li><a href="#F3">{{ level.name|default('')}}</a></li>
 							{% endif %}
-
 							{% set preLevel = level %}
 						{% elseif preLevel.level > level.level and preLevel.level - level.level == 1 %}
 							<li><a href="#F1">{{ preLevel.name|default('') }}</a></li>
@@ -741,18 +740,18 @@
 						<blockquote id="F3">才艺专长</blockquote>
 						<div class="course-list">
 						<div class="row">
-						{% for vsCourses in VScourses %}
+						{% for cyCourses in CYcourses %}
 						<div class="col-lg-3 col-md-4 col-xs-6">
 						<div class="course-item">
 							<div class="course-img">
-								<a href="{{ path('course_show', {id:vsCourses.id}) }}" target="_blank">
-									{{ lazy_img(filepath(vsCourses.middlePicture, 'course.png'), 'img-responsive', vsCourses.title) }}
+								<a href="{{ path('course_show', {id:cyCourses.id}) }}" target="_blank">
+									{{ lazy_img(filepath(cyCourses.middlePicture, 'course.png'), 'img-responsive', cyCourses.title) }}
 								</a>
 							</div>
 							<div class="course-info">
 								<div class="title">
-									<a class="link-dark" href="{{ path('course_show', {id:vsCourses.id}) }}" target="_blank">
-										{{ vsCourses.title|default('') }}&nbsp;|&nbsp;{{ vsCourses.chineseName|default('') }}
+									<a class="link-dark" href="{{ path('course_show', {id:cyCourses.id}) }}" target="_blank">
+										{{ cyCourses.title|default('') }}&nbsp;|&nbsp;{{ cyCourses.chineseName|default('') }}
 									</a>
 								</div>
 								<div class="metas clearfix">

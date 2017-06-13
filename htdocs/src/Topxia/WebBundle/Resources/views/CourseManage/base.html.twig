@@ -128,19 +128,60 @@ isCoursePublished: course.status,
         {% endif %}
 
         <div class="form-group">
-          <label class="col-md-2 control-label">{{ '分类'|trans }}</label>
+          <label class="col-md-2 control-label">{{ '课程分类'|trans }}</label>
           <div class="col-md-8 controls">
           <select id="course_level_id" name="level_id" required="required"
                     class="form-control width-input width-input-large">
             {#<select id="course_categoryId" name="categoryId" required="required"
                     class="form-control width-input width-input-large">#}
               {#{{ select_options(category_choices('course'), course.categoryId, '分类'|trans) }}#}
-                      <option value="分类">----分类----</option>
                       {% if datas %}
 											  {% for data in datas %}
 												  <option value="{{data.id}}">{{ data.name|default('') }}</option>
 											  {% endfor %}
+                      {% else %}
+                        <option value="0">----分类----</option>
+                        <option value="1">没找到相关数据</option>
                       {% endif %}
+            </select>
+            <div class="help-block" style="display:none;"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-2 control-label">{{ '适宜人群'|trans }}</label>
+          <div class="col-md-8 controls">
+          <select id="course_populationClassify" name="populationClassify" required="required"
+                    class="form-control width-input width-input-large">
+            {#<select id="course_categoryId" name="categoryId" required="required"
+                    class="form-control width-input width-input-large">#}
+              {#{{ select_options(category_choices('course'), course.categoryId, '分类'|trans) }}#}
+                    {% if course.populationClassify == 0 %}
+                      <option value="{{ course.populationClassify|default('0') }}">{{ '初中生'|default('') }}</option>
+                      <option value="1">{{ '高中生'|default('') }}</option> 
+                      <option value="2">{{ '大学生'|default('') }}</option> 
+                      <option value="3">{{ '职场人员'|default('') }}</option>
+                    {% elseif course.populationClassify == 1 %}
+                      <option value="{{ course.populationClassify|default('1') }}">{{ '高中生'|default('') }}</option>
+                      <option value="0">{{ '初中生'|default('') }}</option> 
+                      <option value="2">{{ '大学生'|default('') }}</option> 
+                      <option value="3">{{ '职场人员'|default('') }}</option>
+                    {% elseif course.populationClassify == 2 %}
+                      <option value="{{ course.populationClassify|default('2') }}">{{ '大学生'|default('') }}</option>
+                      <option value="0">{{ '初中生'|default('') }}</option> 
+                      <option value="1">{{ '高学生'|default('') }}</option> 
+                      <option value="3">{{ '职场人员'|default('') }}</option>
+                    {% elseif course.populationClassify == 3 %}
+                      <option value="{{ course.populationClassify|default('3') }}">{{ '职场人员'|default('') }}</option>
+                      <option value="0">{{ '初中生'|default('') }}</option> 
+                      <option value="1">{{ '高学生'|default('') }}</option> 
+                      <option value="2">{{ '大学生'|default('') }}</option>
+                    {% else %}
+											<option value="0">{{ '初中生'|default('') }}</option>
+                      <option value="1">{{ '高中生'|default('') }}</option> 
+                      <option value="2">{{ '大学生'|default('') }}</option> 
+                      <option value="3">{{ '职场人员'|default('') }}</option>
+                    {% endif %}
             </select>
             <div class="help-block" style="display:none;"></div>
           </div>

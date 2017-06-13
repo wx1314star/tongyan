@@ -40,12 +40,24 @@ class CourseDaoImpl extends BaseDao implements CourseDao
 	
 	/*根据人群分类ID查询课程列表
 	*  (status="published" 表示发布的课程)
-		    */
+	*/
 	public function findCoursesByPopulationClassify($id){
 		$that = $this;
 		
 		return $this->fetchCached("populationClassify:{$id}", $id, function ($id) use ($that) {
 			$sql = "SELECT c.id, c.middlePicture, c.title, s.chineseName, c.subtitle FROM {$that->getTable()} c, {$that->twoTable} s WHERE c.school_id=s.id AND c.status='published' AND populationClassify = ? ORDER BY c.createdTime DESC  LIMIT 4";
+			return $that->getConnection()->fetchAll($sql, array($id)) ?: null;
+		}
+		);
+	}
+
+
+	// 根据课程分类ID查询课程信息
+	public function findCoursesBylevelId($id){
+		$that = $this;
+		
+		return $this->fetchCached("level_id:{$id}", $id, function ($id) use ($that) {
+			$sql = "SELECT c.id, c.middlePicture, c.title, s.chineseName, c.subtitle FROM {$that->getTable()} c, {$that->twoTable} s WHERE c.school_id=s.id AND c.status='published' AND level_id = ? ORDER BY c.createdTime DESC  LIMIT 4";
 			return $that->getConnection()->fetchAll($sql, array($id)) ?: null;
 		}
 		);
