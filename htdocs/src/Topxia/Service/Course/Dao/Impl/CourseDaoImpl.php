@@ -45,7 +45,7 @@ class CourseDaoImpl extends BaseDao implements CourseDao
 		$that = $this;
 		
 		return $this->fetchCached("populationClassify:{$id}", $id, function ($id) use ($that) {
-			$sql = "SELECT c.id, c.middlePicture, c.title, s.chineseName, c.subtitle FROM {$that->getTable()} c, {$that->twoTable} s WHERE c.school_id=s.id AND c.status='published' AND populationClassify = ? ORDER BY c.createdTime DESC  LIMIT 4";
+			$sql = "SELECT c.id, c.middlePicture, c.title, s.chineseName, c.subtitle FROM {$that->getTable()} c, {$that->twoTable} s WHERE c.school_id=s.id AND c.status='published' AND populationClassify = ?  ORDER BY c.createdTime DESC  LIMIT 4";
 			return $that->getConnection()->fetchAll($sql, array($id)) ?: null;
 		}
 		);

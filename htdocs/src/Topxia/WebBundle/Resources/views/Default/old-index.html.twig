@@ -66,7 +66,7 @@
 		#digset-list{
 			border:0px;
 			height:400px;
-			width:300px;
+			width:240px;
 		}
 		.dropdown-menu > li > a{
 			color:#fb081a;
@@ -109,7 +109,285 @@
 				margin-top: 10px;
 				cursor: pointer;
 			}
-    </style> 
+    </style>
+	{#课程分类#}
+	<style type="text/css">
+
+ul,
+ol,
+li {
+	list-style: none;
+}
+
+
+/*Link*/
+
+
+/*.down_00 ,.down_01 ,.down_02 ,.down_03 ,.down_04 ,.down_05 ,.down_06 {background: url(../img/arrow-right.gif) no-repeat;}*/
+
+/*链接虚线*/
+
+
+/*左侧菜单*/
+
+.head_top .main .main_01:hover .meun_down {
+	display: block
+}
+
+.meun_down {
+	width: 190px;
+	height: 420px;
+	left: 0;
+	top: 0;
+	float: left;
+	/*display:none;*/
+	position: absolute;
+	
+}
+
+.meun_down li {
+	width: 200px;
+	height: 59px;
+	padding-left: 60px;
+	line-height: 59px;
+	font-size: 14px;
+	border-bottom: 1px solid #e8e8e8;
+	border-left: 1px solid #e8e8e8;
+	border-right: 1px solid #e8e8e8;
+	color: #6d6d6d;
+}
+
+{#.down_00 {
+	background-color: #fafafa;
+	background-position: -6px -39px;
+}
+
+.down_01 {
+	background-color: #fafafa;
+	background-position: -1px -150px;
+}
+
+.down_02 {
+	background-color: #fafafa;
+	background-position: -1px -262px;
+}
+
+.down_03 {
+	background-color: #fafafa;
+	background-position: -1px -372px;
+}
+
+.down_04 {
+	background-color: #fafafa;
+	background-position: -1px -483px;
+}
+
+.down_05 {
+	background-color: #fafafa;
+	background-position: -1px -593px;
+}
+
+.down_06 {
+	background-color: #fafafa;
+	background-position: -1px -705px;
+}#}
+
+.down_00:hover {
+	background-position: -1px -95px;
+}
+
+.down_01:hover {
+	background-position: -1px -206px;
+}
+
+.down_02:hover {
+	background-position: -1px -318px;
+}
+
+.down_03:hover {
+	background-position: -1px -428px;
+}
+
+.down_04:hover {
+	background-position: -1px -539px;
+}
+
+.down_05:hover {
+	background-position: -1px -649px;
+}
+
+.down_06:hover {
+	background-position: -1px -761px;
+}
+
+.meun_down li a:hover {
+	color: #e83227;
+}
+
+.down_00:hover .down_00_ul {
+	display: block
+}
+
+.down_01:hover .down_01_ul {
+	display: block
+}
+
+.down_02:hover .down_02_ul {
+	display: block
+}
+
+.down_03:hover .down_03_ul {
+	display: block
+}
+
+.down_04:hover .down_04_ul {
+	display: block
+}
+
+.down_05:hover .down_05_ul {
+	display: block
+}
+
+.down_06:hover .down_06_ul {
+	display: block
+}
+
+.down_00_ul,
+.down_01_ul,
+.down_02_ul,
+.down_03_ul,
+.down_04_ul,
+.down_05_ul,
+.down_06_ul {
+	position: absolute;
+	border: 1px solid #dbdbdb;
+	border-left: 0px solid #fff;
+	/*border-left: #fbfbfb 5px solid;*/
+	width: 600px;
+	min-height: 401px;
+	height: auto !important;
+	height: 390px;
+	overflow: visible;
+	display: none;
+	background: #ffffff;
+	-webkit-box-shadow: #666 0px 0px 3px;
+	-moz-box-shadow: #ccc 0px 0px 3px;
+	box-shadow: #ccc 4px 2px 3px;
+	padding-bottom: 17px;
+}
+
+.down_00_ul {
+	margin: -59px 0 0 130px;
+	*margin: -20px 0 0 64px;
+}
+
+.down_01_ul {
+	margin: -119px 0 0 130px;
+	*margin: -80px 0 0 64px;
+}
+
+.down_02_ul {
+	margin: -179px 0 0 130px;
+	*margin: -140px 0 0 98px;
+}
+
+.down_03_ul {
+	margin: -239px 0 0 130px;
+	*margin: -200px 0 0 98px;
+}
+
+.down_04_ul {
+	margin: -299px 0 0 130px;
+	*margin: -260px 0 0 98px;
+}
+
+.down_05_ul {
+	margin: -359px 0 0 130px;
+	*margin: -320px 0 0 98px;
+}
+
+.down_06_ul {
+	margin: -419px 0 0 130px;
+	*margin: -380px 0 0 98px;
+}
+
+.indexmianleft04_a {
+	position: absolute;
+	z-index: 1;
+	left: 100px;
+	border: 0;
+	width: 57px;
+	height: 59px;
+}
+
+.down_ul {
+	width: 550px;
+	height: 49px;
+	margin: 0 20px;
+	line-height: 49px;
+	font-size: 12px;
+	border-bottom: 1px solid #f3f3f3
+}
+
+.down_ul_a {
+	width: 550px;
+	margin: 0 20px;
+	line-height: 30px;
+	font-size: 12px;
+}
+
+.span_s {
+	color: #ccc;
+	margin: 0 10px
+}
+
+.f_lh_a {
+	min-height: 39px;
+	float: left;
+}
+
+.span_font_a {
+	line-height: 30px !important;
+	float: right;
+	margin: -39px 0 0 70px;
+	width: 471px
+}
+
+.span_font_a a {
+	float: left;
+	min-width: 10px;
+	width: auto !important;
+	width: 10px;
+	overflow: visible;
+	white-space: nowrap;
+	margin-left:20px;
+}
+
+.f_lh {
+	min-height: 100px;
+	height: auto !important;
+	height: 100px;
+	overflow: visible;
+	float: left;
+}
+
+.span_font {
+	line-height: 30px !important;
+	float: left;
+	margin: -100px 0 0 70px;
+	width: 471px
+}
+
+.span_font a {
+	float: left;
+	min-width: 70px;
+	width: auto !important;
+	width: 70px;
+	overflow: visible;
+	white-space: nowrap;
+}
+
+	</style>
 
 	<script type="text/javascript">
 			var adverTop; //层距页面顶端距离
@@ -184,68 +462,55 @@
 		</header>
 		<div id="course-digest">
 				<div id="course-menu" class="row ">
-					<div id="course-digest-title" class="col-md-3 background-red">
+				
+				{# 课程分类部分 #}
+				<div id="course-digest-title" class="col-md-3 background-red">
 						
 						<a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">
 							<i class="glyphicon glyphicon-th-large font-color-white  down-10">课程分类</i><span class="caret font-color-white"></span>
 						</a>
 						<ol id="digset-list" class="col-md-6 dropdown-menu multi-level" role="menu" aria-labelledby="dLabel">
-						{% if list %}
-					
-					{% set preLevel = list[0] %}
-					{% for level in list %}
-					{% if loop.index !=1 %}
-						{% if preLevel.level < level.level %}
+				
 
-								<li class="dropdown-submenu">
-								<a  tabindex="-1" href="javascript:;">{{ preLevel.name|default('') }}</a>
-								<ol class="dropdown-menu">
-							{% if loop.last %}
-								{% if level.level - preLevel.level  == 1 %}
-									<li>{{ level.name|default('') }}123</li>	
-									</dl></li>
-								{% elseif level.level - preLevel.level  == 2 %}
-									<li>{{ level.name|default('') }}456</li>
-									</ol></li>
-									</ol></li>
-								{% endif %}
-							{% endif %}
-							{% set preLevel = level %}
-						{% elseif preLevel.level == level.level %}
-							<li><a href="#F2">{{ preLevel.name|default('') }}</a></li>
-							{% if loop.last %}
-								<li><a href="#F3">{{ level.name|default('')}}</a></li>
-							{% endif %}
-							{% set preLevel = level %}
-						{% elseif preLevel.level > level.level and preLevel.level - level.level == 1 %}
-							<li><a href="#F1">{{ preLevel.name|default('') }}</a></li>
-							</ol></li>
-							{% set preLevel = level %}
-						{% elseif preLevel.level > level.level and preLevel.level - level.level == 2 %}
-							<li>{{ preLevel.name|default('') }}543</li>
-							</ol></li>
-							</ol></li>
-							{% set preLevel = level %}
+				
+				<!--下拉分类导航-->
+                <div class="meun_down z222">
+                    <ul>
+                        <li class="down_00"><a href="#" target="_blank">{{ list[0].name|default('') }}</a>
+                            <div class="down_00_ul">
+								<div class="down_ul_a f12 bb1_a pt10 h ov">
+                                    <span class="fl fb600 w80 f_lh_a ">{{ list[0].name|default('') }}</span>
+                                    <span class="span_font_a">
+					{% if list %}
+					{% set preLevel = 1 %}
+					{% for level in list %}
+						{% if level.next !=0 %}
+						{% if level.level == 1 %}
+									</span>                                    
+								</div>							
+							</div>
+                        </li>
+                        <li class="down_0{{ preLevel }}"><a href="#" target="_blank">{{ level.name|default('') }}</a>
+                            <div class="down_00_ul">
+								<div class="down_ul_a f12 bb1_a pt10 h ov">
+                                    <span class="fl fb600 w80 f_lh_a ">{{ level.name|default('') }}</span>
+                                    <span class="span_font_a">
+									{% set preLevel = preLevel+1 %}
+						{% elseif level.level == 2 %}
+                                    <a href="#" target="_blank">{{ level.name|default('') }}</a>&nbsp;&nbsp;&nbsp;&nbsp;
 						{% endif %}
-					{% endif %}
+                                    
+						{% endif %}
 					{% endfor %}
-					</ol>
-					{% else %}
-						<li>学历文凭</li>
-						<li>Education</li>
-						<li>职业技能</li>
-						<li>Vocational Skill</li>
-						<li>出国留学</li>
-						<li>Study Abroad</li>
-						<li>课外辅导</li>
-						<li>Tutorship</li>
-						<li>才艺专长</li>
-						<li>Art Training</li>
-						<li>企业管理</li>
-						<li>Business Managerment</li>
-					</ol>
 					{% endif %}
-					</div>
+                    </ul>
+                </div>
+
+
+
+			</div>
+			</ol>		
+					{# 课程分类结束 #}
 					<div id="course-nav" class="col-md-offset-1">
 						<i class="glyphicon glyphicon-home"><a href="{{ path('homepage') }}">首页</a></i>
 						<i class="glyphicon glyphicon-list-alt"><a href="#A1">文章资讯</a></i>
