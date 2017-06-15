@@ -16,6 +16,36 @@ class DefaultController extends BaseController
     public function indexAction(Request $request)
     {
         $user = $this->getCurrentUser();
+
+        // 首页根据人群课程分类表单提交
+        if ($request->getMethod() == 'POST') {
+            $popupa = $request->request->get('populationClassify');
+            $popu = (int)$popupa;
+            
+            switch($popu){
+                case 0: 
+                    $PCcourses = $this->getCourseService()->findCoursesByPopulationClassify($popu,1);
+                break;
+                case 1:
+                    $VScourses = $this->getCourseService()->findCoursesByPopulationClassify($popu,2);
+                break;
+                case 2:
+                    $SAcourses = $this->getCourseService()->findCoursesByPopulationClassify($popu,3);
+                break;
+                case 3:
+                    $Tucourses = $this->getCourseService()->findCoursesByPopulationClassify($popu,4);
+                break;
+
+            }
+            //$CYcourses = $this->getCourseService()->findCoursesByPopulationClassify(5);
+        }else{
+            // 根据课程分类获得下半部分课程代码
+            $PCcourses = $this->getCourseService()->findCoursesBylevelId(1);
+            $VScourses = $this->getCourseService()->findCoursesBylevelId(2);
+            $SAcourses = $this->getCourseService()->findCoursesBylevelId(3);
+            $Tucourses = $this->getCourseService()->findCoursesBylevelId(4);
+            $CYcourses = $this->getCourseService()->findCoursesBylevelId(5);
+        }
         /*加service*/
         //培训机构
         //$crowd_classification = $this->getCrowdClassificationService()->findAll();
@@ -33,6 +63,9 @@ class DefaultController extends BaseController
 
         $citys = $this->getCityService()->findCityBySchoolIdOrSchoolAll(null);
 
+        //获得默认推荐根据课程创建时间显示方法
+        $DFcourses = $this->getCourseService()->findCoursesByTime();
+
         //获得默认初中生课程方法(学历文凭)
         // $PCcourses = $this->getCourseService()->findCoursesByPopulationClassify(0);
         //获得课程方法
@@ -42,15 +75,7 @@ class DefaultController extends BaseController
         // //获得课程方法
         // $Tucourses = $this->getCourseService()->findCoursesByPopulationClassify(3);
 
-        // 根据课程分类获得下半部分课程代码
-        $PCcourses = $this->getCourseService()->findCoursesBylevelId(1);
-        $VScourses = $this->getCourseService()->findCoursesBylevelId(2);
-        $SAcourses = $this->getCourseService()->findCoursesBylevelId(3);
-        $Tucourses = $this->getCourseService()->findCoursesBylevelId(4);
-        $CYcourses = $this->getCourseService()->findCoursesBylevelId(5);
-
-        //获得默认推荐根据课程创建时间显示方法
-        $DFcourses = $this->getCourseService()->findCoursesByTime();
+       
 
         //首页学校资讯
         $categoryIds = array(1);

@@ -21,6 +21,7 @@
       {{ block_show('jianmo:home_top_banner') }}
     {% endcache %}#}
   <body>
+  	 <script type="text/javascript" src="{{ asset('/../winxin/template/default/statics/js/jquery-1.7.2.min.js')}}"></script>
   	 <style type="text/css">  
         .dropdown-submenu {  
             position: relative;
@@ -476,7 +477,7 @@ li {
 				<!--下拉分类导航-->
                 <div class="meun_down z222">
                     <ul>
-                        <li class="down_00"><a href="#" target="_blank">{{ list[0].name|default('') }}</a>
+                        <li class="down_00"><a href="#F1">{{ list[0].name|default('') }}</a>
                             <div class="down_00_ul">
 								<div class="down_ul_a f12 bb1_a pt10 h ov">
                                     <span class="fl fb600 w80 f_lh_a ">{{ list[0].name|default('') }}</span>
@@ -490,14 +491,14 @@ li {
 								</div>							
 							</div>
                         </li>
-                        <li class="down_0{{ preLevel }}"><a href="#" target="_blank">{{ level.name|default('') }}</a>
+                        <li class="down_0{{ preLevel }}"><a href="#">{{ level.name|default('') }}</a>
                             <div class="down_00_ul">
 								<div class="down_ul_a f12 bb1_a pt10 h ov">
                                     <span class="fl fb600 w80 f_lh_a ">{{ level.name|default('') }}</span>
                                     <span class="span_font_a">
 									{% set preLevel = preLevel+1 %}
 						{% elseif level.level == 2 %}
-                                    <a href="#" target="_blank">{{ level.name|default('') }}</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <a href="#" >{{ level.name|default('') }}</a>&nbsp;&nbsp;&nbsp;&nbsp;
 						{% endif %}
                                     
 						{% endif %}
@@ -782,12 +783,12 @@ li {
 						<em>你来选择</em>
 						<em>Choice</em>
 					</header>
-					<div id="choice-menu" class="col-md-12 flex-box">
-						<div><i class="glyphicon glyphicon-pencil red"></i>初中生</div>
-						<div><i class="glyphicon glyphicon-book red"></i>高中生</div>
-						<div><i class="glyphicon glyphicon-bookmark red"></i>大学生</div>
-						<div><i class="glyphicon glyphicon-tags red"></i>职场人员</div>
-					</div>
+						<div id="choice-menu" class="col-md-12 flex-box">
+							<a href="" onclick="cha(0);"><div><i class="glyphicon glyphicon-pencil red"></i>初中生</div></a>
+							<a href="" onclick="cha(1);"><div><i class="glyphicon glyphicon-book red"></i>高中生</div></a>
+							<a href="" onclick="cha(2);"><div><i class="glyphicon glyphicon-bookmark red"></i>大学生</div></a>
+							<a href="" onclick="cha(3);"><div><i class="glyphicon glyphicon-tags red"></i>职场人员</div></a>
+						</div>
 					<script>
 						var divs=document.querySelectorAll("#choice-menu div");
 						for(var i=0;i<divs.length;i++){
@@ -850,6 +851,7 @@ li {
 						</div>
 						</div>
 					</div>
+
 					<div id="educational-list" class="col-md-12  down-10">
 						
 						<blockquote >职业技能</blockquote>
@@ -1077,7 +1079,12 @@ li {
       {% endif %}
     {% endfor %}
     
-   
+    <script>
+	    var url = "{{ path('homepage') }}";
+		function cha(num){
+			$.post(url, { populationClassify: num} );
+		}
+	</script>
 	{#<script>
     $(document).ready(function() {
         $( '.mysubmenu' ).hover(

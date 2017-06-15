@@ -45,4 +45,9 @@ class LevelServiceImpl extends BaseService implements LevelService
     {
         return $this->getLevelDao()->getTagByLikeName($name);
     }
+
+    public function findAllByLevelId($level)
+    {
+        return $this->getLevelDao()->findAllByLevelId($level);
+    }
 }

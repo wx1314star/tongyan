@@ -14,4 +14,6 @@ interface LevelService
     public function updateLevel($id, $level);
 
     public function getTagByLikeName($name);
+
+    public function findAllByLevelId($level);
 }

@@ -70,4 +70,12 @@ class LevelDaoImpl extends BaseDao implements LevelDao
         
     }
 
+    public function findAllByLevelId($level)
+    {
+        $that = $this;
+        $sql = "SELECT * from {$that->getTable()} where level = ? ";
+        return $this->getConnection()->fetchAll($sql, array($level)) ? : array();
+        
+    }
+
 }

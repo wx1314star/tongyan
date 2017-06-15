@@ -19,7 +19,7 @@ interface CourseService
 
     public function findCoursesBySchoolId($schoolId);
 
-    public function findCoursesByPopulationClassify($id);
+    public function findCoursesByPopulationClassify($id, $level_id);
 
     public function findCoursesBylevelId($id);
 
