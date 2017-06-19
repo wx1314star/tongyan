@@ -35,7 +35,6 @@ class DefaultController extends BaseController
                 case 3:
                     $Tucourses = $this->getCourseService()->findCoursesByPopulationClassify($popu,4);
                 break;
-
             }
             //$CYcourses = $this->getCourseService()->findCoursesByPopulationClassify(5);
         }else{

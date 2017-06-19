@@ -834,6 +834,27 @@ class BackgroundController extends BaseController
             ));
     }
 
+    // 首页缩略图设置页面
+    public function  thumbnailsSetAction(Request $request)
+    {
+
+        $thumbnails = $this->getThumbnailsService()->findAll();
+        if ($request->getMethod() == 'POST') {
+            $weixin = $request->request->get("weixin");
+            $this->getWeiXinService()->updateWeiXin($weixin['id'], $weixin);
+
+            $this->setFlashMessage('success', $this->getServiceKernel()->trans('基础信息更新成功。'));
+             
+            return $this->redirect($this->generateUrl('newadmin_weixinsc'));
+        }
+        //$weixin = $this->getWeiXinService()->findAllWeiXin();
+        return $this->render('TopxiaAdminBundle:Background:school/thumbnails.html.twig', array(
+            'thumbnails' => $thumbnails[0]
+            ));
+    }
+
+
+
     // 微信设置页面
     public function  weiXinSetAction(Request $request)
     {
@@ -873,7 +894,7 @@ class BackgroundController extends BaseController
         //     ));
         // }else{
         //      return $this->render('TopxiaAdminBundle:Background:school/authentication-add.html.twig', array(
-        //         'school_id' => $id,
+        //         'school_id' => $id
         //         // 'user' => $user,
         //         'flag' => $flag
         //         ));
@@ -1419,6 +1440,75 @@ class BackgroundController extends BaseController
         ));
     }
 
+    // 上传首页缩略图跳转页面
+    public function uploadThumAction(Request $request, $type)
+    {
+        $thumbnails = $this->getThumbnailsService()->findAll();
+        $thumbnail = $thumbnails[0];
+        switch((int)$type)
+        {
+            case 1:
+                $thumb = 'one';
+                return $this->render('TopxiaAdminBundle:Background:school/upload_thumbnails_'.$thumb.'.html.twig', array(
+                    'thumbnail' => $thumbnails['onePic']
+                    ));
+            break;
+            case 2:
+                $thumb = 'two';
+                return $this->render('TopxiaAdminBundle:Background:school/upload_thumbnails_'.$thumb.'.html.twig', array(
+                    'thumbnail' => $thumbnails['twoPic']
+                    ));
+            break;
+            case 3:
+                $thumb = 'three';
+                return $this->render('TopxiaAdminBundle:Background:school/upload_thumbnails_'.$thumb.'.html.twig', array(
+                    'thumbnail' => $thumbnails['threePic']
+                    ));
+            break;
+        }
+        
+    }
+
+    // 上传首页缩略图方法 
+    public function uploadThumCropAction(Request $request, $type)
+    {
+        $thumbnails = $this->getThumbnailsService()->findAll();
+        $thumbnail = $thumbnails[0];
+        
+        $fileId = $request->getSession()->get("fileId");
+        list($pictureUrl, $naturalSize, $scaledSize) = $this->getFileService()->getImgFileMetaInfo($fileId, 700, 300);
+        switch((int)$type)
+        {
+            case 1:
+                $thumbnail['onePic'] =  empty($pictureUrl) ? $thumbnail['onePic'] : '/files/'.$pictureUrl ;
+                $this->getThumbnailsService()->updateThumbnails($thumbnail['id'], $thumbnail);
+                return $this->render('TopxiaAdminBundle:Background:school/upload_thumbnails_one_crop.html.twig', array(
+                    'pictureUrl'  => $pictureUrl,
+                    'naturalSize' => $naturalSize,
+                    'scaledSize'  => $scaledSize
+                ));
+            break;
+            case 2:
+                $thumbnail['twoPic'] =  empty($pictureUrl) ? $thumbnail['twoPic'] : '/files/'.$pictureUrl ;
+                $this->getThumbnailsService()->updateThumbnails($thumbnail['id'], $thumbnail);
+                return $this->render('TopxiaAdminBundle:Background:school/upload_thumbnails_two_crop.html.twig', array(
+                    'pictureUrl'  => $pictureUrl,
+                    'naturalSize' => $naturalSize,
+                    'scaledSize'  => $scaledSize
+                ));
+            break;
+            case 3:
+                $thumbnail['threePic'] =  empty($pictureUrl) ? $thumbnail['threePic'] : '/files/'.$pictureUrl ;
+                $this->getThumbnailsService()->updateThumbnails($thumbnail['id'], $thumbnail);
+                return $this->render('TopxiaAdminBundle:Background:school/upload_thumbnails_three_crop.html.twig', array(
+                    'pictureUrl'  => $pictureUrl,
+                    'naturalSize' => $naturalSize,
+                    'scaledSize'  => $scaledSize
+                ));
+            break;
+        }   
+    }
+
     public function deleteAction(Request $request, $id)
     {
         $this->getFileService()->deleteFile($id);
@@ -1549,6 +1639,11 @@ class BackgroundController extends BaseController
     protected function getCustomizedService()
     {
         return $this->getServiceKernel()->createService('Customized.CustomizedService');
+    }
+
+    protected function getThumbnailsService()
+    {
+        return $this->getServiceKernel()->createService('Thumbnails.ThumbnailsService');
     }
 
     // 文章资讯

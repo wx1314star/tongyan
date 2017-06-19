@@ -1,0 +1,39 @@
+{% extends 'TopxiaAdminBundle::layout.html.twig' %}
+
+{% set menu = 'newadmin_thumbnailssc' %}
+
+{% block main %}
+  <div class="well well-sm">
+    <form id="weixin-form" role="form" class="form-horizontal" method="post" action="{{ url('newadmin_thumbnailssc') }}">
+    <table id="student-enrollstat-table" class="table table-striped table-hover" data-search-form="#school-searchSt-form">
+    {{ web_macro.flash_messages() }}
+    <thead>
+    <tr>
+      {{'首页缩略图设置部分'|trans}}
+      <th>{{'第一张缩略图'|trans}}</th>
+      <th>{{'第二张缩略图'|trans}}</th>
+      {#<th>{{'学校创办时间'|trans}}</th>#}
+      <th>{{'第三张缩略图'|trans}}</th>
+         {#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="thumbnails-save-btn" data-submiting-text="{{'正在保存'|trans}}" type="submit" class="btn btn-primary">{{'更改'|trans}}</button></th> #}
+            {#<a href="javascript:void(0);" class="easyui-linkbutton" conCls="icon-ok" onclick="perSubmit()">保存</a>#}
+     
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><input type="text" id="thumbnails_onePic" name="thumbnails[onePic]" value="{{ thumbnails.onePic|default('0') }}" readonly="readonly"/>
+            <a href="#modal" data-toggle="modal" data-url="{{ path('newadmin_school_uploadThum', {type:1}) }}" class="btn btn-default btn-sm">上传第一张缩略图</a></td>
+            <td><input type="text" id="thumbnails_twoPic" name="thumbnails[twoPic]" value="{{ thumbnails.twoPic|default('0') }}" readonly="readonly"/>
+            <a href="#modal" data-toggle="modal" data-url="{{ path('newadmin_school_uploadThum', {type:2}) }}" class="btn btn-default btn-sm">上传第二张缩略图</a></td>
+            <td><input type="text" id="thumbnails_threePic" name="thumbnails[threePic]" value="{{ thumbnails.threePic|default('0') }}" size="35" readonly="readonly"/>
+            <a href="#modal" data-toggle="modal" data-url="{{ path('newadmin_school_uploadThum', {type:3}) }}" class="btn btn-default btn-sm">上传第三张缩略图</a></td>
+        </tr>
+        </tbody>
+    </table>
+    
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('site') }}" />
+    <input type="hidden" name="thumbnails[id]" value="{{ thumbnails.id }}" />
+    </form>
+  </div>
+
+{% endblock %}

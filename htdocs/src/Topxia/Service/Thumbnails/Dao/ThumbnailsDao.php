@@ -11,5 +11,5 @@ interface ThumbnailsDao
 
     public function deleteThumbnails($id);
 
-    public function updateThumbnails($thumbnails);
+    public function updateThumbnails($id, $thumbnails);
 }

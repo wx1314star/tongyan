@@ -34,8 +34,8 @@ class ThumbnailsServiceImpl extends BaseService implements ThumbnailsService
         return $this->getThumbnailsDao()->updateThumbnails($id, $school);
     }
 
-    public function updateThumbnails($thumbnails)
+    public function updateThumbnails($id, $thumbnails)
     {
-        return $this->getThumbnailsDao()->updateThumbnails($thumbnails);
+        return $this->getThumbnailsDao()->updateThumbnails($id, $thumbnails);
     }
 }

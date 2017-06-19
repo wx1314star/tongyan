@@ -2001,7 +2001,12 @@ newadmin_messagesc:
 newadmin_weixinsc:
     pattern:  /weixinsc
     defaults: { _controller: TopxiaAdminBundle:Background:weiXinSet }
-    permissions: [newadmin_messagesc_school]
+    permissions: [newadmin_weixinsc_school]
+
+newadmin_thumbnailssc:
+    pattern:  /thumbnailssc
+    defaults: { _controller: TopxiaAdminBundle:Background:thumbnailsSet }
+    permissions: [newadmin_thumbnailssc_school]
 
 newadmin_showSchoolAuth:
     pattern:  /showSchoolAuth/{school_id}
@@ -2150,3 +2155,12 @@ newadmin_school_uploadSch:
 newadmin_school_uploadSch_crop:
     pattern:  /newadmin/school/{id}/uploadSch/crop
     defaults: { _controller: TopxiaAdminBundle:Background:uploadSchCrop }
+
+# 上传首页缩略图
+newadmin_school_uploadThum:
+    pattern:  /newadmin/school/{type}/uploadThum
+    defaults: { _controller: TopxiaAdminBundle:Background:uploadThum }
+
+newadmin_school_uploadThum_crop:
+    pattern:  /newadmin/school/{type}/uploadThum/crop
+    defaults: { _controller: TopxiaAdminBundle:Background:uploadThumCrop }

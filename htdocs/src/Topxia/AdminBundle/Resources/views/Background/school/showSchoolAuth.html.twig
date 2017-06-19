@@ -22,6 +22,7 @@
     <label class="col-md-2 control-label">{{'民办非企业登记证书'|trans}}</label>
     <div class="col-md-7 controls radios">
         <img src="{{ filepath(schoolAuth.registerCertificate, 'avatar.png') }}" width="120" height="100"/>
+        
         <a href="{{ path('newadmin_showSchoolAuth_crop', {id: school_id,type: "registerCertificate"}) }}" data-toggle="modal" data-url="" class="btn btn-default btn-sm">查看上传图片</a>
         {#<input type="hidden" id="schoolAuth_registerCertificate" name="schoolAuth[registerCertificate]" class="form-control" data-widget-cid="widget-1"
             data-explain="" value="{{ schoolAuth.registerCertificate|default('') }}" />

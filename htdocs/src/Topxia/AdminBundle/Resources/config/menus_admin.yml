@@ -149,6 +149,12 @@ admin:
                         newadmin_messagesc:
                             name: 学校信息管理
                             disable: true
+                newadmin_thumbnailssc_school:
+                    name: 首页缩略图设置
+                    children:
+                        newadmin_thumbnailssc:
+                            name: 首页缩略图设置
+                            disable: true
                 newadmin_weixinsc_school:
                     name: 第三方功能设置
                     children:

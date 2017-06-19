@@ -31,7 +31,7 @@ class ThumbnailsDaoImpl extends BaseDao implements ThumbnailsDao
         $this->clearCached();
 
         if ($affected <= 0) {
-            throw $this->createDaoException('Insert school error.');
+            throw $this->createDaoException('Insert thumbnails error.');
         }
 
         return 1;
@@ -43,22 +43,22 @@ class ThumbnailsDaoImpl extends BaseDao implements ThumbnailsDao
         $this->clearCached();
 
         if ($affected <= 0) {
-            throw $this->createDaoException('Delete school error.');
+            throw $this->createDaoException('Delete thumbnails error.');
         }
 
         return $affected;
         
     }
 
-    public function updateThumbnails($thumbnails)
+    public function updateThumbnails($id, $thumbnails)
     {
-        $affected = $this->getConnection()->update($this->table, $thumbnails, array());
+        $affected = $this->getConnection()->update($this->table, $thumbnails, array('id' => $id));
         $this->clearCached();
 
         if ($affected <= 0) {
-            throw $this->createDaoException('Update school error.');
+            throw $this->createDaoException('Update thumbnails error.');
         }
 
-        return 1;
+        return $affected;
     } 
 }
