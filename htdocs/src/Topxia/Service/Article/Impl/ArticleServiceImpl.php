@@ -420,6 +420,8 @@ class ArticleServiceImpl extends BaseService implements ArticleService
             $article['status']      = 'published';
             $article['userId']      = $user->id;
             $article['createdTime'] = time();
+            // 加了绑定用户里的学校ID
+            $article['school_id']   = $user['schoolId'];
         }
 
         return $article;

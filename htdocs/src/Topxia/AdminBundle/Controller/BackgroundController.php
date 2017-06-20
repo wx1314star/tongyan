@@ -950,7 +950,7 @@ class BackgroundController extends BaseController
         if(isset($school) && isset($user)){
             $school['status'] = "0";
             $role = array(
-                'ROLE_USER','ROLE_SCHOOL_ADMIN'
+                'ROLE_USER','ROLE_SCHOOL_ADMIN','ROLE_ADMIN'
             );
 
             $user['roles'] = $role;
@@ -1109,12 +1109,12 @@ class BackgroundController extends BaseController
          if ($request->getMethod() == 'POST') {
             $formData        = $request->request->all();
             $article['tags'] = array_filter(explode(',', $formData['tags']));
-
+            
             $article = $this->getArticleService()->createArticle($formData);
 
             $attachment = $request->request->get('attachment');
             $this->getUploadFileService()->createUseFiles($attachment['fileIds'], $article['id'], $attachment['targetType'], $attachment['type']);
-            return $this->redirect($this->generateUrl('admin_article'));
+            return $this->redirect($this->generateUrl('newadmin_articlesc'));
         }
 
         $categoryTree = $this->getCategoryService()->getCategoryTree();
@@ -1152,7 +1152,7 @@ class BackgroundController extends BaseController
             $attachment = $request->request->get('attachment');
 
             $this->getUploadFileService()->createUseFiles($attachment['fileIds'], $article['id'], $attachment['targetType'], $attachment['type']);
-            return $this->redirect($this->generateUrl('admin_article'));
+            return $this->redirect($this->generateUrl('newadmin_articlesc'));
         }
 
         return $this->render('TopxiaAdminBundle:Background:school/article-modal.html.twig', array(
