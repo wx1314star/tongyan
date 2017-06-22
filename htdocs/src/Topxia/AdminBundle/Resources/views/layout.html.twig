@@ -140,7 +140,7 @@
     {{ setting('site.analytics')|raw }} 
   {% endblock %}
 
-  {% include 'TopxiaWebBundle::script_boot.html.twig' with {script_main: asset('bundles/topxiaadmin/js/admin-app.js')} %}
+  {% include 'TopxiaAdminBundle::script_boot.html.twig' with {script_main: asset('bundles/topxiaadmin/js/admin-app.js')} %}
   <div id="modal" class="modal" ></div>
   {% if setting('copyright.thirdCopyright') != 1 %}
     <div class="fixed-bar">

@@ -20,7 +20,6 @@
 </a>
 <ul class="dropdown-menu">
   {% for permission in permissions %}
- 
     <li>
       {% if permission.visable is defined %}
         {% if eval_expression(permission.visable) %}

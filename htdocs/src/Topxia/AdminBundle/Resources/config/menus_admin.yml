@@ -70,22 +70,22 @@ admin:
                                     mode: none
                                     router_params:
                                         id: (user.id)
-                                admin_user_lock:
-                                    name: '封禁用户'
-                                    group: groupButton
-                                    class: lock-user
-                                    mode: none
-                                    visable: (user.locked == 0)
-                                    router_params:
-                                        id: (user.id)
-                                admin_user_unlock:
-                                    name: '解禁用户'
-                                    class: unlock-user
-                                    group: groupButton
-                                    mode: none
-                                    visable: (user.locked == 1)
-                                    router_params:
-                                        id: (user.id)
+                                # admin_user_lock:
+                                #     name: '封禁用户'
+                                #     group: groupButton
+                                #     class: lock-user
+                                #     mode: none
+                                #     visable: (user.locked == 0)
+                                #     router_params:
+                                #         id: (user.id)
+                                # admin_user_unlock:
+                                #     name: '解禁用户'
+                                #     class: unlock-user
+                                #     group: groupButton
+                                #     mode: none
+                                #     visable: (user.locked == 1)
+                                #     router_params:
+                                #         id: (user.id)
                         admin_login_record:
                             name: 登录日志
                 admin_teacher:
